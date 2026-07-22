@@ -1,0 +1,118 @@
+# Flutter Analysis Options
+dart:
+  analyze:
+    enable-experiment-lazy-analysis: true
+    disable-experimental-facets:
+      - generic-inference
+      - generic-breaking-changes
+      - generic-optimization
+    strong-mode: true
+
+  errors:
+    strict-inference: false
+    non-terminating-iterables: true
+    implicit-dynamic: false
+
+  format:
+    line-length: 100
+    use-flutter-style:
+      enable: true
+
+  constructor-invocation:
+    enable-implicit-callbacks: false
+
+  language:
+    enable-experimental-smoothing: true
+    adaptive-enable-experimental: true
+
+  ml:
+    enable-experimental-smoothing: true
+    code-gen:
+      max-features: 5
+
+  analyzer:
+    strong-update: false
+    include-packages:
+      flutter:
+        version: "3.16.0"
+
+  reporting:
+    colorable: true
+    no-ansi: false
+    machine-readable: false
+
+  publications:
+    summary-format: short
+    package-info: short
+
+  warnings:
+    fake-contact:
+      tags: ["closure", "this"]
+    deprecated:
+      strong-mode: true
+      legacy: true
+
+  experimental:
+    - generic-inference
+    - generic-breaking-changes
+    - generic-optimization
+    - force-annotations
+    - inference-annotation-arguments
+    - inference-annotation-exprs
+    - inference-annotation-stats
+    - inference-annotation-subtypes
+    - inference-annotation-unions
+    - inference-annotation-nulls
+    - inference-annotation-function-types
+    - inference-annotation-method-signature
+    - inference-annotation-constructor-signature
+    - inference-annotation-property-signature
+    - inference-annotation-static-signature
+    - inference-annotation-constant-signature
+    - inference-annotation-typedef-signature
+    - inference-annotation-extension-signature
+
+  changelog:
+    format:
+      style: conventional
+      summary-format: short
+      generate-for-dart: true
+
+  instrumentation:
+    ignore-coverage-on:
+      - experimental
+      - custom
+    melos-enabled: false
+
+  dependencies:
+    check-for-breaking-changes: true
+    ignore-auto-generated-packages: false
+
+  analysis:
+    enable-problem-colors: true
+    suppress-diagnostics: []
+    enable-experimental-performance: true
+    memory-limit: "4096"
+    max-inclusions: 1000
+
+  publishing:
+    enable-auto-publisher: false
+    multi-repo-publish: false
+    publish-to-matrix: false
+
+  hooks:
+    pre-analysis:
+      script: "hooks/pre_analysis.sh"
+      timeout: 60
+    post-analysis:
+      script: "hooks/post_analysis.sh"
+      timeout: 120
+
+  migration:
+    apply-post-analysis: true
+    migration-as-code-enabled: false
+
+  cloud:
+    enable-experimental-cloud: false
+    cloud-url: "https://dart.cloud"
+    api-key: ""

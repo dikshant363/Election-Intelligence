@@ -1,0 +1,61 @@
+[tool.ruff]
+# Line length
+line-length = 100
+
+# Target Python version
+target-version = "py312"
+
+# Select rules
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+    "T20", # flake8-print
+    "ARG", # flake8-unused-arguments
+    "PTH", # flake8-use-pathlib
+    "ERA", # eradicate
+    "PL",  # pylint
+]
+
+# Ignore rules
+ignore = [
+    "E501",  # line too long (handled by formatter)
+    "B008",  # function calls in default arguments
+    "C408",  # unnecessary list comprehension
+    "SIM102", # nested if statements
+    "SIM103", # return bool(comparison)
+    "T201",  # print statement
+    "ARG001", # unused argument
+]
+
+# Per-file ignores
+per-file-ignores = {
+    "tests/*": ["S101", "T201"],  # Allow assert and print in tests
+    "scripts/*": ["S101", "T201"], # Allow assert and print in scripts
+}
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "lf"
+docstring-code-format = true
+docstring-code-line-length = 88
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
+import-headings = {
+    "stdlib" = ["builtins", "typing", "collections", "dataclasses", "enum", "functools", "itertools", "operator", "pathlib", "datetime", "decimal", "uuid", "json", "os", "sys", "re", "hashlib", "base64", "math", "random", "statistics", "fractions", "time", "calendar", "string", "textwrap", "unicodedata", "inspect", "importlib", "contextlib", "abc", "numbers", "copy", "pprint", "types", "warnings", "logging", "traceback", "io", "csv", "xml", "html", "email", "mimetypes", "http", "urllib", "socket", "ssl", "select", "signal", "subprocess", "threading", "multiprocessing", "concurrent", "asyncio", "queue", "weakref", "gc", "atexit", "profile", "pstats", "timeit", "trace", "faulthandler", "cProfile", "pdb", "bdb", "cmd", "shlex", "getopt", "argparse", "optparse", "getpass", "curses", "curses.ascii", "curses.panel", "curses.textpad", "curses.wrapper", "tty", "pty", "resource", "syslog", "msvcrt", "winreg", "winsound", "platform", "errno", "ctypes", "ctypes.util", "ctypes.wintypes", "_ctypes", "array", "struct", "sysconfig", "site", "stat", "glob", "fnmatch", "linecache", "shutil", "macpath", "difflib", "stringprep", "readline", "rlcompleter", "code", "codeop", "compileall", "dis", "pickle", "copyreg", "shelve", "marshal", "dbm", "sqlite3", "zlib", "gzip", "bz2", "lzma", "zipfile", "tarfile", "csv", "configparser", "netrc", "xdrlib", "plistlib", "json", "json.tool", "re", "sre", "sre_compile", "sre_parse", "sre_constants", "struct", "statistics", "textwrap", "string", "unicodedata", "inspect", "importlib", "contextlib", "abc", "numbers", "copy", "pprint", "types", "warnings", "logging", "traceback", "io", "csv", "xml", "html", "email", "mimetypes", "http", "urllib", "socket", "ssl", "select", "signal", "subprocess", "threading", "multiprocessing", "concurrent", "asyncio", "queue", "weakref", "gc", "atexit", "profile", "pstats", "timeit", "trace", "faulthandler", "cProfile", "pdb", "bdb", "cmd", "shlex", "getopt", "argparse", "optparse", "getpass", "curses", "curses.ascii", "curses.panel", "curses.textpad", "curses.wrapper", "tty", "pty", "resource", "syslog", "msvcrt", "winreg", "winsound", "platform", "errno", "ctypes", "ctypes.util", "ctypes.wintypes", "_ctypes", "array"]
+}
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-ignore = ["B008"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

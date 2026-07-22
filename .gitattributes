@@ -1,0 +1,62 @@
+# gitattributes
+
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Custom for visual studio
+*.cs diff=csharp
+
+# Standard to visual studio
+*.sln merge=union
+
+# Documents
+*.doc diff=astextplain
+*.DOC diff=astextplain
+*.docx diff=astextplain
+*.DOCX diff=astextplain
+*.dot diff=astextplain
+*.DOT diff=astextplain
+*.dotx diff=astextplain
+*.DOTX diff=astextplain
+*.odt diff=astextplain
+*.ODT diff=astextplain
+*.pdf diff=astextplain
+*.PDF diff=astextplain
+*.rtf diff=astextplain
+*.RTF diff=astextplain
+
+# Settings
+*.xml diff=xml
+*.xsd diff=xml
+*.xsl diff=xml
+*.xslt diff=xml
+
+# Prevent binary diff output
+*.png diff=--lfs-if-use-lfs
+*.jpg diff=--lfs-if-use-lfs
+*.jpeg diff=--lfs-if-use-lfs
+*.gif diff=--lfs-if-use-lfs
+*.tiff diff=--lfs-if-use-lfs
+*.ico diff=--lfs-if-use-lfs
+*.svg diff=--lfs-if-use-lfs
+
+# Archives
+*.zip diff=--lfs-if-use-lfs
+*.tar.gz diff=--lfs-if-use-lfs
+*.gz diff=--lfs-if-use-lfs
+
+# Configure default conflict marker size to 32 lines
+# https://github.com/github/gitattributes#conflict-marker-size
+*.txt conflict-marker-size=32
+*.cs conflict-marker-size=32
+*.js conflict-marker-size=32
+*.json conflict-marker-size=32
+*.jsx conflict-marker-size=32
+*.ts conflict-marker-size=32
+*.tsx conflict-marker-size=32
+*.html conflict-marker-size=32
+*.htm conflict-marker-size=32
+*.css conflict-marker-size=32
+*.scss conflict-marker-size=32
+*.less conflict-marker-size=32
+*.md conflict-marker-size=32
