@@ -1,0 +1,12 @@
+#!/bin/bash
+# Test script - Run test suite
+# Usage: ./scripts/test
+
+set -euo pipefail
+
+echo "🧪 Running tests..."
+
+# Placeholder for test commands
+# Add test commands here
+
+echo "✅ Tests complete"

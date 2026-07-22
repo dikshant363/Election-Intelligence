@@ -1,0 +1,12 @@
+#!/bin/bash
+# Format script - Format all code
+# Usage: ./scripts/format
+
+set -euo pipefail
+
+echo "🎨 Formatting code..."
+
+# Placeholder for formatting commands
+# Add formatting commands here
+
+echo "✅ Formatting complete"

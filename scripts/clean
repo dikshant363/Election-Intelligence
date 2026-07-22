@@ -1,0 +1,12 @@
+#!/bin/bash
+# Clean script - Clean build artifacts
+# Usage: ./scripts/clean
+
+set -euo pipefail
+
+echo "🧹 Cleaning build artifacts..."
+
+# Placeholder for clean commands
+# Add cleaning commands here
+
+echo "✅ Clean complete"

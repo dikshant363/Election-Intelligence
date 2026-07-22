@@ -1,0 +1,13 @@
+#!/bin/bash
+# Bootstrap script - Initialize development environment
+# Usage: ./scripts/bootstrap
+
+set -euo pipefail
+
+echo "🚀 Bootstrapping Election Intelligence Platform..."
+
+# Placeholder for bootstrap commands
+# Add initialization commands here
+
+echo "✅ Bootstrap complete"
+echo "Run './scripts/setup' to continue"

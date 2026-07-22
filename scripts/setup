@@ -1,0 +1,13 @@
+#!/bin/bash
+# Setup script - Configure development environment
+# Usage: ./scripts/setup
+
+set -euo pipefail
+
+echo "⚙️  Setting up Election Intelligence Platform..."
+
+# Placeholder for setup commands
+# Add configuration commands here
+
+echo "✅ Setup complete"
+echo "Run './scripts/format' to format code"

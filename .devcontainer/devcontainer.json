@@ -1,0 +1,20 @@
+{
+  "name": "Election Intelligence Platform",
+  "dockerComposeFile": ["../docker-compose.yml"],
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "python.formatting.provider": "none",
+    "python.linting.enabled": false
+  },
+  "extensions": [
+    "ms-python.python",
+    "ms-azuretools.vscode-docker",
+    "github.copilot",
+    "dart-code.dart-code",
+    "streetsidesoftware.code-spell-checker"
+  ],
+  "forwardPorts": [8000],
+  "postCreateCommand": "bash ../scripts/setup.sh"
+}

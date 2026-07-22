@@ -1,0 +1,12 @@
+#!/bin/bash
+# Lint script - Run linting tools
+# Usage: ./scripts/lint
+
+set -euo pipefail
+
+echo "🔍 Linting code..."
+
+# Placeholder for linting commands
+# Add linting commands here
+
+echo "✅ Linting complete"

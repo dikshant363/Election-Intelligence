@@ -1,0 +1,12 @@
+#!/bin/bash
+# Typecheck script - Run type checking
+# Usage: ./scripts/typecheck
+
+set -euo pipefail
+
+echo "🔍 Type checking code..."
+
+# Placeholder for type checking commands
+# Add type checking commands here
+
+echo "✅ Type checking complete"
