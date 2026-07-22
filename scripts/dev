@@ -1,0 +1,63 @@
+#!/bin/bash
+# Unified dev command - Simple dispatcher only
+# Usage: ./scripts/dev <command>
+# This file only dispatches to other scripts - no implementation logic
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+show_help() {
+    echo "Usage: ./scripts/dev <command>"
+    echo ""
+    echo "Commands:"
+    echo "  bootstrap  - Initialize development environment"
+    echo "  setup      - Configure development tools"
+    echo "  doctor     - Diagnose development environment"
+    echo "  verify     - Run all local verifications"
+    echo "  format     - Format all code"
+    echo "  lint       - Run linting checks"
+    echo "  typecheck  - Run type checking"
+    echo "  test       - Run test suite"
+    echo "  clean      - Clean build artifacts"
+}
+
+if [ $# -eq 0 ]; then
+    show_help
+    exit 0
+fi
+
+case "$1" in
+    bootstrap)
+        "$SCRIPT_DIR/bootstrap"
+        ;;
+    setup)
+        "$SCRIPT_DIR/setup"
+        ;;
+    doctor)
+        "$SCRIPT_DIR/doctor"
+        ;;
+    verify)
+        "$SCRIPT_DIR/verify"
+        ;;
+    format)
+        "$SCRIPT_DIR/format"
+        ;;
+    lint)
+        "$SCRIPT_DIR/lint"
+        ;;
+    typecheck)
+        "$SCRIPT_DIR/typecheck"
+        ;;
+    test)
+        "$SCRIPT_DIR/test"
+        ;;
+    clean)
+        "$SCRIPT_DIR/clean"
+        ;;
+    *)
+        echo "Unknown command: $1"
+        show_help
+        exit 1
+        ;;
+esac
