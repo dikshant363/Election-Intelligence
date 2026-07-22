@@ -1,0 +1,21 @@
+# CODEOWNERS
+
+# Documentation
+*.md @dikshantagarwal
+
+# Configuration
+.github/ @dikshantagarwal
+.gitignore @dikshantagarwal
+.env.example @dikshantagarwal
+
+# Documentation files
+README.md @dikshantagarwal
+AGENT_RULES.md @dikshantagarwal
+ARCHITECTURE.md @dikshantagarwal
+CONTRIBUTING.md @dikshantagarwal
+CODE_OF_CONDUCT.md @dikshantagarwal
+LICENSE @dikshantagarwal
+
+# Security
+SECURITY.md @dikshantagarwal
+SUPPORT.md @dikshantagarwal
