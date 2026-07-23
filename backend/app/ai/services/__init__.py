@@ -21,6 +21,7 @@ from app.ai.schemas import (
     AIQueryResponseSchema,
     ProviderInfoSchema,
 )
+from app.config import settings
 
 
 @dataclass
@@ -76,7 +77,8 @@ class AIService:
         )
 
         # 4. LLM Generation via Provider Abstraction
-        provider = self._registry.get(request.provider)
+        target_provider = request.provider or getattr(settings, "AI_PROVIDER", "gemini")
+        provider = self._registry.get(target_provider)
         llm_req = LLMRequest(
             prompt=user_prompt,
             system_prompt=system_prompt,

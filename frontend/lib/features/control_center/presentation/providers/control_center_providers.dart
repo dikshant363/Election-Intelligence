@@ -1,4 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import '../../../../core/api/api_client.dart';
 import '../../domain/models/admin_models.dart';
 
 enum ControlInterface {
@@ -83,74 +84,58 @@ final featureFlagsProvider =
   return FeatureFlagsNotifier();
 });
 
+final systemHealthAsyncProvider = FutureProvider<SystemHealthMetrics>((ref) async {
+  final apiClient = ApiClient();
+  return apiClient.fetchAdminOverview();
+});
+
 final systemHealthProvider = Provider<SystemHealthMetrics>((ref) {
-  return SystemHealthMetrics.initial();
+  final asyncVal = ref.watch(systemHealthAsyncProvider);
+  return asyncVal.when(
+    data: (metrics) => metrics,
+    loading: () => SystemHealthMetrics.initial(),
+    error: (_, __) => SystemHealthMetrics.initial(),
+  );
+});
+
+final executiveKpisAsyncProvider = FutureProvider<ExecutiveKpisModel>((ref) async {
+  final apiClient = ApiClient();
+  return apiClient.fetchExecutiveKpis();
 });
 
 final executiveKpisProvider = Provider<ExecutiveKpisModel>((ref) {
-  return ExecutiveKpisModel.initial();
+  final asyncVal = ref.watch(executiveKpisAsyncProvider);
+  return asyncVal.when(
+    data: (kpis) => kpis,
+    loading: () => ExecutiveKpisModel.initial(),
+    error: (_, __) => ExecutiveKpisModel.initial(),
+  );
+});
+
+final auditLogsAsyncProvider = FutureProvider<List<AuditLogModel>>((ref) async {
+  final apiClient = ApiClient();
+  return apiClient.fetchAuditLogs();
 });
 
 final auditLogsProvider = Provider<List<AuditLogModel>>((ref) {
-  return const [
-    AuditLogModel(
-      id: 'aud-9901',
-      timestamp: '2026-07-23T17:22:00Z',
-      actor: 'superadmin',
-      action: 'UPDATE_FEATURE_FLAG',
-      resource: 'feature_flags/enable_rag',
-      status: 'SUCCESS',
-      ipAddress: '127.0.0.1',
-    ),
-    AuditLogModel(
-      id: 'aud-9902',
-      timestamp: '2026-07-23T16:50:00Z',
-      actor: 'ops_lead',
-      action: 'INGEST_ELECTION_DATA',
-      resource: 'etl/batch-8841',
-      status: 'SUCCESS',
-      ipAddress: '10.0.4.12',
-    ),
-    AuditLogModel(
-      id: 'aud-9903',
-      timestamp: '2026-07-23T15:30:00Z',
-      actor: 'system',
-      action: 'ROTATE_JWT_SECRET',
-      resource: 'security/jwt',
-      status: 'SUCCESS',
-      ipAddress: '127.0.0.1',
-    ),
-  ];
+  final asyncVal = ref.watch(auditLogsAsyncProvider);
+  return asyncVal.when(
+    data: (logs) => logs,
+    loading: () => const [],
+    error: (_, __) => const [],
+  );
+});
+
+final userAccountsAsyncProvider = FutureProvider<List<UserAccountModel>>((ref) async {
+  final apiClient = ApiClient();
+  return apiClient.fetchUserAccounts();
 });
 
 final userAccountsProvider = Provider<List<UserAccountModel>>((ref) {
-  return const [
-    UserAccountModel(
-      id: 'usr-001',
-      username: 'superadmin',
-      email: 'admin@civiclens.in',
-      role: 'Super Administrator',
-      isActive: true,
-      mfaEnabled: true,
-      lastLogin: '2026-07-23T17:30:00Z',
-    ),
-    UserAccountModel(
-      id: 'usr-002',
-      username: 'ops_lead',
-      email: 'ops@civiclens.in',
-      role: 'Election Administrator',
-      isActive: true,
-      mfaEnabled: true,
-      lastLogin: '2026-07-23T16:45:00Z',
-    ),
-    UserAccountModel(
-      id: 'usr-003',
-      username: 'ai_eng',
-      email: 'ai@civiclens.in',
-      role: 'Platform Administrator',
-      isActive: true,
-      mfaEnabled: true,
-      lastLogin: '2026-07-23T15:10:00Z',
-    ),
-  ];
+  final asyncVal = ref.watch(userAccountsAsyncProvider);
+  return asyncVal.when(
+    data: (users) => users,
+    loading: () => const [],
+    error: (_, __) => const [],
+  );
 });

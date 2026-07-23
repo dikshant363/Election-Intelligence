@@ -16,6 +16,7 @@ from app.application.queries import (
     GetParty,
     GetResult,
     ListCandidates,
+    ListConstituencies,
     ListElections,
     ListParties,
 )
@@ -171,6 +172,23 @@ class QueryHandlers:
                     )
                 )
             return Result.ok(ConstituencyDTO.from_domain(constituency))
+
+    async def handle_list_constituencies(
+        self, query: ListConstituencies
+    ) -> Result[list[ConstituencyDTO]]:
+        """Handle ListConstituencies query."""
+        async with self._uow:
+            if query.state_code:
+                constituencies = await self._uow.constituencies.find_by_state(
+                    query.state_code
+                )
+            else:
+                constituencies = await self._uow.constituencies.find_all(
+                    skip=query.skip, limit=query.limit
+                )
+            dtos = [ConstituencyDTO.from_domain(c) for c in constituencies]
+            return Result.ok(dtos)
+
 
     async def handle_get_result(
         self, query: GetResult
