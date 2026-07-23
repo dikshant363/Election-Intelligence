@@ -13,6 +13,7 @@ from app.database.session import AsyncSessionLocal, get_db_session
 from app.observability.services import ObservabilityService
 from app.performance.services import PerformanceService
 from app.persistence.uow import SqlAlchemyUnitOfWork, UnitOfWork
+from app.production.services import ProductionService
 from app.realtime.services import RealtimeService
 from app.search.services import SearchService
 
@@ -73,3 +74,8 @@ def get_observability_service(
 def get_performance_service() -> PerformanceService:
     """Provide global PerformanceService instance."""
     return PerformanceService()
+
+
+def get_production_service() -> ProductionService:
+    """Provide global ProductionService instance."""
+    return ProductionService()

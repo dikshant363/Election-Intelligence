@@ -10,6 +10,7 @@ from app.api.v1.routers.observability import router as observability_router
 from app.api.v1.routers.parties import router as parties_router
 from app.api.v1.routers.performance import router as performance_router
 from app.api.v1.routers.polling_booths import router as polling_router
+from app.api.v1.routers.production import router as production_router
 from app.api.v1.routers.realtime import router as realtime_router
 from app.api.v1.routers.results import router as results_router
 from app.api.v1.routers.search import router as search_router
@@ -26,6 +27,7 @@ api_v1_router.include_router(ai_router)
 api_v1_router.include_router(realtime_router)
 api_v1_router.include_router(observability_router)
 api_v1_router.include_router(performance_router)
+api_v1_router.include_router(production_router)
 
 __all__ = [
     "api_v1_router",
@@ -40,4 +42,5 @@ __all__ = [
     "realtime_router",
     "observability_router",
     "performance_router",
+    "production_router",
 ]
