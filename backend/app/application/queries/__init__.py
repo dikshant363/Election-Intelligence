@@ -7,6 +7,7 @@ from app.application.queries.queries import (
     GetParty,
     GetResult,
     ListCandidates,
+    ListConstituencies,
     ListElections,
     ListParties,
 )
@@ -18,6 +19,7 @@ __all__ = [
     "GetParty",
     "GetResult",
     "ListCandidates",
+    "ListConstituencies",
     "ListElections",
     "ListParties",
 ]

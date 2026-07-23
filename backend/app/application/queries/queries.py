@@ -61,6 +61,16 @@ class GetConstituency:
 
 
 @dataclass(frozen=True)
+class ListConstituencies:
+    """Query to list constituencies with pagination."""
+
+    state_code: str | None = None
+    skip: int = 0
+    limit: int = 100
+
+
+
+@dataclass(frozen=True)
 class GetResult:
     """Query to fetch election results for an election and constituency."""
 
