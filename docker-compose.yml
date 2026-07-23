@@ -1,28 +1,37 @@
+version: '3.8'
+
 services:
-  postgres:
-    image: postgres:16-alpine
-    container_name: election_postgres
-    restart: unless-stopped
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: election_intelligence
+      - PROJECT_NAME=Election Intelligence Platform
+      - VERSION=v1.0.0-RC
+      - ENVIRONMENT=production
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/election_db
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_DB=election_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d election_intelligence"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    networks:
-      - election_net
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
 
 volumes:
   postgres_data:
-    driver: local
-
-networks:
-  election_net:
-    driver: bridge
