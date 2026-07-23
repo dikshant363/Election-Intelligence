@@ -2,21 +2,22 @@
 
 from fastapi import APIRouter, Depends, Request
 from fastapi.responses import JSONResponse
-from sqlalchemy import text
-from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.api.v1.dependencies.dependencies import get_observability_service
 from app.api.v1.routers.ai import router as ai_router
 from app.api.v1.routers.candidates import router as candidates_router
 from app.api.v1.routers.constituencies import router as constituencies_router
 from app.api.v1.routers.elections import router as elections_router
+from app.api.v1.routers.observability import router as observability_router
 from app.api.v1.routers.parties import router as parties_router
 from app.api.v1.routers.polling_booths import router as polling_router
 from app.api.v1.routers.realtime import router as realtime_router
 from app.api.v1.routers.results import router as results_router
 from app.api.v1.routers.search import router as search_router
 from app.config import settings
-from app.database.session import get_db_session
 from app.logging import get_logger
+from app.observability.schemas import HealthResponseSchema
+from app.observability.services import ObservabilityService
 
 logger = get_logger(__name__)
 
@@ -38,32 +39,17 @@ async def root_endpoint(request: Request) -> JSONResponse:
     )
 
 
-@api_router.get("/health", tags=["health"])
+@api_router.get(
+    "/health",
+    response_model=HealthResponseSchema,
+    tags=["Observability & Operations"],
+    summary="Get overall platform health and component dependencies status",
+)
 async def health_endpoint(
-    request: Request,
-    db: AsyncSession = Depends(get_db_session),
-) -> JSONResponse:
-    """Health check endpoint with database connectivity status."""
-    logger.info("Health check requested")
-    db_status = "disconnected"
-    try:
-        result = await db.execute(text("SELECT 1"))
-        if result.scalar() == 1:
-            db_status = "connected"
-    except Exception as exc:
-        logger.error(f"Database connectivity check failed: {exc}")
-        db_status = "disconnected"
-
-    status_str = "healthy" if db_status == "connected" else "degraded"
-    request_id = getattr(request.state, "request_id", "unknown")
-
-    return JSONResponse(
-        {
-            "status": status_str,
-            "database": db_status,
-            "request_id": request_id,
-        }
-    )
+    obs_service: ObservabilityService = Depends(get_observability_service),
+) -> HealthResponseSchema:
+    """Health check endpoint with database and dependency status."""
+    return await obs_service.get_readiness()
 
 
 @api_router.get("/version", tags=["health"])
@@ -90,3 +76,4 @@ api_router.include_router(results_router)
 api_router.include_router(search_router)
 api_router.include_router(ai_router)
 api_router.include_router(realtime_router)
+api_router.include_router(observability_router)

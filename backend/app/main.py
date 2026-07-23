@@ -11,6 +11,7 @@ from app.config import settings
 from app.identity.exceptions import AuthenticationError, AuthorizationError
 from app.identity.middleware import identity_context_middleware
 from app.logging import configure_logging
+from app.observability import ObservabilityMiddleware
 from app.security import (
     RequestLimitMiddleware,
     SecurityHeadersMiddleware,
@@ -34,9 +35,10 @@ def create_application() -> FastAPI:
         redoc_url=f"{settings.API_V1_STR}/redoc",
     )
 
-    # Configure security and identity middlewares
+    # Configure security, identity, and observability middlewares
     application.middleware("http")(identity_context_middleware)
     application.middleware("http")(request_id_middleware)
+    application.add_middleware(ObservabilityMiddleware)
     application.add_middleware(SecurityHeadersMiddleware)
     application.add_middleware(RequestLimitMiddleware)
     setup_cors(application)

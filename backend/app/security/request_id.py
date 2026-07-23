@@ -15,7 +15,11 @@ async def request_id_middleware(
     request: Request, call_next: Callable[[Request], Awaitable[Response]]
 ) -> Response:
     """Middleware that injects a unique X-Request-ID and logs request lifecycle metrics."""
-    request_id = request.headers.get("X-Request-ID")
+    request_id = (
+        getattr(request.state, "request_id", None)
+        or request.headers.get("X-Request-ID")
+        or request.headers.get("x-request-id")
+    )
     if not request_id:
         request_id = str(uuid.uuid4())
 

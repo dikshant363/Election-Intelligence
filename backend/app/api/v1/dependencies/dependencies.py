@@ -10,6 +10,7 @@ from app.ai.services import AIService
 from app.application.handlers import CommandHandlers, QueryHandlers
 from app.application.pipeline import CommandPipeline
 from app.database.session import AsyncSessionLocal, get_db_session
+from app.observability.services import ObservabilityService
 from app.persistence.uow import SqlAlchemyUnitOfWork, UnitOfWork
 from app.realtime.services import RealtimeService
 from app.search.services import SearchService
@@ -59,3 +60,10 @@ def get_ai_service(
 def get_realtime_service() -> RealtimeService:
     """Provide global RealtimeService instance."""
     return RealtimeService()
+
+
+def get_observability_service(
+    session: Annotated[AsyncSession, Depends(get_db_session)],
+) -> ObservabilityService:
+    """Provide ObservabilityService instance."""
+    return ObservabilityService(session=session)
