@@ -32,35 +32,24 @@ This document records empirical facts regarding the creation, execution, and ver
 - `backend/app/api/router.py`
 - `backend/app/config/settings.py`
 
-## 3. Directories Created
-- `backend/alembic/`
-- `backend/alembic/versions/`
-- `backend/app/database/`
-- `backend/app/models/`
-- `backend/app/repositories/`
-- `tests/`
-
-## 4. Dependencies Added
-- `SQLAlchemy>=2.0.0`
-- `Alembic>=1.13.0`
-- `asyncpg>=0.29.0`
-- `psycopg[binary]>=3.1.0`
-- `pytest>=8.0.0`
-- `pytest-asyncio>=0.23.0`
-- `httpx>=0.26.0`
-
-## 5. Quality Verification Results
+## 3. Quality Verification Results
 
 | Quality Gate | Command | Result |
 | ------------ | ------- | ------ |
 | **Linting** | `.venv/bin/ruff check backend` | Passed (0 errors) |
 | **Compilation** | `.venv/bin/python3 -m compileall backend` | Passed (0 errors) |
-| **Alembic Upgrade** | `.venv/bin/alembic -c backend/alembic.ini upgrade head` | Passed |
-| **Alembic Downgrade** | `.venv/bin/alembic -c backend/alembic.ini downgrade base` | Passed |
-| **Test Suite** | `.venv/bin/pytest` | Passed (6/6 tests passed) |
+| **Alembic Offline Upgrade** | `.venv/bin/alembic -c backend/alembic.ini upgrade head --sql` | Passed (SQL DDL generated) |
+| **Alembic Offline Downgrade**| `.venv/bin/alembic -c backend/alembic.ini downgrade base --sql` | Passed (SQL DDL generated) |
+| **Alembic Live Upgrade** | `.venv/bin/alembic -c backend/alembic.ini upgrade head` | Passed (Executed live on PostgreSQL 16) |
+| **Alembic Live Downgrade** | `.venv/bin/alembic -c backend/alembic.ini downgrade base` | Passed (Executed live on PostgreSQL 16) |
+| **Test Suite** | `.venv/bin/pytest` | Passed (8/8 tests passed) |
+| **Health Check Endpoint** | `GET /api/v1/health` | Passed (`{"status": "healthy", "database": "connected"}`) |
 
-## 6. Docker Verification
-- `docker-compose.yml` configured with `postgres:16-alpine`, `postgres_data` persistent volume, and `pg_isready` healthcheck.
+## 4. Database Verification
+- Active PostgreSQL 16 server verified.
+- Database `election_intelligence` created and verified.
+- Online Alembic `upgrade head` and `downgrade base` migrations executed against live PostgreSQL instance.
+- Live `GET /api/v1/health` endpoint query verified (`"database": "connected"`).
 
-## 7. Remaining Issues
+## 5. Remaining Issues
 - None.
