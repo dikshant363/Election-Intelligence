@@ -8,6 +8,7 @@ from sqlalchemy import engine_from_config, pool
 # Ensure backend root is on sys.path for app imports
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import app.persistence.models  # noqa: E402, F401
 from app.config import settings  # noqa: E402
 from app.database.base import Base  # noqa: E402
 
