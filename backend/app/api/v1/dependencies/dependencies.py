@@ -11,6 +11,7 @@ from app.application.handlers import CommandHandlers, QueryHandlers
 from app.application.pipeline import CommandPipeline
 from app.database.session import AsyncSessionLocal, get_db_session
 from app.persistence.uow import SqlAlchemyUnitOfWork, UnitOfWork
+from app.realtime.services import RealtimeService
 from app.search.services import SearchService
 
 
@@ -53,3 +54,8 @@ def get_ai_service(
 ) -> AIService:
     """Provide AIService instance."""
     return AIService(session=session)
+
+
+def get_realtime_service() -> RealtimeService:
+    """Provide global RealtimeService instance."""
+    return RealtimeService()

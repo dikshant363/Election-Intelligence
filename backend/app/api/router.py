@@ -11,6 +11,7 @@ from app.api.v1.routers.constituencies import router as constituencies_router
 from app.api.v1.routers.elections import router as elections_router
 from app.api.v1.routers.parties import router as parties_router
 from app.api.v1.routers.polling_booths import router as polling_router
+from app.api.v1.routers.realtime import router as realtime_router
 from app.api.v1.routers.results import router as results_router
 from app.api.v1.routers.search import router as search_router
 from app.config import settings
@@ -88,3 +89,4 @@ api_router.include_router(polling_router)
 api_router.include_router(results_router)
 api_router.include_router(search_router)
 api_router.include_router(ai_router)
+api_router.include_router(realtime_router)
