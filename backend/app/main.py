@@ -5,6 +5,7 @@ import logging
 from fastapi import FastAPI
 
 from app.api import api_router
+from app.api.v1.errors import register_error_handlers
 from app.config import settings
 from app.logging import configure_logging
 from app.security import (
@@ -36,6 +37,9 @@ def create_application() -> FastAPI:
     application.add_middleware(RequestIdMiddleware)
     setup_cors(application)
     setup_trusted_hosts(application)
+
+    # Register RFC 7807 error handlers
+    register_error_handlers(application)
 
     application.include_router(api_router, prefix=settings.API_V1_STR)
 

@@ -1,4 +1,4 @@
-"""API package."""
+"""API package initialization."""
 
 from app.api.router import api_router
 
