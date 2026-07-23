@@ -12,113 +12,116 @@ class CitizenPortalScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final candidates = ref.watch(filteredCandidatesProvider);
     final selectedForComparison = ref.watch(comparisonSelectionProvider);
-    final theme = Theme.of(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Election Intelligence — Citizen Portal'),
+        title: const Text(
+          'Election Intelligence',
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+            letterSpacing: -0.6,
+          ),
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.dashboard_customize),
-            tooltip: 'Control Center Interface',
+            icon: const Icon(Icons.tune_outlined, size: 20),
+            tooltip: 'Control Center & Analytics',
             onPressed: () => Navigator.of(context).pushNamed('/control-center'),
           ),
+          const SizedBox(width: 8),
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Header Banner
-            Card(
-              elevation: 2,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: theme.colorScheme.primaryContainer,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Icon(
-                            Icons.how_to_vote,
-                            color: theme.colorScheme.onPrimaryContainer,
-                            size: 28,
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Explore Indian Election & Candidate Affidavits',
-                                style: theme.textTheme.titleLarge?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                'Publicly available verified records, Form 26 asset disclosures, and election history.',
-                                style: theme.textTheme.bodyMedium?.copyWith(
-                                  color: theme.colorScheme.onSurfaceVariant,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-
-                    // Search Input Box
-                    TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Search candidate name, party, or constituency (e.g. Modi, Varanasi, INC)...',
-                        prefixIcon: const Icon(Icons.search),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      onChanged: (val) {
-                        ref
-                            .read(candidateSearchQueryProvider.notifier)
-                            .state = val;
-                      },
-                    ),
-                  ],
+            // Apple/Perplexity Style Hero Search Header
+            Container(
+              padding: const EdgeInsets.all(24.0),
+              decoration: BoxDecoration(
+                color: isDark ? const Color(0xFF11131A) : Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: isDark ? const Color(0xFF1F2430) : const Color(0xFFE5E7EB),
+                  width: 1,
                 ),
               ),
-            ),
-            const SizedBox(height: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Explore Indian Election & Candidate Affidavits',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.6,
+                      color: isDark ? Colors.white : const Color(0xFF111827),
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'Explore candidate Form 26 disclosures, declared assets, educational backgrounds, and verified public history.',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: isDark ? const Color(0xFF9CA3AF) : const Color(0xFF6B7280),
+                      height: 1.4,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
 
-            // Policy Neutrality & Data Provenance Disclaimer
+                  // Perplexity-style Minimal Search Box
+                  Container(
+                    decoration: BoxDecoration(
+                      color: isDark ? const Color(0xFF181A24) : const Color(0xFFF3F4F6),
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(
+                        color: isDark ? const Color(0xFF2D3342) : const Color(0xFFE5E7EB),
+                        width: 1,
+                      ),
+                    ),
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        hintText: 'Search by candidate, party, or constituency (e.g. Varanasi, INC, Modi)...',
+                        hintStyle: TextStyle(fontSize: 14, color: Color(0xFF9CA3AF)),
+                        prefixIcon: Icon(Icons.search, size: 20, color: Color(0xFF6B7280)),
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                      ),
+                      onChanged: (val) {
+                        ref.read(candidateSearchQueryProvider.notifier).state = val;
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+
+            // Notion-Style Non-Partisan Transparency Banner
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               decoration: BoxDecoration(
-                color: Colors.blue.withValues(alpha: 0.08),
+                color: isDark ? const Color(0xFF141A29) : const Color(0xFFEFF6FF),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: Colors.blue.withValues(alpha: 0.2),
+                  color: isDark ? const Color(0xFF1E293B) : const Color(0xFFDBEAFE),
                 ),
               ),
               child: const Row(
                 children: [
-                  Icon(Icons.shield_outlined, color: Colors.blue, size: 20),
+                  Icon(Icons.shield_outlined, color: Color(0xFF2563EB), size: 18),
                   SizedBox(width: 12),
                   Expanded(
                     child: Text(
                       'Non-Partisan Transparency Notice: This platform provides verified public records for Indian citizens. It does not recommend voting for or against any candidate, nor does it rank candidates by opinion.',
-                      style: TextStyle(fontSize: 12, color: Colors.blueAccent),
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Color(0xFF1D4ED8),
+                        height: 1.3,
+                      ),
                     ),
                   ),
                 ],
@@ -126,28 +129,30 @@ class CitizenPortalScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 24),
 
-            // Section Title & Counter
-            Wrap(
-              alignment: WrapAlignment.spaceBetween,
-              crossAxisAlignment: WrapCrossAlignment.center,
+            // Section Header
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Candidate Profiles & Public Affidavits',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
+                const Text(
+                  'Verified Candidate Profiles',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: -0.4,
                   ),
                 ),
                 Text(
-                  '${candidates.length} Profiles Available',
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
+                  '${candidates.length} Records',
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: isDark ? const Color(0xFF9CA3AF) : const Color(0xFF6B7280),
                   ),
                 ),
               ],
             ),
             const SizedBox(height: 16),
 
-            // Candidate Cards Grid
+            // Candidate Profiles Grid
             GridView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -155,21 +160,18 @@ class CitizenPortalScreen extends ConsumerWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
-                childAspectRatio: 1.4,
+                childAspectRatio: 1.25,
               ),
               itemCount: candidates.length,
               itemBuilder: (context, index) {
                 final candidate = candidates[index];
-                final isSelected = selectedForComparison
-                    .any((c) => c.id == candidate.id);
+                final isSelected = selectedForComparison.any((c) => c.id == candidate.id);
 
                 return _CandidateCard(
                   candidate: candidate,
                   isSelected: isSelected,
                   onToggleSelect: () {
-                    ref
-                        .read(comparisonSelectionProvider.notifier)
-                        .toggleCandidate(candidate);
+                    ref.read(comparisonSelectionProvider.notifier).toggleCandidate(candidate);
                   },
                 );
               },
@@ -186,9 +188,12 @@ class CitizenPortalScreen extends ConsumerWidget {
                   ),
                 );
               },
-              icon: const Icon(Icons.compare_arrows),
-              label: Text('Compare (${selectedForComparison.length} Selected)'),
-              backgroundColor: theme.colorScheme.primary,
+              icon: const Icon(Icons.compare_arrows, size: 20),
+              label: Text(
+                'Compare (${selectedForComparison.length} Candidates)',
+                style: const TextStyle(fontWeight: FontWeight.w600),
+              ),
+              backgroundColor: const Color(0xFF2563EB),
             )
           : null,
     );
@@ -208,75 +213,105 @@ class _CandidateCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Card(
-      elevation: isSelected ? 4 : 1,
-      shape: RoundedRectangleBorder(
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: isDark ? const Color(0xFF11131A) : Colors.white,
         borderRadius: BorderRadius.circular(16),
-        side: isSelected
-            ? BorderSide(color: theme.colorScheme.primary, width: 2)
-            : BorderSide.none,
+        border: Border.all(
+          color: isSelected
+              ? const Color(0xFF2563EB)
+              : (isDark ? const Color(0xFF1F2430) : const Color(0xFFE5E7EB)),
+          width: isSelected ? 2 : 1,
+        ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Wrap(
-                alignment: WrapAlignment.spaceBetween,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  Text(
-                    candidate.name,
-                    style: theme.textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                Text(
+                  candidate.name,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: -0.3,
                   ),
-                  VerificationBadge(type: candidate.verificationStatus),
-                ],
-              ),
-              const SizedBox(height: 4),
-              Text(
-                candidate.partyName,
-                style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.primary,
-                  fontWeight: FontWeight.w600,
                 ),
+                VerificationBadge(type: candidate.verificationStatus),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Text(
+              '${candidate.partyName} • ${candidate.constituencyName}',
+              style: const TextStyle(
+                fontSize: 13,
+                color: Color(0xFF2563EB),
+                fontWeight: FontWeight.w500,
               ),
-              Text(
-                candidate.constituencyName,
-                style: theme.textTheme.labelSmall?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
+            ),
+            const SizedBox(height: 8),
+            const Divider(height: 1),
+            const SizedBox(height: 8),
+            Wrap(
+              alignment: WrapAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Assets: ${candidate.assetsDeclared}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: isDark ? const Color(0xFF9CA3AF) : const Color(0xFF4B5563),
+                  ),
                 ),
-              ),
-              const Divider(height: 16),
-              Wrap(
-                alignment: WrapAlignment.spaceBetween,
-                children: [
-                  Text('Assets: ${candidate.assetsDeclared}', style: theme.textTheme.bodySmall),
-                  const SizedBox(width: 8),
-                  Text('Cases: ${candidate.criminalCases}',
-                      style: theme.textTheme.bodySmall?.copyWith(
-                        color: candidate.criminalCases > 0 ? Colors.red : Colors.green,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ],
-              ),
-              const SizedBox(height: 12),
-              OutlinedButton.icon(
+                Text(
+                  'Cases: ${candidate.criminalCases}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: candidate.criminalCases > 0
+                        ? const Color(0xFFEF4444)
+                        : const Color(0xFF10B981),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            SizedBox(
+              width: double.infinity,
+              height: 36,
+              child: OutlinedButton.icon(
                 onPressed: onToggleSelect,
                 icon: Icon(
-                  isSelected ? Icons.check_box : Icons.add_circle_outline,
+                  isSelected ? Icons.check_circle : Icons.add_circle_outline,
                   size: 16,
+                  color: isSelected ? const Color(0xFF2563EB) : const Color(0xFF6B7280),
                 ),
-                label: Text(isSelected ? 'Selected' : 'Compare Candidate'),
+                label: Text(
+                  isSelected ? 'Selected' : 'Compare Candidate',
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: isSelected ? const Color(0xFF2563EB) : const Color(0xFF374151),
+                  ),
+                ),
                 style: OutlinedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(36),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  side: BorderSide(
+                    color: isSelected
+                        ? const Color(0xFF2563EB)
+                        : (isDark ? const Color(0xFF2D3342) : const Color(0xFFD1D5DB)),
+                  ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

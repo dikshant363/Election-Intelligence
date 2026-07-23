@@ -22,27 +22,30 @@ class VerificationBadge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final config = _getBadgeConfig();
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: config.color.withValues(alpha: 0.15),
-        borderRadius: BorderRadius.circular(12),
+        color: config.color.withValues(alpha: isDark ? 0.12 : 0.08),
+        borderRadius: BorderRadius.circular(20),
         border: Border.all(
-          color: config.color.withValues(alpha: 0.3),
+          color: config.color.withValues(alpha: isDark ? 0.3 : 0.2),
           width: 1,
         ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(config.icon, color: config.color, size: 14),
-          const SizedBox(width: 4),
+          Icon(config.icon, color: config.color, size: 12),
+          const SizedBox(width: 5),
           Text(
             customLabel ?? config.label,
             style: TextStyle(
               color: config.color,
               fontSize: 11,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
+              letterSpacing: -0.2,
             ),
           ),
         ],
@@ -56,37 +59,37 @@ class VerificationBadge extends StatelessWidget {
         return const _BadgeConfig(
           label: 'Verified',
           icon: Icons.check_circle,
-          color: Colors.green,
+          color: Color(0xFF10B981),
         );
       case VerificationType.officialSource:
         return const _BadgeConfig(
           label: 'Official Source',
           icon: Icons.verified,
-          color: Colors.blue,
+          color: Color(0xFF2563EB),
         );
       case VerificationType.publicRecord:
         return const _BadgeConfig(
           label: 'Public Record',
           icon: Icons.description,
-          color: Colors.teal,
+          color: Color(0xFF0D9488),
         );
       case VerificationType.aiSummary:
         return const _BadgeConfig(
           label: 'AI Summary',
           icon: Icons.psychology,
-          color: Colors.purple,
+          color: Color(0xFF8B5CF6),
         );
       case VerificationType.sampleData:
         return const _BadgeConfig(
           label: 'Sample Data',
           icon: Icons.science,
-          color: Colors.amber,
+          color: Color(0xFFF59E0B),
         );
       case VerificationType.unavailable:
         return const _BadgeConfig(
-          label: 'Official Data Unavailable',
+          label: 'Data Not Available',
           icon: Icons.warning_amber_rounded,
-          color: Colors.grey,
+          color: Color(0xFF6B7280),
         );
     }
   }
