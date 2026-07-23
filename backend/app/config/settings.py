@@ -48,6 +48,12 @@ class Settings(BaseSettings):
     CONTENT_SECURITY_POLICY: str = (
         "default-src 'self'; frame-ancestors 'none'; object-src 'none';"
     )
+    # AI Settings
+    AI_PROVIDER: str = "gemini"
+    GEMINI_API_KEY: str = ""
+    GOOGLE_API_KEY: str = ""
+    OPENAI_API_KEY: str = ""
+    AI_MODEL: str = "gemini-2.0-flash"
 
     @property
     def sync_database_url(self) -> str:
