@@ -11,6 +11,7 @@ from app.api.v1.routers.elections import router as elections_router
 from app.api.v1.routers.parties import router as parties_router
 from app.api.v1.routers.polling_booths import router as polling_router
 from app.api.v1.routers.results import router as results_router
+from app.api.v1.routers.search import router as search_router
 from app.config import settings
 from app.database.session import get_db_session
 from app.logging import get_logger
@@ -18,6 +19,7 @@ from app.logging import get_logger
 logger = get_logger(__name__)
 
 api_router = APIRouter()
+
 
 # Register health check routes
 @api_router.get("/", tags=["health"])
@@ -83,3 +85,4 @@ api_router.include_router(parties_router)
 api_router.include_router(constituencies_router)
 api_router.include_router(polling_router)
 api_router.include_router(results_router)
+api_router.include_router(search_router)

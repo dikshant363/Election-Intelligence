@@ -4,11 +4,13 @@ from collections.abc import AsyncGenerator
 from typing import Annotated
 
 from fastapi import Depends
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.application.handlers import CommandHandlers, QueryHandlers
 from app.application.pipeline import CommandPipeline
-from app.database.session import AsyncSessionLocal
+from app.database.session import AsyncSessionLocal, get_db_session
 from app.persistence.uow import SqlAlchemyUnitOfWork, UnitOfWork
+from app.search.services import SearchService
 
 
 async def get_uow() -> AsyncGenerator[UnitOfWork, None]:
@@ -36,3 +38,10 @@ def get_command_pipeline(
 ) -> CommandPipeline:
     """Provide CommandPipeline instance."""
     return CommandPipeline(handlers=handlers)
+
+
+def get_search_service(
+    session: Annotated[AsyncSession, Depends(get_db_session)],
+) -> SearchService:
+    """Provide SearchService instance via SAL."""
+    return SearchService(session=session)
