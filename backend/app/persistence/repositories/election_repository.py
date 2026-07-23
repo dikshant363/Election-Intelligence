@@ -2,6 +2,7 @@
 
 import uuid
 from collections.abc import Sequence
+from typing import Any
 
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -12,6 +13,11 @@ from app.persistence.mappers.election_mapper import ElectionMapper
 from app.persistence.models.election import ElectionModel
 
 
+def _to_uuid(entity_id: Any) -> uuid.UUID:
+    raw = entity_id.value if hasattr(entity_id, "value") else entity_id
+    return uuid.UUID(str(raw)) if isinstance(raw, str) else raw
+
+
 class SqlAlchemyElectionRepository(ElectionRepository):
     """SQLAlchemy 2.x async repository implementation for Election aggregate."""
 
@@ -19,11 +25,7 @@ class SqlAlchemyElectionRepository(ElectionRepository):
         self._session = session
 
     async def get_by_id(self, entity_id: ElectionId) -> Election | None:
-        raw_id = (
-            uuid.UUID(str(entity_id.value))
-            if isinstance(entity_id.value, str)
-            else entity_id.value
-        )
+        raw_id = _to_uuid(entity_id)
         stmt = select(ElectionModel).where(ElectionModel.id == raw_id)
         res = await self._session.execute(stmt)
         model = res.scalar_one_or_none()
@@ -41,11 +43,7 @@ class SqlAlchemyElectionRepository(ElectionRepository):
         return res.scalar_one() or 0
 
     async def exists(self, entity_id: ElectionId) -> bool:
-        raw_id = (
-            uuid.UUID(str(entity_id.value))
-            if isinstance(entity_id.value, str)
-            else entity_id.value
-        )
+        raw_id = _to_uuid(entity_id)
         stmt = select(func.count(ElectionModel.id)).where(
             ElectionModel.id == raw_id
         )
@@ -59,11 +57,7 @@ class SqlAlchemyElectionRepository(ElectionRepository):
         return ElectionMapper.to_domain(model)
 
     async def update(self, entity: Election) -> Election:
-        raw_id = (
-            uuid.UUID(str(entity.id.value))
-            if isinstance(entity.id.value, str)
-            else entity.id.value
-        )
+        raw_id = _to_uuid(entity.id)
         stmt = select(ElectionModel).where(ElectionModel.id == raw_id)
         res = await self._session.execute(stmt)
         model = res.scalar_one()
@@ -76,11 +70,7 @@ class SqlAlchemyElectionRepository(ElectionRepository):
         return ElectionMapper.to_domain(model)
 
     async def delete(self, entity: Election) -> None:
-        raw_id = (
-            uuid.UUID(str(entity.id.value))
-            if isinstance(entity.id.value, str)
-            else entity.id.value
-        )
+        raw_id = _to_uuid(entity.id)
         stmt = select(ElectionModel).where(ElectionModel.id == raw_id)
         res = await self._session.execute(stmt)
         model = res.scalar_one_or_none()
@@ -89,11 +79,7 @@ class SqlAlchemyElectionRepository(ElectionRepository):
             await self._session.flush()
 
     async def delete_by_id(self, entity_id: ElectionId) -> bool:
-        raw_id = (
-            uuid.UUID(str(entity_id.value))
-            if isinstance(entity_id.value, str)
-            else entity_id.value
-        )
+        raw_id = _to_uuid(entity_id)
         stmt = select(ElectionModel).where(ElectionModel.id == raw_id)
         res = await self._session.execute(stmt)
         model = res.scalar_one_or_none()

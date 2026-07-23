@@ -2,6 +2,7 @@
 
 import uuid
 from collections.abc import Sequence
+from typing import Any
 
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -12,6 +13,11 @@ from app.persistence.mappers.candidate_mapper import CandidateMapper
 from app.persistence.models.candidate import CandidateModel
 
 
+def _to_uuid(entity_id: Any) -> uuid.UUID:
+    raw = entity_id.value if hasattr(entity_id, "value") else entity_id
+    return uuid.UUID(str(raw)) if isinstance(raw, str) else raw
+
+
 class SqlAlchemyCandidateRepository(CandidateRepository):
     """SQLAlchemy 2.x async repository implementation for Candidate aggregate."""
 
@@ -19,11 +25,7 @@ class SqlAlchemyCandidateRepository(CandidateRepository):
         self._session = session
 
     async def get_by_id(self, entity_id: CandidateId) -> Candidate | None:
-        raw_id = (
-            uuid.UUID(str(entity_id.value))
-            if isinstance(entity_id.value, str)
-            else entity_id.value
-        )
+        raw_id = _to_uuid(entity_id)
         stmt = select(CandidateModel).where(CandidateModel.id == raw_id)
         res = await self._session.execute(stmt)
         model = res.scalar_one_or_none()
@@ -41,11 +43,7 @@ class SqlAlchemyCandidateRepository(CandidateRepository):
         return res.scalar_one() or 0
 
     async def exists(self, entity_id: CandidateId) -> bool:
-        raw_id = (
-            uuid.UUID(str(entity_id.value))
-            if isinstance(entity_id.value, str)
-            else entity_id.value
-        )
+        raw_id = _to_uuid(entity_id)
         stmt = select(func.count(CandidateModel.id)).where(
             CandidateModel.id == raw_id
         )
@@ -59,11 +57,7 @@ class SqlAlchemyCandidateRepository(CandidateRepository):
         return CandidateMapper.to_domain(model)
 
     async def update(self, entity: Candidate) -> Candidate:
-        raw_id = (
-            uuid.UUID(str(entity.id.value))
-            if isinstance(entity.id.value, str)
-            else entity.id.value
-        )
+        raw_id = _to_uuid(entity.id)
         stmt = select(CandidateModel).where(CandidateModel.id == raw_id)
         res = await self._session.execute(stmt)
         model = res.scalar_one()
@@ -71,27 +65,15 @@ class SqlAlchemyCandidateRepository(CandidateRepository):
         model.age = entity.age.years
         model.email = entity.email.address
         model.phone = entity.phone.number
-        model.constituency_id = (
-            uuid.UUID(str(entity.constituency_id.value))
-            if isinstance(entity.constituency_id.value, str)
-            else entity.constituency_id.value
-        )
+        model.constituency_id = _to_uuid(entity.constituency_id)
         model.party_id = (
-            uuid.UUID(str(entity.party_id.value))
-            if entity.party_id and isinstance(entity.party_id.value, str)
-            else entity.party_id.value
-            if entity.party_id
-            else None
+            _to_uuid(entity.party_id) if entity.party_id else None
         )
         await self._session.flush()
         return CandidateMapper.to_domain(model)
 
     async def delete(self, entity: Candidate) -> None:
-        raw_id = (
-            uuid.UUID(str(entity.id.value))
-            if isinstance(entity.id.value, str)
-            else entity.id.value
-        )
+        raw_id = _to_uuid(entity.id)
         stmt = select(CandidateModel).where(CandidateModel.id == raw_id)
         res = await self._session.execute(stmt)
         model = res.scalar_one_or_none()
@@ -100,11 +82,7 @@ class SqlAlchemyCandidateRepository(CandidateRepository):
             await self._session.flush()
 
     async def delete_by_id(self, entity_id: CandidateId) -> bool:
-        raw_id = (
-            uuid.UUID(str(entity_id.value))
-            if isinstance(entity_id.value, str)
-            else entity_id.value
-        )
+        raw_id = _to_uuid(entity_id)
         stmt = select(CandidateModel).where(CandidateModel.id == raw_id)
         res = await self._session.execute(stmt)
         model = res.scalar_one_or_none()
@@ -117,11 +95,7 @@ class SqlAlchemyCandidateRepository(CandidateRepository):
     async def find_by_constituency(
         self, constituency_id: ConstituencyId
     ) -> Sequence[Candidate]:
-        raw_con_id = (
-            uuid.UUID(str(constituency_id.value))
-            if isinstance(constituency_id.value, str)
-            else constituency_id.value
-        )
+        raw_con_id = _to_uuid(constituency_id)
         stmt = select(CandidateModel).where(
             CandidateModel.constituency_id == raw_con_id
         )
@@ -130,11 +104,7 @@ class SqlAlchemyCandidateRepository(CandidateRepository):
         return [CandidateMapper.to_domain(m) for m in models]
 
     async def find_by_party(self, party_id: PartyId) -> Sequence[Candidate]:
-        raw_party_id = (
-            uuid.UUID(str(party_id.value))
-            if isinstance(party_id.value, str)
-            else party_id.value
-        )
+        raw_party_id = _to_uuid(party_id)
         stmt = select(CandidateModel).where(
             CandidateModel.party_id == raw_party_id
         )

@@ -2,6 +2,7 @@
 
 import uuid
 from collections.abc import Sequence
+from typing import Any
 
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -12,6 +13,11 @@ from app.persistence.mappers.polling_mapper import PollingMapper
 from app.persistence.models.polling import PollingBoothModel
 
 
+def _to_uuid(entity_id: Any) -> uuid.UUID:
+    raw = entity_id.value if hasattr(entity_id, "value") else entity_id
+    return uuid.UUID(str(raw)) if isinstance(raw, str) else raw
+
+
 class SqlAlchemyPollingRepository(PollingBoothRepository):
     """SQLAlchemy 2.x async repository implementation for PollingBooth aggregate."""
 
@@ -19,11 +25,7 @@ class SqlAlchemyPollingRepository(PollingBoothRepository):
         self._session = session
 
     async def get_by_id(self, entity_id: PollingBoothId) -> PollingBooth | None:
-        raw_id = (
-            uuid.UUID(str(entity_id.value))
-            if isinstance(entity_id.value, str)
-            else entity_id.value
-        )
+        raw_id = _to_uuid(entity_id)
         stmt = select(PollingBoothModel).where(PollingBoothModel.id == raw_id)
         res = await self._session.execute(stmt)
         model = res.scalar_one_or_none()
@@ -41,11 +43,7 @@ class SqlAlchemyPollingRepository(PollingBoothRepository):
         return res.scalar_one() or 0
 
     async def exists(self, entity_id: PollingBoothId) -> bool:
-        raw_id = (
-            uuid.UUID(str(entity_id.value))
-            if isinstance(entity_id.value, str)
-            else entity_id.value
-        )
+        raw_id = _to_uuid(entity_id)
         stmt = select(func.count(PollingBoothModel.id)).where(
             PollingBoothModel.id == raw_id
         )
@@ -59,11 +57,7 @@ class SqlAlchemyPollingRepository(PollingBoothRepository):
         return PollingMapper.to_domain(model)
 
     async def update(self, entity: PollingBooth) -> PollingBooth:
-        raw_id = (
-            uuid.UUID(str(entity.id.value))
-            if isinstance(entity.id.value, str)
-            else entity.id.value
-        )
+        raw_id = _to_uuid(entity.id)
         stmt = select(PollingBoothModel).where(PollingBoothModel.id == raw_id)
         res = await self._session.execute(stmt)
         model = res.scalar_one()
@@ -71,20 +65,12 @@ class SqlAlchemyPollingRepository(PollingBoothRepository):
         model.booth_number = entity.booth_number
         model.latitude = entity.location.latitude
         model.longitude = entity.location.longitude
-        model.constituency_id = (
-            uuid.UUID(str(entity.constituency_id.value))
-            if isinstance(entity.constituency_id.value, str)
-            else entity.constituency_id.value
-        )
+        model.constituency_id = _to_uuid(entity.constituency_id)
         await self._session.flush()
         return PollingMapper.to_domain(model)
 
     async def delete(self, entity: PollingBooth) -> None:
-        raw_id = (
-            uuid.UUID(str(entity.id.value))
-            if isinstance(entity.id.value, str)
-            else entity.id.value
-        )
+        raw_id = _to_uuid(entity.id)
         stmt = select(PollingBoothModel).where(PollingBoothModel.id == raw_id)
         res = await self._session.execute(stmt)
         model = res.scalar_one_or_none()
@@ -93,11 +79,7 @@ class SqlAlchemyPollingRepository(PollingBoothRepository):
             await self._session.flush()
 
     async def delete_by_id(self, entity_id: PollingBoothId) -> bool:
-        raw_id = (
-            uuid.UUID(str(entity_id.value))
-            if isinstance(entity_id.value, str)
-            else entity_id.value
-        )
+        raw_id = _to_uuid(entity_id)
         stmt = select(PollingBoothModel).where(PollingBoothModel.id == raw_id)
         res = await self._session.execute(stmt)
         model = res.scalar_one_or_none()
@@ -110,11 +92,7 @@ class SqlAlchemyPollingRepository(PollingBoothRepository):
     async def find_by_constituency(
         self, constituency_id: ConstituencyId
     ) -> Sequence[PollingBooth]:
-        raw_con_id = (
-            uuid.UUID(str(constituency_id.value))
-            if isinstance(constituency_id.value, str)
-            else constituency_id.value
-        )
+        raw_con_id = _to_uuid(constituency_id)
         stmt = select(PollingBoothModel).where(
             PollingBoothModel.constituency_id == raw_con_id
         )

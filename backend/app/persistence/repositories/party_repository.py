@@ -2,6 +2,7 @@
 
 import uuid
 from collections.abc import Sequence
+from typing import Any
 
 from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -12,6 +13,11 @@ from app.persistence.mappers.party_mapper import PartyMapper
 from app.persistence.models.party import PoliticalPartyModel
 
 
+def _to_uuid(entity_id: Any) -> uuid.UUID:
+    raw = entity_id.value if hasattr(entity_id, "value") else entity_id
+    return uuid.UUID(str(raw)) if isinstance(raw, str) else raw
+
+
 class SqlAlchemyPartyRepository(PartyRepository):
     """SQLAlchemy 2.x async repository implementation for PoliticalParty aggregate."""
 
@@ -19,11 +25,7 @@ class SqlAlchemyPartyRepository(PartyRepository):
         self._session = session
 
     async def get_by_id(self, entity_id: PartyId) -> PoliticalParty | None:
-        raw_id = (
-            uuid.UUID(str(entity_id.value))
-            if isinstance(entity_id.value, str)
-            else entity_id.value
-        )
+        raw_id = _to_uuid(entity_id)
         stmt = select(PoliticalPartyModel).where(PoliticalPartyModel.id == raw_id)
         res = await self._session.execute(stmt)
         model = res.scalar_one_or_none()
@@ -41,11 +43,7 @@ class SqlAlchemyPartyRepository(PartyRepository):
         return res.scalar_one() or 0
 
     async def exists(self, entity_id: PartyId) -> bool:
-        raw_id = (
-            uuid.UUID(str(entity_id.value))
-            if isinstance(entity_id.value, str)
-            else entity_id.value
-        )
+        raw_id = _to_uuid(entity_id)
         stmt = select(func.count(PoliticalPartyModel.id)).where(
             PoliticalPartyModel.id == raw_id
         )
@@ -59,11 +57,7 @@ class SqlAlchemyPartyRepository(PartyRepository):
         return PartyMapper.to_domain(model)
 
     async def update(self, entity: PoliticalParty) -> PoliticalParty:
-        raw_id = (
-            uuid.UUID(str(entity.id.value))
-            if isinstance(entity.id.value, str)
-            else entity.id.value
-        )
+        raw_id = _to_uuid(entity.id)
         stmt = select(PoliticalPartyModel).where(PoliticalPartyModel.id == raw_id)
         res = await self._session.execute(stmt)
         model = res.scalar_one()
@@ -74,11 +68,7 @@ class SqlAlchemyPartyRepository(PartyRepository):
         return PartyMapper.to_domain(model)
 
     async def delete(self, entity: PoliticalParty) -> None:
-        raw_id = (
-            uuid.UUID(str(entity.id.value))
-            if isinstance(entity.id.value, str)
-            else entity.id.value
-        )
+        raw_id = _to_uuid(entity.id)
         stmt = select(PoliticalPartyModel).where(PoliticalPartyModel.id == raw_id)
         res = await self._session.execute(stmt)
         model = res.scalar_one_or_none()
@@ -87,11 +77,7 @@ class SqlAlchemyPartyRepository(PartyRepository):
             await self._session.flush()
 
     async def delete_by_id(self, entity_id: PartyId) -> bool:
-        raw_id = (
-            uuid.UUID(str(entity_id.value))
-            if isinstance(entity_id.value, str)
-            else entity_id.value
-        )
+        raw_id = _to_uuid(entity_id)
         stmt = select(PoliticalPartyModel).where(PoliticalPartyModel.id == raw_id)
         res = await self._session.execute(stmt)
         model = res.scalar_one_or_none()
