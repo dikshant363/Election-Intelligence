@@ -1,0 +1,43 @@
+"""Value objects package initialization."""
+
+from app.domain.value_objects.value_objects import (
+    MAX_PERCENTAGE,
+    Age,
+    AssemblyCode,
+    CandidateId,
+    ConstituencyId,
+    DistrictCode,
+    ElectionDate,
+    ElectionId,
+    ElectionType,
+    Email,
+    GeoCoordinates,
+    ParliamentCode,
+    PartyId,
+    Percentage,
+    PhoneNumber,
+    PollingBoothId,
+    StateCode,
+    VoteCount,
+)
+
+__all__ = [
+    "MAX_PERCENTAGE",
+    "Age",
+    "AssemblyCode",
+    "CandidateId",
+    "ConstituencyId",
+    "DistrictCode",
+    "ElectionDate",
+    "ElectionId",
+    "ElectionType",
+    "Email",
+    "GeoCoordinates",
+    "ParliamentCode",
+    "PartyId",
+    "Percentage",
+    "PhoneNumber",
+    "PollingBoothId",
+    "StateCode",
+    "VoteCount",
+]
