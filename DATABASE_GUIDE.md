@@ -1,42 +1,60 @@
-# Database Infrastructure Guide
+# Database Guide
 
-## Overview
-The Election Intelligence Platform database foundation is powered by **PostgreSQL** using **SQLAlchemy 2.x (async)** with `asyncpg` for application runtime queries and `psycopg` for synchronous **Alembic** schema migrations.
+## 1. Database Architecture
+- **PostgreSQL 15** acts as the primary datastore.
+- We use **AsyncPG** for non-blocking database interaction.
 
-## Core Architectural Components
+## 2. Domain Entities to ORM Models
+6 core entities mapped to tables:
+- `Election`
+- `Candidate`
+- `Party`
+- `Constituency`
+- `PollingBooth`
+- `Result`
 
-### 1. Connection Engine (`app/database/engine.py`)
-- Async engine initialized via `create_async_engine()`.
-- Built with connection pooling (`pool_size=5`, `max_overflow=10`, `pool_timeout=30`, `pool_recycle=1800`).
-- Configured with `pool_pre_ping=True` to detect and refresh stale database connections before execution.
+## 3. SQLAlchemy 2 Async Patterns
+- Sessions are created using `async_sessionmaker`.
+- Injected into handlers via FastAPI dependencies (`Depends(get_db)`).
 
-### 2. Session Management (`app/database/session.py`)
-- **`AsyncSessionLocal`**: Async session factory bound to the async engine.
-- **`get_db_session`**: FastAPI dependency provider for request lifecycle scoping with automatic rollback and closing.
-- **`get_db_context`**: Standalone async context manager for background tasks and batch scripts.
+## 4. Unit of Work Pattern
+- Ensures transaction integrity.
+- `uow.commit()` and `uow.rollback()` manage the lifecycle.
+- Handlers use UoW to persist changes atomically.
 
-### 3. Declarative Base & Naming Convention (`app/database/base.py`, `app/database/metadata.py`)
-- **`Base`**: Root `DeclarativeBase` inheriting explicit PostgreSQL constraint naming conventions (`pk_`, `fk_`, `ix_`, `uq_`, `ck_`).
-- **`BaseModel`**: Abstract base model enforcing consistent entity columns across future milestones:
-  - `id`: Primary key UUID (UUIDv4)
-  - `created_at`: UTC timestamp with timezone
-  - `updated_at`: UTC timestamp with timezone on update
-  - `deleted_at`: Soft delete timestamp (nullable)
-  - `version`: Optimistic locking integer counter
+## 5. Repository Pattern
+- **Domain Interface**: `backend/app/domain/`
+- **SQLAlchemy Implementation**: `backend/app/persistence/repositories/`
+- **Mapper**: Translates ORM models to domain entities (`backend/app/persistence/mappers/`).
 
-### 4. Database Migrations (`backend/alembic/`)
-- Managed via Alembic (`alembic.ini`, `alembic/env.py`).
-- Automatic environment URL resolution via `settings.sync_database_url`.
+## 6. Alembic Migrations
+- **Create**: `alembic revision --autogenerate -m "description"`
+- **Run**: `alembic upgrade head`
+- **Rollback**: `alembic downgrade -1`
+- **Status**: `alembic current`
 
-## Operations Command Reference
+## 7. Connection Pool Management
+- Settings are configured centrally (see Performance Guide).
+- `pool_pre_ping=True` handles dropped connections gracefully.
 
-```bash
-# Run database migrations to latest schema
-.venv/bin/alembic -c backend/alembic.ini upgrade head
+## 8. Database Indexes
+- B-Tree for foreign keys and lookups.
+- **GIN** for Full Text Search.
+- Added via Alembic migrations.
 
-# Rollback migrations to base
-.venv/bin/alembic -c backend/alembic.ini downgrade base
+## 9. Query Patterns
+- Use `selectinload` or `joinedload` to prevent N+1 queries.
+- Optimize async queries and avoid loading unnecessary columns.
 
-# Run database tests
-.venv/bin/pytest tests/test_database_connection.py tests/test_session_lifecycle.py tests/test_metadata.py
-```
+## 10. Backup and Restore
+- **Backup**: `pg_dump -U user -d dbname -F c -f backup.dump`
+- **Restore**: `pg_restore -U user -d dbname -1 backup.dump`
+
+## 11. Database Monitoring
+- View active connections with `pg_stat_activity`.
+- Slow queries are logged if they exceed 500ms.
+
+## 12. Local Development Setup
+1. Install PostgreSQL 15.
+2. Create DB: `CREATE DATABASE election_intelligence;`
+3. Run migrations: `alembic upgrade head`

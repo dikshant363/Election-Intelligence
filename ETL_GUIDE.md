@@ -1,228 +1,59 @@
-# ETL Platform Guide
+# ETL Guide
 
-## Overview
+## 1. Architecture Overview
+The ETL (Extract, Transform, Load) subsystem (`backend/app/etl/`) orchestrates the ingestion of election data.
+**Pipeline Stages:** `Connectors` → `Parsers` → `Validators` → `Transformers` → `Staging` → `Loaders` → `Provenance/Tracking`.
 
-The Election Intelligence Platform ETL layer (`backend/app/etl/`) is a production-grade,
-AI-free data ingestion and transformation system. It ingests official election datasets from
-multiple sources, validates and normalises them, stages all imports before production, and
-maintains full provenance and lineage for every record.
+## 2. Supported Data Formats and Sources
+- **Formats:** CSV and JSON files, primarily provided by the Election Commission or trusted civic tech partners.
+- **Connectors:** Abstracted connectors fetch data from local filesystems, AWS S3 buckets, or direct database connections.
 
----
+## 3. Data Entities and Ingestion Rules
+The system handles 6 domain entities:
+1. **Elections:** Metadata about the election event (year, type, state).
+2. **Constituencies:** Geographic and administrative boundaries.
+3. **Parties:** Political party metadata and symbols.
+4. **Candidates:** Profiles of individuals running for office.
+5. **Polling Booths:** Specific voting locations.
+6. **Results:** Vote counts and margins linking candidates, parties, and constituencies.
+*Ingestion must generally follow this order to satisfy foreign key constraints.*
 
-## Architecture
+## 4. Validation Rules
+The `validators/` submodule ensures data integrity before loading.
+- **Checks:** Data type enforcement, required field checks, uniqueness constraints, and referential integrity (e.g., a candidate must belong to a valid party).
+- **Behavior:** Invalid rows are flagged and segregated, preventing corruption of the main database.
 
-```
-External Sources (Files, HTTP, S3, ZIP)
-        ↓
-Connectors (etl/connectors/)
-        ↓
-Parsers (etl/parsers/)
-        ↓
-Validators (etl/validators/)
-        ↓
-Transformers (etl/transformers/)
-        ↓
-Staging (etl/staging/  → import_batches, import_records, rejected_records, transformation_logs)
-        ↓
-Loaders (etl/loaders/)
-        ↓
-Provenance (etl/provenance/ → provenance_records)
-        ↓
-Production Database (PostgreSQL)
-```
+## 5. Transformation Rules
+The `transformers/` submodule maps raw source data to internal domain models (`backend/app/domain/`).
+- **Standardization:** Normalizes text (e.g., title casing names), handles date parsing, and resolves entity aliases (e.g., mapping variant party acronyms to a canonical ID).
 
----
+## 6. Staging Process
+Data is first loaded into staging tables (`staging/`).
+- **Purpose:** Allows for bulk operations, complex validations, and manual inspection before committing to production tables. Prevents dirty reads during long ingestion jobs.
 
-## Package Structure
+## 7. Loading Process
+The `loaders/` submodule moves data from staging to the persistence layer.
+- **UnitOfWork:** SQLAlchemy 2 models (`backend/app/persistence/models/`) are managed within a UnitOfWork pattern, ensuring atomic commits. If a load fails midway, the transaction rolls back.
 
-```
-backend/app/etl/
-├── __init__.py
-├── connectors/         # Source adapters: File, HTTP, S3, ZIP
-├── parsers/            # Format parsers: CSV, Excel, JSON, GeoJSON, Parquet, ZIP
-├── validators/         # Schema, type, range, duplicate, geographic validation
-├── transformers/       # Field-level normalisation (states, dates, party codes, etc.)
-├── staging/            # SQLAlchemy ORM models for staging tables
-├── loaders/            # Chunked bulk-insert to staging
-├── pipeline/           # Full ETL orchestrator: Fetch→Parse→Validate→Transform→Load
-├── jobs/               # Pre-configured job factories for election data types
-├── tracking/           # In-memory job progress registry (JobProgress, JobRegistry)
-├── provenance/         # Provenance/lineage ORM model
-├── exports/            # Export modules: CSV, JSON, Parquet, GeoJSON
-└── exceptions/         # ETL-specific exception hierarchy
-```
+## 8. Provenance Tracking
+The `provenance/` submodule records data lineage.
+- **Lineage:** Every record in the database is tagged with a batch ID indicating its source file, ingestion timestamp, and the ETL job that created it.
 
----
+## 9. Job Scheduling and Tracking
+The `jobs/` and `tracking/` submodules manage execution.
+- **State Management:** Jobs transition through states (PENDING, RUNNING, COMPLETED, FAILED). Metrics (rows processed, time taken) are recorded.
 
-## Connectors
+## 10. Error Handling
+- **Partial Loads:** Configurable thresholds determine if a job fails entirely upon hitting validation errors or if it proceeds with valid rows while dumping errors to a dead-letter queue.
+- **Recovery:** Failed jobs can be restarted from the last successful checkpoint.
 
-| Class | Description |
-|-------|-------------|
-| `FileConnector` | Reads data from a local filesystem path (async via aiofiles) |
-| `HttpConnector` | Fetches data from HTTP/HTTPS URL (synchronous stdlib fallback) |
-| `S3Connector` | Production stub for AWS S3 — requires boto3 |
-| `ZipConnector` | Extracts a named member from a ZIP archive |
+## 11. Export Capabilities
+The `exports/` submodule allows exporting clean data.
+- **Formats:** Authorized users can export entity data back out as CSV or JSON for offline analysis.
 
-All connectors inherit `BaseConnector.checksum()` which returns a SHA-256 hex digest.
+## 12. Running an ETL Job
+- **CLI Commands:** Internal admin commands can trigger jobs via terminal.
+- **API Endpoints:** Webhooks and authenticated API routes can initiate specific ingestion pipelines.
 
----
-
-## Parsers
-
-| Class | Formats |
-|-------|---------|
-| `CsvParser` | `.csv` — supports chunked streaming, custom delimiter, encoding |
-| `ExcelParser` | `.xlsx` — reads via openpyxl, configurable sheet |
-| `JsonParser` | `.json`, `.jsonl` — supports array root and `{"data": [...]}` envelope |
-| `GeoJsonParser` | `.geojson` — flattens FeatureCollection properties |
-| `ParquetParser` | `.parquet` — reads via pyarrow |
-| `ZipParser` | `.zip` — extracts first supported member and delegates |
-
-`get_parser_for_extension(filename)` returns the correct parser for a given filename.
-
----
-
-## Validators
-
-### FieldRule
-
-```python
-FieldRule(
-    name="votes_cast",
-    required=True,
-    field_type=int,
-    min_value=0,
-    max_value=1_000_000,
-    allowed_values=None,
-    max_length=None,
-)
-```
-
-### BatchValidator
-
-Orchestrates field validation, duplicate detection, and geographic coordinate validation
-for an entire batch in one pass.
-
-```python
-validator = BatchValidator(
-    rules=[...],
-    duplicate_key_fields=["election_id", "candidate_id"],
-    geo_config=("latitude", "longitude"),
-)
-valid, rejected, report = validator.validate_batch(records)
-```
-
----
-
-## Transformers
-
-Pre-built transformers normalise common Indian election data patterns:
-
-- `normalize_state("ap")` → `"Andhra Pradesh"`
-- `normalize_election_type("ls")` → `"Lok Sabha"`
-- `normalize_date("15/11/2024")` → `"2024-11-15"`
-- `normalize_party_code("bjp")` → `"BJP"`
-- `normalize_constituency_code("7")` → `"007"`
-- `normalize_coordinates("12.97")` → `12.97`
-
-Two pre-built instances are available:
-
-```python
-from app.etl.transformers import ELECTION_DATASET_TRANSFORMER, CANDIDATE_DATASET_TRANSFORMER
-```
-
----
-
-## Staging Tables
-
-| Table | Purpose |
-|-------|---------|
-| `import_batches` | Tracks lifecycle (status, counts, errors) of each import job |
-| `import_records` | Stores raw + transformed data for each valid staged record |
-| `rejected_records` | Stores records that failed validation with error codes |
-| `transformation_logs` | Immutable audit of transformations applied to each batch |
-| `provenance_records` | Lineage linking each production record back to its import |
-
-> **Critical invariant**: Nothing enters production directly. All imports go through staging.
-> Every production record MUST have a corresponding `provenance_records` entry.
-
----
-
-## Pipeline Orchestration
-
-```python
-from app.etl.pipeline import ETLPipeline, PipelineConfig
-from app.etl.connectors import FileConnector
-from app.etl.parsers import CsvParser
-from app.etl.validators import BatchValidator, FieldRule
-from app.etl.transformers import ELECTION_DATASET_TRANSFORMER
-
-config = PipelineConfig(
-    job_name="election_results_csv",
-    source_uri="/data/results_2024.csv",
-    connector=FileConnector("/data/results_2024.csv"),
-    parser=CsvParser(),
-    validator=BatchValidator(rules=[...]),
-    transformer=ELECTION_DATASET_TRANSFORMER,
-    chunk_size=1000,
-    initiated_by="admin@example.com",
-)
-
-pipeline = ETLPipeline(session=db_session, config=config)
-progress = await pipeline.run()
-print(progress.to_dict())
-```
-
-### Pipeline Phases
-
-1. **Fetch** — Download raw bytes, compute SHA-256 checksum
-2. **Parse** — Streaming chunked parse into structured records
-3. **Validate** — Field rules, duplicate detection, geographic checks
-4. **Transform** — Normalise fields (state names, dates, codes)
-5. **Load** — Bulk-insert to staging tables; commit
-
----
-
-## Pre-configured Jobs
-
-```python
-from app.etl.jobs import ElectionResultCSVJob, CandidateExcelJob, PollingBoothGeoJsonJob
-
-config = ElectionResultCSVJob.make_config("/data/ls2024.csv", initiated_by="admin")
-```
-
----
-
-## Export
-
-```python
-from app.etl.exports import export_records
-
-csv_bytes = export_records(records, "csv")
-json_bytes = export_records(records, "json")
-parquet_bytes = export_records(records, "parquet")
-geojson_bytes = export_records(records, "geojson")
-```
-
----
-
-## Job Tracking
-
-```python
-from app.etl.tracking import job_registry
-
-jobs = job_registry.all_jobs()
-job_registry.cancel(job_id)
-```
-
----
-
-## Operations Reference
-
-```bash
-# Run ETL tests
-.venv/bin/pytest tests/test_etl.py -v
-
-# Lint check
-.venv/bin/ruff check backend/app/etl/ tests/test_etl.py
-```
+## 13. Monitoring ETL Runs
+- **Metrics/Logs:** Check job tracking tables and application logs for throughput metrics, validation error rates, and connection issues.

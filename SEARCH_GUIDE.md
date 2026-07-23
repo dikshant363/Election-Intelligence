@@ -1,65 +1,62 @@
 # Search Platform Guide
 
-## Overview
+## 1. Search Abstraction Layer (SAL)
+The `backend/app/search/` subsystem uses a Search Abstraction Layer (SAL).
+- **Purpose:** Decouples the application logic from the underlying search engine.
+- **Backends:** Currently implemented using PostgreSQL Full-Text Search, but designed to allow swapping to Elasticsearch or Typesense in the future.
 
-The Search & Discovery Platform (`backend/app/search/`) is a production-grade, AI-free retrieval system designed for the Election Intelligence Platform. It provides full-text search, multi-field filtering, relevance ranking, text highlighting, entity autocomplete, geospatial proximity queries, statistical aggregations, and in-memory query caching.
+## 2. PostgreSQL Full-Text Search
+- **Implementation:** Utilizes `tsvector` for document representation and `tsquery` for parsing user inputs.
+- **Indexing:** Heavily relies on GIN (Generalized Inverted Index) indexes on searchable text columns to guarantee sub-millisecond query performance on large datasets.
 
----
+## 3. BM25 Ranking Algorithm
+- **Mechanism:** PostgreSQL's native ranking (`ts_rank_cd`) is augmented with custom logic to approximate BM25, prioritizing term frequency and inverse document frequency.
+- **Recency Decay:** For certain queries (like news or recent elections), a time-decay function slightly boosts more recent records.
 
-## Architecture & Search Abstraction Layer (SAL)
+## 4. Search Query Parsing
+- **Capabilities:** Supports simple term searches, phrase matching (using quotes), prefix matching (using `:*`), and boolean operators (AND, OR, NOT).
 
-The Application Layer interacts with search engines via a Search Abstraction Layer (SAL):
+## 5. Filters
+Search results can be narrowed using structured filters.
+- **Fields:** Available by entity type (e.g., State, Election Type, Year, Party).
+- **Date Ranges:** Supported for election events.
 
-```
-Client / REST API Routers (/api/v1/search)
-                  │
-                  ▼
-   [Search Application Service (SAL)]  (app/search/services/)
-                  │
- ┌────────────────┼────────────────┬──────────────┐
- ▼                ▼                ▼              ▼
-[QueryEngine] [Autocomplete]  [Geospatial]  [Analytics]
- (FTS & AST)  (Prefix Top-N)  (Haversine)   (Aggregations)
-```
+## 6. Highlighting
+- **Extraction:** Returns the context around the matched terms using `ts_headline`.
+- **Formatting:** Wraps matching keywords in specific HTML tags (e.g., `<b>` or `<mark>`) for frontend rendering.
 
-By programming against `SearchService` (the SAL) rather than raw database calls, future AI vector search and OpenSearch clusters can be added without modifying application logic.
+## 7. Autocomplete
+- **Engine:** Uses a specialized prefix-matching engine and trigram indexes (`pg_trgm`) for fast typeahead suggestions.
+- **Sources:** Aggregates top candidate names, party names, and constituencies.
+- **Ranking:** Prioritizes exact prefix matches and historically popular queries.
 
----
+## 8. Geospatial Search
+- **Implementation:** PostGIS integration for spatial queries.
+- **Queries:** Supports bounding box queries (finding polling booths within a map view), polygon containment (checking if a point is within a constituency), and haversine distance calculations.
 
-## Component Architecture
+## 9. Faceted Search
+Provides aggregate counts for filter categories alongside search results, allowing the frontend to build dynamic filter sidebars (e.g., "Show me results (BJP: 40, INC: 30)").
 
-| Sub-package | Role |
-| :--- | :--- |
-| `search.exceptions` | Hierarchy of search exceptions (`SearchException`, `FilterError`, `GeospatialError`, etc.) |
-| `search.queries` | Query domain AST (`SearchQuery`, `QueryType`, `SearchOperator`, `Pagination`) |
-| `search.filters` | Reusable filter builders for elections, dates, parties, and geographies |
-| `search.ranking` | Relevance scoring algorithm (`RelevanceRanker`, `ScoredHit`) |
-| `search.highlighting` | Snippet generator (`TextHighlighter`) using configurable HTML tags |
-| `search.autocomplete` | Entity typeahead (`AutocompleteEngine`) for elections, candidates, parties, and constituencies |
-| `search.geospatial` | Haversine distance, bounding box, and polygon spatial engine (`SpatialSearchEngine`) |
-| `search.analytics` | Reusable statistical aggregation engine (`AnalyticsEngine`) |
-| `search.cache` | In-memory LRU cache (`SearchCache`), query metrics, and slow-query logger |
-| `search.indexing` | FTS GIN index manager (`PostgresFTSIndex`) and OpenSearch cluster adapter stub |
-| `search.services` | High-level `SearchService` (SAL) coordinator |
+## 10. Search Analytics
+- **Tracking:** Logs anonymized search queries, click-through rates, and zero-result queries.
+- **Access:** Analytics data is available to admins to identify missing content or tune synonyms.
 
----
+## 11. Index Management
+- **Commands:** Admin tools to trigger reindexing operations.
+- **When to Reindex:** Necessary after bulk ETL loads or schema changes affecting searchable columns.
+- **Health:** Scripts monitor GIN index bloat and recommend `REINDEX` operations.
 
-## API Endpoints
+## 12. Performance Tuning
+- **Caching:** Common searches are cached via Redis.
+- **Maintenance:** Routine vacuuming and index rebuilding. Connection pool sizing is tuned for high-read search workloads.
 
-- `GET /api/v1/search` — Multi-field full-text search with pagination & highlighting
-- `GET /api/v1/search/autocomplete` — Fast entity prefix autocomplete suggestions
-- `GET /api/v1/search/geospatial` — Proximity search for nearest polling booths
-- `GET /api/v1/search/analytics` — Constituency, party, and turnout statistical aggregations
-- `POST /api/v1/search/reindex` — Trigger full reindex of search indices
+## 13. Debugging Search Results
+- **Missing Results:** Check if the document is properly indexed in the `tsvector` column or if the query parser rejected a term.
+- **Unexpected Results:** Inspect the `ts_rank` score to see why a document was matched (often due to stemming resolving unexpected roots).
 
----
-
-## Verification & Testing
-
-```bash
-# Run search unit & integration test suite
-.venv/bin/pytest tests/test_search.py -v
-
-# Run full project test suite
-.venv/bin/pytest
-```
+## 14. API Endpoints
+- `/api/v1/search`: Main search interface.
+- `/api/v1/search/autocomplete`: Fast typeahead suggestions.
+- `/api/v1/search/geospatial`: Map-based spatial queries.
+- `/api/v1/search/analytics`: Admin endpoint for search metrics.
+- `/api/v1/search/reindex`: Admin endpoint for triggering index rebuilds.

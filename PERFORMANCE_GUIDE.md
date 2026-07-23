@@ -1,49 +1,68 @@
-# Performance, Scalability & Distributed Infrastructure Guide
+# Performance Guide
 
-## Overview
+## 1. Performance Philosophy and Targets
+The Election Intelligence Platform is built with performance as a first-class feature. Our targets are:
+- **API Response Time**: < 100ms (p95)
+- **Search Latency**: < 200ms (p95)
+- **Authentication**: < 100ms
+- **Dashboard Load**: < 1s
+- **Mobile App Startup**: < 2s
 
-The **Performance & Scalability Platform** (`backend/app/performance/`) transforms the Election Intelligence Platform into a horizontally scalable, high-throughput distributed system.
+## 2. CacheService Architecture
+Located in `backend/app/performance/`, the `CacheService` supports two backends:
+- **MemoryCache**: For local development and single-node setups.
+- **RedisCache**: For production deployments.
+Supports tag-based invalidation to clear related keys simultaneously.
 
----
-
-## Architectural Principles
-
-```text
-Client Request
-      ↓
-API & Rate Limiter (Sliding Window / Token Bucket)
-      ↓
-CacheService Abstraction (MemoryCache / RedisAdapter)
-      ↓
-Database Connection Pool & ReadReplicaRouter
-      ↓
-EventBus (Event-Driven Cache Invalidation)
+```python
+await cache_service.set("key", value, tags=["election_1"])
+await cache_service.invalidate_by_tag("election_1")
 ```
 
-1. **Dedicated Module Isolation**: All performance & scaling infrastructure resides strictly inside `backend/app/performance/`.
-2. **Cache Abstraction**: Application layers depend exclusively on `CacheService`, preserving independence from underlying stores (Memory, Redis, KeyDB, Dragonfly, Valkey).
-3. **Non-Invasive Optimization**: Payload compression, O(1) cursor pagination, and result streaming optimize system performance without altering business logic.
+## 3. Caching Strategy
+- **Read-heavy endpoints**: Cached for 5-15 minutes (e.g., constituency lists).
+- **Static data**: Cached for 24 hours.
+- **Cache-aside pattern**: Read from cache, if miss, read from DB and populate cache.
+- **Invalidation**: On write operations, corresponding tags are invalidated immediately.
 
----
+## 4. Connection Pool Configuration
+We use SQLAlchemy with AsyncPG. The connection pool is tuned as follows:
+- `DB_POOL_SIZE=5`
+- `DB_MAX_OVERFLOW=10`
+- `DB_POOL_TIMEOUT=30`
+- `DB_POOL_RECYCLE=1800`
+- `pool_pre_ping=True` (Ensures connections are alive before use).
 
-## Core Components
+## 5. Rate Limiting
+Implemented via a sliding window algorithm in `backend/app/performance/`.
+- Default: 100 requests / minute per IP.
+- Headers returned: `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`.
 
-| Component | Location | Purpose |
-| :--- | :--- | :--- |
-| **Cache Engine** | `backend/app/performance/cache/` | `CacheService`, `MemoryCache`, `RedisAdapter` with TTL, tags, and compression |
-| **Pool Monitor** | `backend/app/performance/pooling/` | `ConnectionPoolMonitor` and `ReadReplicaRouter` for read/write splitting |
-| **Optimizations** | `backend/app/performance/optimization/` | `compress_payload`, `CursorPaginator`, `StreamingResultOptimizer` |
-| **Rate Limiter** | `backend/app/performance/ratelimit/` | `SlidingWindowRateLimiter` and `TokenBucket` algorithm abstraction |
-| **Benchmark** | `backend/app/performance/benchmark/` | `BenchmarkRunner` scenario load tester measuring throughput and P95/P99 latency |
-| **Autoscaling** | `backend/app/performance/autoscaling/` | `AutoscalingEngine` recommending horizontal replica counts |
-| **Capacity** | `backend/app/performance/capacity/` | `CapacityPlanner` calculating concurrency, RPS, and storage growth projections |
+## 6. Async Patterns
+- **Always async/await**: Never block the event loop.
+- **No blocking I/O**: Use async libraries for DB, HTTP, and file operations.
 
----
+## 7. Database Performance
+- **GIN Indexes**: Used for Full Text Search (FTS) on text columns.
+- **EXPLAIN ANALYZE**: Use this to optimize slow queries.
 
-## API Endpoints
+## 8. Search Performance
+- Search results are cached.
+- GIN index maintenance is run periodically to ensure fast lookups.
 
-- `GET /api/v1/cache` — Cache engine status & hit ratio statistics
-- `POST /api/v1/cache/invalidate` — Invalidate cache entries by pattern or tags
-- `GET /api/v1/performance` — Overall system performance & pool metrics
-- `GET /api/v1/benchmark` — Execute synthetic benchmark load test
-- `GET /api/v1/capacity` — Capacity planning report & growth projections
+## 9. Autoscaling Engine
+- Located in `backend/app/performance/`.
+- **Triggers**: CPU > 70%, Memory > 80%, or high request queue.
+- **Rules**: Scales up by 1 instance per 5 minutes; scales down when load drops below 30% for 15 minutes.
+
+## 10. Capacity Planning
+- Analyzes historical metrics to predict required capacity for upcoming election events.
+- Tracks requests per second (RPS), concurrent users, and DB load.
+
+## 11. Benchmarking
+- Located in `backend/app/performance/benchmark/`.
+- Run load tests using provided scripts before major releases.
+
+## 12. Performance Debugging
+- Profiling via `/diagnostics` endpoint.
+- Slow query traces are logged to the Observability platform.
