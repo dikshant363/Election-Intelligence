@@ -10,7 +10,7 @@ void main() {
         child: MyApp(),
       ),
     );
-    await tester.pumpAndSettle();
+    await tester.pump();
 
     expect(find.text('Election Intelligence Platform'), findsOneWidget);
   });
