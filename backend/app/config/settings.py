@@ -7,7 +7,7 @@ class Settings(BaseSettings):
     """Application settings."""
 
     PROJECT_NAME: str = "Election Intelligence Platform"
-    VERSION: str = "0.1.0"
+    VERSION: str = "1.0.0"
     API_V1_STR: str = "/api/v1"
 
     # Environment
@@ -59,7 +59,11 @@ class Settings(BaseSettings):
             return url.replace("postgresql://", "postgresql+psycopg://", 1)
         return url
 
-    model_config = {"env_file": ".env", "env_file_encoding": "utf-8"}
+    model_config = {
+        "env_file": ".env",
+        "env_file_encoding": "utf-8",
+        "extra": "ignore",  # silently ignore unknown env vars (AI keys, OTEL, etc.)
+    }
 
 
 settings = Settings()
