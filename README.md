@@ -6,7 +6,7 @@
 [![Flutter](https://img.shields.io/badge/flutter-3.x-blue.svg)](https://flutter.dev)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-An enterprise-grade, production-ready Election Intelligence Platform providing multi-tier election data ingestion, full-text search, spatial queries, hybrid AI retrieval (RAG), real-time event streaming, observability, distributed caching, security controls, and a cross-platform Flutter mobile application.
+> **"The Election Intelligence Platform is an independent, politically neutral, AI-powered public research platform that helps Indian citizens make informed voting decisions by organizing, verifying, and explaining publicly available election information with complete transparency, evidence, and source attribution—without recommending or endorsing any candidate or political party."**
 
 ---
 
