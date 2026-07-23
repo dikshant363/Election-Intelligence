@@ -1,8 +1,8 @@
 """Tests for database session lifecycle management."""
 
 import pytest
+
 from app.database.session import AsyncSessionLocal, get_db_context, get_db_session
-from sqlalchemy.ext.asyncio import AsyncSession
 
 
 def test_async_session_factory() -> None:

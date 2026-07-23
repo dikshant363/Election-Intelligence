@@ -3,6 +3,7 @@
 from datetime import date
 
 import pytest
+
 from app.domain.candidate import Candidate
 from app.domain.constituency import Constituency
 from app.domain.election import Election, ElectionStatus

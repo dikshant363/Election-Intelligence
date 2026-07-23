@@ -3,13 +3,13 @@
 from datetime import date
 
 import pytest
+
 from app.domain.value_objects import (
     Age,
     CandidateId,
     ConstituencyId,
     ElectionDate,
     ElectionId,
-    ElectionType,
     Email,
     GeoCoordinates,
     PartyId,

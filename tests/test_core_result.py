@@ -1,6 +1,7 @@
 """Unit tests for shared core Result monad and DomainError types."""
 
 import pytest
+
 from app.core.result import DomainError, ErrorCode, Failure, Result, Success
 
 

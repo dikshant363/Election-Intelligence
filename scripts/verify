@@ -8,19 +8,22 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "🔍 Running repository verification..."
 
-# Check that key validation scripts exist and are executable
-required_validation_scripts=("doctor" "lint" "format" "typecheck" "test")
-for script_name in "${required_validation_scripts[@]}"; do
-    script_path="$SCRIPT_DIR/$script_name"
-    if [[ ! -x "$script_path" ]]; then
-        echo "❌ Validation script not executable: $script_path"
-        exit 1
-    fi
-    if [[ ! -s "$script_path" ]]; then
-        echo "❌ Validation script is empty: $script_path"
-        exit 1
-    fi
-done
+echo "🔧 Running doctor..."
+"$SCRIPT_DIR/doctor"
 
-echo "✅ All verification scripts are present and executable."
-echo "📋 Full verification details are available in individual script documentation."
+echo "🔧 Running format..."
+"$SCRIPT_DIR/format"
+
+echo "🔧 Running lint..."
+"$SCRIPT_DIR/lint"
+
+echo "🔧 Running typecheck..."
+"$SCRIPT_DIR/typecheck"
+
+echo "🔧 Running test..."
+"$SCRIPT_DIR/test"
+
+echo "🔧 Running clean..."
+"$SCRIPT_DIR/clean"
+
+echo "✅ Verification complete. Individual scripts provide detailed results."

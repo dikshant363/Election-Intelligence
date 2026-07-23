@@ -1,6 +1,5 @@
 """Tests for database engine configuration and connection settings."""
 
-import pytest
 from app.config import settings
 from app.database.engine import engine
 

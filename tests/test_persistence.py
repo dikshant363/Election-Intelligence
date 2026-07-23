@@ -11,6 +11,7 @@ from sqlalchemy.ext.asyncio import (
 )
 from sqlalchemy.pool import NullPool
 
+import app.persistence.models  # noqa: F401
 from app.config import settings
 from app.database.base import Base
 from app.domain.candidate import Candidate
@@ -34,7 +35,6 @@ from app.domain.value_objects import (
     StateCode,
     VoteCount,
 )
-import app.persistence.models  # noqa: F401
 from app.persistence.mappers import (
     CandidateMapper,
     ConstituencyMapper,

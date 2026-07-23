@@ -25,27 +25,27 @@ from fastapi.testclient import TestClient
 
 from app.main import app
 from app.search import (
-    CandidateSearchResult,
-    ElectionSearchResult,
     FilterError,
     GeospatialError,
-    IndexError,
-    InvalidQueryError,
-    Pagination,
-    ParsedQueryNode,
     QueryType,
-    SearchHit,
-    SearchOperator,
     SearchPage,
     SearchQuery,
     SearchService,
 )
-from app.search.analytics import AggregationMetric, AnalyticsEngine
+from app.search.analytics import AggregationMetric
 from app.search.autocomplete import AutocompleteEngine, AutocompleteSuggestion
-from app.search.cache import SLOW_QUERY_THRESHOLD_MS, CacheEntry, QueryMetrics, SearchCache, search_cache
+from app.search.cache import (
+    QueryMetrics,
+    SearchCache,
+)
 from app.search.engine import QueryEngine, QueryParser
-from app.search.filters import SQLFilterBuilder, SearchFilterSet
-from app.search.geospatial import BoundingBox, Point, Polygon, SpatialSearchEngine, haversine_distance
+from app.search.filters import SearchFilterSet
+from app.search.geospatial import (
+    BoundingBox,
+    Point,
+    Polygon,
+    haversine_distance,
+)
 from app.search.highlighting import HighlightConfig, TextHighlighter
 from app.search.indexing import IndexStats, OpenSearchAdapter, PostgresFTSIndex
 from app.search.ranking import RankingConfig, RelevanceRanker, ScoredHit

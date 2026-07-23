@@ -4,6 +4,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 
 import pytest
+
 from app.core.repositories import Repository
 
 

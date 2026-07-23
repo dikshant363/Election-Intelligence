@@ -2,7 +2,6 @@
 
 from typing import Any
 
-import pytest
 from app.core.metrics import Counter, Gauge, Histogram, MetricsRegistry, Tracer
 
 
@@ -58,17 +57,17 @@ def test_metrics_contracts_execution() -> None:
 
     c = registry.counter("test_counter")
     c.inc(5.0)
-    assert getattr(c, "val") == 5.0
+    assert c.val == 5.0
 
     g = registry.gauge("test_gauge")
     g.set(10.0)
     g.inc(2.0)
     g.dec(1.0)
-    assert getattr(g, "val") == 11.0
+    assert g.val == 11.0
 
     h = registry.histogram("test_histogram")
     h.observe(42.0)
-    assert getattr(h, "observations") == [42.0]
+    assert h.observations == [42.0]
 
     t = DummyTracer()
     span = t.start_span("test_span")

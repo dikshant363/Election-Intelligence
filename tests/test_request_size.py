@@ -1,8 +1,9 @@
 """Tests for request payload size limit middleware."""
 
 import pytest
-from app.config import settings
 from httpx import AsyncClient
+
+from app.config import settings
 
 
 @pytest.mark.asyncio

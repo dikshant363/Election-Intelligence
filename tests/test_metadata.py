@@ -1,7 +1,7 @@
 """Tests for declarative base and constraint metadata naming conventions."""
 
 from app.database.base import Base, BaseModel
-from app.database.metadata import POSTGRES_NAMING_CONVENTION, metadata
+from app.database.metadata import metadata
 
 
 def test_naming_convention_keys() -> None:

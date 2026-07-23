@@ -1,0 +1,23 @@
+#!/bin/bash
+# Unified quality gateway
+# Dispatches to existing validation scripts
+# Usage: ./scripts/quality
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+quality_checks=(
+    "doctor"
+    "lint"
+    "format"
+    "typecheck"
+    "test"
+)
+
+for check in "${quality_checks[@]}"; do
+    "$SCRIPT_DIR/$check"
+done
+
+echo -e "\nAll quality checks completed successfully."
+echo "For detailed results, review individual script outputs."

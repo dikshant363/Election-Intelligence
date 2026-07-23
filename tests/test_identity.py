@@ -16,9 +16,7 @@ from app.api.v1.dependencies import get_uow
 from app.config import settings
 from app.database.base import Base
 from app.identity.dependencies import (
-    CurrentUser,
     get_current_user,
-    require_permission,
     require_role,
 )
 from app.identity.exceptions import (

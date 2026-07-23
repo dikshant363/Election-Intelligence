@@ -3,6 +3,7 @@
 from dataclasses import dataclass
 
 import pytest
+
 from app.core.events import DomainEvent, InMemoryEventBus, IntegrationEvent
 
 

@@ -1,6 +1,7 @@
 """Unit tests for cache abstraction and MemoryCache."""
 
 import pytest
+
 from app.core.cache import MemoryCache
 
 
