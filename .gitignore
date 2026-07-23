@@ -7,7 +7,8 @@ venv/
 ENV/
 env/
 # Dependency directories
-lib/
+/lib/
+!frontend/lib/
 # Pytest cache
 .coverage
 htmlcov/

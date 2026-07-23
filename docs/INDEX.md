@@ -82,6 +82,19 @@
 
 ---
 
+## 🎛️ Admin & Control Center
+
+| Document | Description |
+| :--- | :--- |
+| [ADMIN_PLATFORM_GUIDE.md](admin/ADMIN_PLATFORM_GUIDE.md) | Master Enterprise Control Center administration manual |
+| [ADMIN_API.md](admin/ADMIN_API.md) | Administrative control API endpoint reference |
+| [ADMIN_UI_GUIDE.md](admin/ADMIN_UI_GUIDE.md) | Control Center UI/UX design system & interface hierarchy |
+| [ADMIN_SECURITY.md](admin/ADMIN_SECURITY.md) | Security governance, RBAC roles, MFA, and audit log stream |
+| [ADMIN_OPERATIONS.md](admin/ADMIN_OPERATIONS.md) | Operational playbooks: cache flush, search reindex, feature flags |
+| [ADMIN_DEPLOYMENT.md](admin/ADMIN_DEPLOYMENT.md) | Multi-interface hosting & Docker deployment guide |
+
+---
+
 ## 🔒 Security
 
 | Document | Description |

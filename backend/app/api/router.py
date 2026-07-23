@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, Request
 from fastapi.responses import JSONResponse
 
 from app.api.v1.dependencies.dependencies import get_observability_service
+from app.api.v1.routers.admin import router as admin_router
 from app.api.v1.routers.ai import router as ai_router
 from app.api.v1.routers.candidates import router as candidates_router
 from app.api.v1.routers.constituencies import router as constituencies_router
@@ -69,6 +70,7 @@ async def version_endpoint(request: Request) -> JSONResponse:
 
 
 # Register v1 domain entity routers
+api_router.include_router(admin_router)
 api_router.include_router(elections_router)
 api_router.include_router(candidates_router)
 api_router.include_router(parties_router)
@@ -81,3 +83,4 @@ api_router.include_router(realtime_router)
 api_router.include_router(observability_router)
 api_router.include_router(performance_router)
 api_router.include_router(production_router)
+
