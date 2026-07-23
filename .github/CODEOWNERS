@@ -1,0 +1,93 @@
+# CODEOWNERS — Election Intelligence Platform
+#
+# Each line is a file pattern followed by one or more owners.
+# Owners are automatically requested for review when a PR modifies their files.
+# Order matters: the last matching pattern takes priority.
+#
+# Documentation: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# ── Default owner ────────────────────────────────────────────────────────────
+# All files not matched below require the principal architect's review.
+*                                   @civiclens-india/principal-architect
+
+# ── Root governance files ─────────────────────────────────────────────────────
+README.md                           @civiclens-india/principal-architect
+CHANGELOG.md                        @civiclens-india/principal-architect
+CONTRIBUTING.md                     @civiclens-india/principal-architect
+CODE_OF_CONDUCT.md                  @civiclens-india/principal-architect
+SECURITY.md                         @civiclens-india/security-team
+SUPPORT.md                          @civiclens-india/principal-architect
+.github/CODEOWNERS                  @civiclens-india/principal-architect
+.github/workflows/                  @civiclens-india/devops-team
+
+# ── Backend ───────────────────────────────────────────────────────────────────
+
+# Core architecture: principal architect reviews all changes
+backend/app/main.py                 @civiclens-india/principal-architect
+backend/app/config/                 @civiclens-india/principal-architect
+backend/app/api/                    @civiclens-india/principal-architect
+
+# Domain layer: principal architect + domain lead
+backend/app/domain/                 @civiclens-india/principal-architect @civiclens-india/domain-lead
+
+# Application layer: principal architect
+backend/app/application/            @civiclens-india/principal-architect
+
+# Persistence: database engineer
+backend/app/persistence/            @civiclens-india/database-engineer
+backend/app/database/               @civiclens-india/database-engineer
+backend/alembic/                    @civiclens-india/database-engineer @civiclens-india/principal-architect
+
+# Security & Identity: security team + principal architect
+backend/app/security/               @civiclens-india/security-team @civiclens-india/principal-architect
+backend/app/identity/               @civiclens-india/security-team @civiclens-india/principal-architect
+
+# ETL: data engineer
+backend/app/etl/                    @civiclens-india/data-engineer
+
+# Search: data engineer + principal architect
+backend/app/search/                 @civiclens-india/data-engineer @civiclens-india/principal-architect
+
+# AI: ai engineer + principal architect
+backend/app/ai/                     @civiclens-india/ai-engineer @civiclens-india/principal-architect
+
+# Realtime: principal architect
+backend/app/realtime/               @civiclens-india/principal-architect
+
+# Observability: devops team
+backend/app/observability/          @civiclens-india/devops-team
+
+# Performance: principal architect + devops team
+backend/app/performance/            @civiclens-india/principal-architect @civiclens-india/devops-team
+
+# Production hardening: security team + devops team
+backend/app/production/             @civiclens-india/security-team @civiclens-india/devops-team
+
+# ── Frontend ──────────────────────────────────────────────────────────────────
+frontend/                           @civiclens-india/flutter-lead
+frontend/lib/core/                  @civiclens-india/flutter-lead @civiclens-india/principal-architect
+frontend/pubspec.yaml               @civiclens-india/flutter-lead @civiclens-india/principal-architect
+
+# ── Tests ─────────────────────────────────────────────────────────────────────
+tests/                              @civiclens-india/qa-lead
+tests/test_security_*.py            @civiclens-india/security-team @civiclens-india/qa-lead
+tests/test_e2e_integration.py       @civiclens-india/principal-architect @civiclens-india/qa-lead
+
+# ── Docker & Infrastructure ───────────────────────────────────────────────────
+Dockerfile                          @civiclens-india/devops-team @civiclens-india/principal-architect
+docker-compose.yml                  @civiclens-india/devops-team
+requirements.txt                    @civiclens-india/principal-architect @civiclens-india/security-team
+pyproject.toml                      @civiclens-india/principal-architect
+
+# ── Documentation ─────────────────────────────────────────────────────────────
+docs/architecture/                  @civiclens-india/principal-architect
+docs/security/                      @civiclens-india/security-team @civiclens-india/principal-architect
+docs/operations/                    @civiclens-india/devops-team @civiclens-india/principal-architect
+docs/data/                          @civiclens-india/data-engineer @civiclens-india/principal-architect
+docs/ai/                            @civiclens-india/ai-engineer @civiclens-india/principal-architect
+docs/governance/                    @civiclens-india/principal-architect
+docs/quality/                       @civiclens-india/qa-lead @civiclens-india/principal-architect
+docs/development/                   @civiclens-india/principal-architect
+docs/infrastructure/                @civiclens-india/devops-team @civiclens-india/principal-architect
+docs/product/                       @civiclens-india/principal-architect
+docs/INDEX.md                       @civiclens-india/principal-architect

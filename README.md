@@ -1,71 +1,124 @@
-# Election Intelligence Platform (v1.0.0)
+# Election Intelligence Platform v1.0.0
 
-[![CI/CD Pipeline](https://github.com/CivicLens-India/Election-Intelligence/actions/workflows/ci.yml/badge.svg)](https.github.com/CivicLens-India/Election-Intelligence/actions/workflows/ci.yml)
+[![CI/CD Pipeline](https://github.com/CivicLens-India/Election-Intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/CivicLens-India/Election-Intelligence/actions/workflows/ci.yml)
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/CivicLens-India/Election-Intelligence)
+[![Python](https://img.shields.io/badge/python-3.12-blue.svg)](https://python.org)
+[![Flutter](https://img.shields.io/badge/flutter-3.x-blue.svg)](https://flutter.dev)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-An enterprise-grade, production-ready Election Intelligence Platform designed for multi-tier election data ingestion, full-text search, spatial queries, hybrid AI retrieval (RAG), real-time event streaming, observability, distributed caching, security controls, and cross-platform mobile apps.
-
----
-
-## Key Features
-
-- **Clean Architecture & Domain Driven Design**: Strict separation of Domain, Application, Infrastructure, and Transport layers.
-- **Data Ingestion & ETL**: High-performance validation, cleaning, and batch import pipelines for election results and candidate records.
-- **Search & Discovery Platform**: Full-text search with BM25 scoring, recency decay, autocomplete, and geospatial bounding box / polygon queries.
-- **AI Intelligence Platform**: Hybrid BM25 + Vector RAG engine with source attributions, safety guardrails, and evaluation.
-- **Real-Time Event Streaming**: Standardized `EventEnvelope` architecture supporting WebSockets, Server-Sent Events (`SSE`), and client presence tracking.
-- **Observability & Operations**: OpenTelemetry tracing, Prometheus metrics, structured JSON logging, and health probes (`/health`, `/ready`, `/live`, `/diagnostics`).
-- **Performance & Scalability**: Vendor-independent `CacheService` (Memory & Redis), event-driven tag invalidation, sliding window rate limiting, capacity planning, and load benchmarking.
-- **Production Hardening**: `SecretsProvider` abstraction, startup configuration fingerprinting, SHA-256 backup snapshot integrity, SPDX 2.3 SBOM, and circuit breaker resilience.
-- **Cross-Platform Mobile App**: Flutter Material 3, Riverpod state management, GoRouter navigation, and offline caching.
+An enterprise-grade, production-ready Election Intelligence Platform providing multi-tier election data ingestion, full-text search, spatial queries, hybrid AI retrieval (RAG), real-time event streaming, observability, distributed caching, security controls, and a cross-platform Flutter mobile application.
 
 ---
 
 ## Quick Start
 
-### 1. Docker Compose Execution (Recommended)
+```bash
+# 1. Clone and set up
+git clone https://github.com/CivicLens-India/Election-Intelligence.git
+cd Election-Intelligence
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+
+# 2. Configure environment
+cp .env.example .env   # edit DATABASE_URL and other required vars
+
+# 3. Run database migrations
+PYTHONPATH=backend .venv/bin/alembic upgrade head
+
+# 4. Start the API server
+PYTHONPATH=backend .venv/bin/uvicorn app.main:app --reload --port 8000
+
+# 5. API docs
+open http://localhost:8000/api/v1/docs
+```
+
+**Or with Docker:**
 ```bash
 docker compose up -d --build
 ```
-API Documentation available at: `http://localhost:8000/docs`
 
-### 2. Local Backend Setup
+**Flutter mobile app:**
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-PYTHONPATH=backend uvicorn app.main:app --reload --port 8000
-```
-
-### 3. Flutter Application Setup
-```bash
-cd frontend
-flutter pub get
-flutter run
+cd frontend && flutter pub get && flutter run
 ```
 
 ---
 
-## Verification & Testing
+## Quality Status
 
-```bash
-# Run backend linters & tests
-ruff check backend
-python -m compileall backend
-pytest
-
-# Run frontend linters & tests
-cd frontend
-flutter analyze
-flutter test
-```
+| Gate | Command | Status |
+| :--- | :--- | :--- |
+| Backend lint | `ruff check backend` | ✅ 0 errors |
+| Python compile | `python -m compileall backend` | ✅ 0 errors |
+| Backend tests | `pytest` | ✅ 287 / 287 passed |
+| Flutter analysis | `flutter analyze` | ✅ 0 issues |
+| Flutter tests | `flutter test` | ✅ 6 / 6 passed |
 
 ---
 
 ## Documentation
 
-- **[PRODUCTION_RELEASE_GUIDE.md](file:///Users/dikshantagarwal/Desktop/CivicLens%20India/Election-Intelligence/PRODUCTION_RELEASE_GUIDE.md)**: Production Deployment & Architecture Guide
-- **[SYSTEM_INTEGRATION_MATRIX.md](file:///Users/dikshantagarwal/Desktop/CivicLens%20India/Election-Intelligence/SYSTEM_INTEGRATION_MATRIX.md)**: Subsystem Integration Mapping
-- **[CHANGELOG.md](file:///Users/dikshantagarwal/Desktop/CivicLens%20India/Election-Intelligence/CHANGELOG.md)**: Full Version Release History
-- **[openapi.json](file:///Users/dikshantagarwal/Desktop/CivicLens%20India/Election-Intelligence/openapi.json)**: OpenAPI v3.1 Specification
+All documentation lives in **[`docs/`](docs/INDEX.md)** — organized into 13 categories.
+
+**→ [Browse the Documentation Index](docs/INDEX.md)**
+
+Key starting points:
+
+| I want to… | Document |
+| :--- | :--- |
+| Understand the full system | [System Operation Guide](docs/architecture/SYSTEM_OPERATION_GUIDE.md) |
+| Set up my environment | [Development Guide](docs/development/DEVELOPMENT_GUIDE.md) |
+| Onboard as a new developer | [New Developer Onboarding](docs/onboarding/NEW_DEVELOPER_ONBOARDING.md) |
+| Deploy to production | [Deployment Runbook](docs/operations/DEPLOYMENT_RUNBOOK.md) |
+| Understand the architecture | [Architecture](docs/architecture/ARCHITECTURE.md) |
+| Read all commands | [Command Reference](docs/reference/COMMAND_REFERENCE.md) |
+
+---
+
+## Technology Stack
+
+| Layer | Technology |
+| :--- | :--- |
+| API | Python 3.12, FastAPI 0.115, Pydantic v2 |
+| Database | PostgreSQL 15, SQLAlchemy 2 async, Alembic |
+| Cache | Redis 7, CacheService abstraction |
+| Security | Argon2id, JWT, RBAC, OWASP headers |
+| AI | Hybrid BM25 + Vector RAG, pluggable LLMProvider |
+| Realtime | EventEnvelope, InMemoryEventBus, SSE, WebSocket |
+| Observability | OpenTelemetry, Prometheus, JSON structured logs |
+| Mobile | Flutter 3.x, Material 3, Riverpod, GoRouter |
+| CI/CD | GitHub Actions, multi-stage Docker |
+
+---
+
+## Repository Structure
+
+```text
+.
+├── backend/          # FastAPI Python backend (15 subsystems)
+├── frontend/         # Flutter cross-platform app
+├── tests/            # 287 pytest tests
+├── docs/             # All documentation (70+ files, 13 categories)
+├── .github/          # CI/CD workflows and CODEOWNERS
+├── Dockerfile        # Multi-stage production image
+├── docker-compose.yml
+├── requirements.txt
+├── pyproject.toml
+├── README.md
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── SECURITY.md
+└── CODE_OF_CONDUCT.md
+```
+
+---
+
+## Contributing
+
+Read [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/development/DEVELOPER_WORKFLOW.md](docs/development/DEVELOPER_WORKFLOW.md) before submitting a pull request.
+
+---
+
+## Security
+
+To report a security vulnerability, see [SECURITY.md](SECURITY.md).
