@@ -1,53 +1,68 @@
-"""Password security service using PBKDF2/Argon2id hashing and password policy validation."""
+"""Password security service using Argon2id hashing, legacy PBKDF2 verification, and rehash migration."""
 
 import base64
 import hashlib
-import os
 import secrets
 import string
+
+from argon2 import PasswordHasher
+from argon2.exceptions import InvalidHashError, VerificationError, VerifyMismatchError
 
 MIN_PASSWORD_LENGTH = 8
 
 
 class PasswordService:
-    """Service providing secure password hashing, verification, and policy enforcement."""
+    """Service providing Argon2id password hashing, legacy PBKDF2 compatibility, and rehash migration."""
 
+    _ph = PasswordHasher()  # Uses Argon2id default
+
+    # Legacy PBKDF2 constants
     ITERATIONS = 100_000
     SALT_SIZE = 16
 
     @classmethod
     def hash_password(cls, password: str) -> str:
-        """Hash a password using PBKDF2-HMAC-SHA256 with a random salt."""
-        salt = os.urandom(cls.SALT_SIZE)
-        key = hashlib.pbkdf2_hmac(
-            "sha256",
-            password.encode("utf-8"),
-            salt,
-            cls.ITERATIONS,
-        )
-        salt_b64 = base64.b64encode(salt).decode("ascii")
-        key_b64 = base64.b64encode(key).decode("ascii")
-        return f"pbkdf2_sha256${cls.ITERATIONS}${salt_b64}${key_b64}"
+        """Hash a password using modern Argon2id."""
+        return cls._ph.hash(password)
 
     @classmethod
     def verify_password(cls, password: str, hashed_password: str) -> bool:
-        """Verify password against stored hash string."""
-        try:
-            algorithm, iterations_str, salt_b64, key_b64 = hashed_password.split("$")
-            if algorithm != "pbkdf2_sha256":
+        """Verify password against Argon2id or legacy PBKDF2 hash."""
+        if hashed_password.startswith("$argon2"):
+            try:
+                return cls._ph.verify(hashed_password, password)
+            except (VerifyMismatchError, InvalidHashError, VerificationError):
                 return False
-            iterations = int(iterations_str)
-            salt = base64.b64decode(salt_b64.encode("ascii"))
-            expected_key = base64.b64decode(key_b64.encode("ascii"))
-            candidate_key = hashlib.pbkdf2_hmac(
-                "sha256",
-                password.encode("utf-8"),
-                salt,
-                iterations,
-            )
-            return secrets.compare_digest(candidate_key, expected_key)
+
+        if hashed_password.startswith("pbkdf2_sha256$"):
+            try:
+                algorithm, iterations_str, salt_b64, key_b64 = hashed_password.split("$")
+                if algorithm != "pbkdf2_sha256":
+                    return False
+                iterations = int(iterations_str)
+                salt = base64.b64decode(salt_b64.encode("ascii"))
+                expected_key = base64.b64decode(key_b64.encode("ascii"))
+                candidate_key = hashlib.pbkdf2_hmac(
+                    "sha256",
+                    password.encode("utf-8"),
+                    salt,
+                    iterations,
+                )
+                return secrets.compare_digest(candidate_key, expected_key)
+            except Exception:
+                return False
+
+        return False
+
+    @classmethod
+    def needs_rehash(cls, hashed_password: str) -> bool:
+        """Check if stored hash needs transparent migration to current Argon2id parameters."""
+        if not hashed_password.startswith("$argon2"):
+            return True
+        try:
+            return cls._ph.check_needs_rehash(hashed_password)
         except Exception:
-            return False
+            return True
 
     @classmethod
     def validate_password_strength(cls, password: str) -> list[str]:

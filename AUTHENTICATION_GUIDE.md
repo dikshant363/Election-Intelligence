@@ -8,7 +8,7 @@ The Authentication module (`backend/app/identity/services/`) manages user creden
 ```
    [POST /api/v1/auth/login]
                │
-               ▼ (Validates credentials via PasswordService)
+               ▼ (Validates credentials via PasswordService Argon2id)
   [Returns Access & Refresh Tokens]
                │
    ┌───────────┴───────────┐
@@ -19,7 +19,7 @@ The Authentication module (`backend/app/identity/services/`) manages user creden
 ```
 
 ## Security Guarantees
-1. **Salted Hashing**: PBKDF2-HMAC-SHA256 with 100,000 iterations and 16-byte random salt.
+1. **Argon2id Hashing**: Memory-hard Argon2id password hashing via `argon2-cffi` with transparent legacy PBKDF2 verification and automatic rehash migration (`PasswordService.needs_rehash`).
 2. **Token Revocation**: Refresh tokens are stored as SHA-256 hashes in `refresh_tokens` table with explicit `is_revoked` revocation flags.
 3. **API Key Security**: Developer API keys (`ei_live_...`) are hashed with SHA-256 before database insertion. Constant-time comparisons (`secrets.compare_digest`) prevent timing side-channel attacks.
 4. **Clock Skew Tolerance**: 60-second leeway provided during JWT expiration verification.

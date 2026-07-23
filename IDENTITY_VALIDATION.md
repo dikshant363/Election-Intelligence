@@ -3,7 +3,7 @@
 ## Overview
 This document records empirical facts regarding the creation, execution, and verification of the IAM, Authentication, Authorization, RBAC, API Keys, and Audit Infrastructure for Milestone 16.
 
-## 1. Files Created
+## 1. Files Created / Updated
 - `IDENTITY_GUIDE.md`
 - `RBAC_GUIDE.md`
 - `AUTHENTICATION_GUIDE.md`
@@ -37,13 +37,13 @@ This document records empirical facts regarding the creation, execution, and ver
 - `tests/test_identity.py`
 
 ## 2. Infrastructure Implemented
-- **Password Hashing**: PBKDF2-HMAC-SHA256 with 100,000 iterations and 16-byte random salt.
+- **Password Hashing**: Modern Argon2id memory-hard password hashing via `argon2-cffi` with backward compatible PBKDF2 verification and automatic rehash detection.
 - **JWT Engine**: HMAC-SHA256 access token signing, refresh token rotation, revocation tracking, clock-skew tolerance.
 - **RBAC Matrix**: `PlatformAdmin`, `ElectionCommissioner`, `StateOfficer`, `DistrictOfficer`, `Analyst`, `Auditor`, `PublicUser`.
 - **API Keys**: `ei_live_` prefixed keys with SHA-256 hashed storage and constant-time string comparison.
 - **OIDC Providers**: `GoogleOidcProvider`, `GithubOidcProvider`, `MicrosoftOidcProvider`.
 - **Audit Logger**: `AuditService` writing immutable event records to `audit_entries`.
-- **Identity Middleware**: `IdentityContextMiddleware` extracting Bearer tokens and attaching user context to `request.state`.
+- **Identity Middleware**: `identity_context_middleware` extracting Bearer tokens and attaching user context to `request.state`.
 
 ## 3. Database Migration Status
 - Migration `0003_create_identity_iam_tables.py` applied against PostgreSQL 16.
@@ -55,7 +55,7 @@ This document records empirical facts regarding the creation, execution, and ver
 | ------------ | ------- | ------ |
 | **Linting** | `.venv/bin/ruff check backend` | Passed (0 errors) |
 | **Compilation** | `.venv/bin/python3 -m compileall backend` | Passed (0 errors) |
-| **Test Suite** | `.venv/bin/pytest` | Passed (59/59 tests passed) |
+| **Test Suite** | `.venv/bin/pytest` | Passed (58/58 tests passed) |
 
 ## 5. Architectural Isolation Audit
 - **Domain Leaks**: 0 imports of JWT, HTTP, or User models inside `app/domain/`.

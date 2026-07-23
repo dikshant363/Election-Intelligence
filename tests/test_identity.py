@@ -64,13 +64,18 @@ async def test_session_factory() -> async_sessionmaker[AsyncSession]:
     await test_engine.dispose()
 
 
-def test_password_hashing_and_verification() -> None:
-    """Verify PasswordService hashing, salted verification, and policy enforcement."""
+def test_argon2id_password_hashing_and_verification() -> None:
+    """Verify PasswordService Argon2id hashing, legacy PBKDF2 verification, and rehash detection."""
     raw_pw = "SecureP@ssword123!"
     hashed = PasswordService.hash_password(raw_pw)
-    assert hashed.startswith("pbkdf2_sha256$")
+    assert hashed.startswith("$argon2id$")
     assert PasswordService.verify_password(raw_pw, hashed) is True
     assert PasswordService.verify_password("WrongPassword!", hashed) is False
+    assert PasswordService.needs_rehash(hashed) is False
+
+    # Legacy PBKDF2 hash verification & rehash migration test
+    legacy_hash = "pbkdf2_sha256$100000$c2FsdHNhbHRzYWx0c2FsdA==$S2V5S2V5S2V5S2V5S2V5S2V5S2V5S2V5S2V5S2V5S2V5"
+    assert PasswordService.needs_rehash(legacy_hash) is True
 
     # Password policy
     weak_pw = "weak"
