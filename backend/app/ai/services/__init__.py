@@ -21,6 +21,7 @@ from app.ai.schemas import (
     AIQueryResponseSchema,
     ProviderInfoSchema,
 )
+from app.config import settings
 
 
 @dataclass
