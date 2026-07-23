@@ -113,6 +113,39 @@ Key starting points:
 
 ---
 
+## Product Roadmap & Release Milestones
+
+### 🟢 Version 1.0.0 — Production Core Release (Current Stable)
+- ✅ **Core CQRS & FastAPI Backend**: 43 endpoints across 13 domain routers.
+- ✅ **PostgreSQL 16 Schema**: 21 relational tables with Alembic migrations.
+- ✅ **Live AI RAG Integration**: Live Mistral AI (`mistral-small-latest`) & Google Gemini AI adapters with 1 RPS rate-limit throttling.
+- ✅ **Form 26 Affidavit Data Models**: Asset declarations, liabilities, educational qualifications, and criminal antecedents.
+- ✅ **Flutter Web & Mobile SPA**: Citizen explorer portal & non-partisan side-by-side candidate comparison views.
+- ✅ **Data Provenance System**: `Official Source`, `Verified Public Record`, `AI Summary`, `Sample Data`, `Data Not Available`.
+- ✅ **Strict Neutrality Engine**: Pure evidence-first summaries without candidate ratings or voting recommendations.
+
+### 🟡 Version 1.1.0 — Milestone 26: Deep Constituency & Party Analytics
+- 🚀 **Deep Constituency Intelligence**: Population demographics, literacy rates, historical vote margins, and development indicators.
+- 🚀 **Deep Party Intelligence**: Manifesto archives, alliance trackers, historical seat share charts, and leadership timelines.
+- 🚀 **Multi-Tier Election Filters**: Dedicated navigation tabs for Lok Sabha, Vidhan Sabha (State Assembly), Municipal Corporations, and Panchayats.
+- 🚀 **Affidavit Report Exporter**: Downloadable PDF/CSV candidate comparison reports for offline voter discussions.
+
+### 🔵 Version 1.2.0 — Milestone 27: Fact-Check & Media Timeline Integration
+- 🚀 **Verified Fact-Check Engine**: Integration with IFCN-certified fact-checking organizations (Alt News, Boom Live, Quint WebQoof).
+- 🚀 **Candidate News Timeline**: Chronological stream of verified public news reports linked with primary source URLs.
+- 🚀 **Promise Tracker**: Automated tracking of candidate manifesto commitments vs completed infrastructure projects.
+
+### 🟣 Version 1.3.0 — Milestone 28: Multi-Lingual & Voice Intelligence
+- 🚀 **12 Indian Languages**: Native support for Hindi, Tamil, Telugu, Bengali, Marathi, Gujarati, Kannada, Malayalam, Punjabi, Odia, Assamese, and Urdu.
+- 🚀 **Voice Assistant**: Voice-activated natural language queries for low-literacy rural voters.
+
+### 🔴 Version 2.0.0 — Milestone 29: Open API & Decentralized Civic Network
+- 🚀 **Public Developer API**: Open API platform for journalists, researchers, NGOs, and civil society organizations.
+- 🚀 **Crowdsourced Affidavit Audit**: Decentralized peer verification of candidate affidavit disclosures.
+- 🚀 **Offline-First SMS & WhatsApp Bot**: Automated querying for citizens without high-speed internet access.
+
+---
+
 ## Contributing
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/development/DEVELOPER_WORKFLOW.md](docs/development/DEVELOPER_WORKFLOW.md) before submitting a pull request.
