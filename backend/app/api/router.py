@@ -5,6 +5,7 @@ from fastapi.responses import JSONResponse
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.api.v1.routers.ai import router as ai_router
 from app.api.v1.routers.candidates import router as candidates_router
 from app.api.v1.routers.constituencies import router as constituencies_router
 from app.api.v1.routers.elections import router as elections_router
@@ -86,3 +87,4 @@ api_router.include_router(constituencies_router)
 api_router.include_router(polling_router)
 api_router.include_router(results_router)
 api_router.include_router(search_router)
+api_router.include_router(ai_router)

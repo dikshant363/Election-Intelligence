@@ -6,6 +6,7 @@ from typing import Annotated
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.ai.services import AIService
 from app.application.handlers import CommandHandlers, QueryHandlers
 from app.application.pipeline import CommandPipeline
 from app.database.session import AsyncSessionLocal, get_db_session
@@ -45,3 +46,10 @@ def get_search_service(
 ) -> SearchService:
     """Provide SearchService instance via SAL."""
     return SearchService(session=session)
+
+
+def get_ai_service(
+    session: Annotated[AsyncSession, Depends(get_db_session)],
+) -> AIService:
+    """Provide AIService instance."""
+    return AIService(session=session)
