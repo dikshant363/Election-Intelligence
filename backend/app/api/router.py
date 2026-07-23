@@ -17,11 +17,13 @@ api_router = APIRouter()
 @api_router.get("/", tags=["health"])
 async def root_endpoint(request: Request) -> JSONResponse:
     """Root endpoint (version 1)."""
+    request_id = getattr(request.state, "request_id", "unknown")
     return JSONResponse(
         {
             "message": "Election Intelligence Platform API",
             "version": settings.VERSION,
             "status": "operational",
+            "request_id": request_id,
         }
     )
 
@@ -31,7 +33,7 @@ async def health_endpoint(
     request: Request,
     db: AsyncSession = Depends(get_db_session),
 ) -> JSONResponse:
-    """Health check endpoint with database connectivity test."""
+    """Health check endpoint with database connectivity status and request tracking ID."""
     logger.info("Health check requested")
     db_status = "disconnected"
     try:
@@ -43,10 +45,13 @@ async def health_endpoint(
         db_status = "disconnected"
 
     status = "healthy" if db_status == "connected" else "degraded"
+    request_id = getattr(request.state, "request_id", "unknown")
+
     return JSONResponse(
         {
             "status": status,
             "database": db_status,
+            "request_id": request_id,
         }
     )
 
@@ -55,9 +60,11 @@ async def health_endpoint(
 async def version_endpoint(request: Request) -> JSONResponse:
     """Version information endpoint."""
     logger.info("Version requested")
+    request_id = getattr(request.state, "request_id", "unknown")
     return JSONResponse(
         {
             "version": settings.VERSION,
             "api_version": "v1",
+            "request_id": request_id,
         }
     )

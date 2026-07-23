@@ -31,6 +31,24 @@ class Settings(BaseSettings):
     DB_POOL_RECYCLE: int = 1800
     DB_POOL_PRE_PING: bool = True
 
+    # Security Settings
+    ALLOWED_ORIGINS: list[str] = [
+        "http://localhost:3000",
+        "http://localhost:8000",
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:8000",
+    ]
+    ALLOWED_HOSTS: list[str] = ["localhost", "127.0.0.1", "testserver", "*"]
+    SECURE_COOKIES: bool = False
+    TRUSTED_PROXY_COUNT: int = 1
+    MAX_REQUEST_SIZE: int = 10 * 1024 * 1024  # 10 MB limit
+    REQUEST_TIMEOUT: float = 30.0  # 30 seconds limit
+    ENABLE_HSTS: bool = False
+    HSTS_MAX_AGE: int = 31536000  # 1 year in seconds
+    CONTENT_SECURITY_POLICY: str = (
+        "default-src 'self'; frame-ancestors 'none'; object-src 'none';"
+    )
+
     @property
     def sync_database_url(self) -> str:
         """Return synchronous database URL for Alembic migrations."""
