@@ -1,64 +1,193 @@
 # Product Vision & Strategy
 
-## 1. Vision Statement
+## 1. Mission Statement
 
-To be the most trusted, comprehensive, and accessible digital infrastructure for Indian democracy, empowering citizens, researchers, and developers with incontrovertible election data and intelligent insights.
+"Election Intelligence Platform is an independent, politically neutral, AI-powered public research platform that helps Indian citizens make informed voting decisions by organizing, verifying, and explaining publicly available election information with complete transparency, evidence, and source attribution—without recommending or endorsing any candidate or political party."
 
-## 2. Mission Statement
+Build the most trusted, transparent, AI-powered Election Intelligence Platform for Indian citizens.
+The platform should help citizens understand elections through verified public information, AI-assisted analysis, and transparent evidence—not political opinions or recommendations.
+The goal is to educate and inform voters, not to influence their vote.
 
-The Election Intelligence Platform ingests, normalizes, and serves high-quality data on Indian elections, candidates, parties, and constituencies. By providing robust APIs and AI-powered analytical tools, we democratize access to complex political data for analysts, journalists, and civic developers.
+## 2. Core Philosophy
+
+The platform should answer questions like:
+* Who is this candidate?
+* What has this candidate done?
+* What is their election history?
+* What is their educational background?
+* What assets and liabilities have they declared?
+* What criminal cases (if any) have they officially declared?
+* What promises have they made?
+* What public records are available?
+* What verified news exists about them?
+* What does AI summarize from verified evidence?
+
+It should never answer:
+"You should vote for Candidate X."
+Instead it should present evidence and let the citizen decide.
 
 ## 3. Target Users
 
-- **Primary**: Election data analysts, political researchers, and data journalists who require verified historical and real-time data.
-- **Secondary**: Election Commission officials monitoring trends, political parties analyzing performance, and academic researchers studying democratic processes.
-- **Tertiary**: Software developers and civic tech organizations building downstream election applications utilizing our API.
+**Primary Users**
+* Indian citizens
+* First-time voters
+* Students
+* Researchers
+* Journalists
+* Political analysts
+* NGOs
+* Civil society organizations
 
-## 4. Core Value Propositions
+**Not primarily:**
+* Government administration software
+* Election Commission internal software
+* Political campaign software
 
-- **Authoritative Election Data**: All data is rigorously verified, sourced directly from official records, and includes complete lineage tracking.
-- **AI-Powered Natural Language Queries**: Users can ask complex questions in plain English (e.g., "Which constituencies had the highest NOTA vote share in 2019?") and receive accurate, data-backed answers via RAG.
-- **Real-Time Election Night Streaming**: Low-latency data streams for live result tracking.
-- **Developer-Friendly API Platform**: Clean, well-documented REST APIs (FastAPI) and modern SDKs for seamless integration.
+## 4. Main Product
 
-## 5. Market Context
+Think of it as combining the strengths of:
+* Google Search (search)
+* Wikipedia (neutral information)
+* Perplexity AI (AI answers with sources)
+* ECI public records
+* Data visualization
+* AI research assistant
+But focused entirely on Indian elections.
 
-India is the world's largest democracy. Managing elections involves a staggering scale: nearly a billion voters, thousands of candidates, and a highly complex multi-tiered system. Currently, election data is fragmented, often trapped in PDFs, and difficult to analyze across decades. There is a critical public interest in transparency, candidate accountability, and historical context that this platform directly addresses.
+## 5. Core Features
 
-## 6. Strategic Pillars
+### Candidate Intelligence
+Every candidate should have a profile including:
+* Name
+* Photo
+* Party
+* Constituency
+* Education
+* Profession
+* Assets
+* Liabilities
+* Criminal declarations
+* Election history
+* Affidavits
+* Public offices held
+* Performance
+* News timeline
+* AI summary
+* Source links
 
-- **Data Quality**: Precision and lineage are paramount. We do not guess; we verify.
-- **AI Intelligence**: Leveraging modern LLMs strictly grounded in our database (RAG) to make querying accessible without SQL knowledge.
-- **Developer Platform**: Building tools that enable others to build tools. Open APIs accelerate civic innovation.
-- **Transparency**: Clear sourcing for every data point. Open data by default where legally permissible.
-- **Scalability**: Architecture designed to handle massive traffic spikes unique to election result days.
+### Constituency Intelligence
+Each constituency should show
+* Demographics
+* Population
+* Literacy
+* Previous winners
+* Vote margins
+* Candidate history
+* Development indicators
+* Public statistics
 
-## 7. Success Metrics
+### Political Party Intelligence
+For every party:
+* History
+* Leadership
+* Manifestos
+* Vote share
+* Seat history
+* Alliances
+* Timeline
 
-- **Data Coverage**: Number of general, state, and local elections ingested; completeness of candidate and party profiles.
-- **Query Accuracy**: Precision and recall metrics for AI/RAG-generated answers.
-- **API Adoption**: Number of active developer registrations and daily API calls.
-- **Reliability**: 99.99% uptime, especially during peak load on counting days.
+### Election Intelligence
+Users can explore
+* Lok Sabha
+* Vidhan Sabha
+* Municipal elections
+* Panchayat elections
+* By-elections
 
-## 8. Product Principles
+with
+* Results
+* Trends
+* Maps
+* Timelines
 
-- **Data accuracy over new features**: We will delay a release rather than ship incorrect election data.
-- **Open data by default**: Non-sensitive aggregate data is public.
-- **Privacy by design**: Strict protection of individual voter data; we only aggregate up to the polling booth level.
-- **Never suppress**: We provide objective data and will not censor legitimate political information.
+### Candidate Comparison
+Users select multiple candidates. Compare:
+* Education
+* Assets
+* Liabilities
+* Criminal declarations
+* Election performance
+* Public records
 
-## 9. What We Will NOT Build
+No ranking. No recommendation. Only facts.
 
-- Propaganda or campaigning tools for political parties.
-- Voter targeting or profiling systems.
-- Any features or data endpoints that could enable voter suppression or compromise voter anonymity.
+### AI Election Assistant
+Users ask: "Tell me about this candidate."
+The AI responds using verified information.
+Every response includes:
+* Sources
+* Confidence
+* Verification status
 
-## 10. Version Roadmap Narrative (v1.0 → v2.0)
+### Verification System
+Everything shown must have a status. Examples:
+* ✅ Official Source
+* ✅ Verified Public Record
+* 🟦 AI Summary
+* 🟨 Sample Data
+* ⚪ Data Not Available
+* ⚠ Unverified Information
 
-- **v1.0 (Current)**: Establishes the foundational architecture. Delivers the core API, historical data ingestion for the past two General Elections, and basic RAG capabilities. Focuses on data integrity and platform stability.
-- **v1.5**: Expands coverage to all State Assembly elections over the last 15 years. Introduces real-time WebSocket streams for live counting days.
-- **v2.0**: Introduces advanced predictive modeling, comprehensive local body election data, and full multi-lingual support (Hindi, regional languages) for AI queries and UI components.
+Users should immediately know what information is verified and what is AI-generated.
 
-## 11. How Product Decisions Are Made
+### Search
+Users should search:
+* Candidate
+* Party
+* Constituency
+* Election
+* Issue
+* News
+* Documents
+using natural language.
 
-Decisions are governed by a Product Council (comprising the Principal Architect, Data Engineer, and domain experts). Prioritization is strictly data-driven based on API usage metrics, data completeness audits, and active community input from researchers and journalists.
+## 6. Neutrality & Transparency
+
+**Neutrality**
+The platform must never:
+* support a political party
+* oppose a political party
+* rank candidates by opinion
+* tell citizens who to vote for
+
+Instead:
+Facts → Evidence → Sources → AI Summary → Citizen decides.
+
+**Transparency**
+Every answer should explain:
+* Where the information came from.
+* When it was updated.
+* Whether it is official.
+* Whether AI generated part of it.
+* Confidence level.
+
+**AI Philosophy**
+AI is an assistant. It should summarize, compare, explain, and answer questions. It should never invent facts. Every answer should cite evidence.
+
+## 7. Technology
+
+**Multi-platform:** Web, Android, iOS (Frontend: Flutter)
+**Backend:** FastAPI
+**Database:** PostgreSQL
+**Cache:** Redis
+**AI:** Multiple providers
+
+## 8. Long-Term Vision
+
+Become the default election research platform in India for ordinary citizens—similar to how people use Google or Wikipedia for general information, but specialized for elections.
+The platform should become a trusted source for:
+* researching candidates,
+* understanding constituencies,
+* comparing public records,
+* exploring election history,
+* and asking AI questions grounded in verifiable evidence.
