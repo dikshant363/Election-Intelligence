@@ -1,11 +1,11 @@
 """Health check endpoints for Election Intelligence Platform."""
 
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import JSONResponse
+import os
 import time
 from datetime import datetime
+
 import psutil
-import os
+from fastapi.responses import JSONResponse
 
 
 async def health_check(request = None):
@@ -38,7 +38,7 @@ async def health_check(request = None):
         try:
             from app.core.config import get_db_session
             db_session = get_db_session()
-            result = db_session.execute("SELECT 1")
+            db_session.execute("SELECT 1")
             health_info["database"] = {
                 "status": "connected",
                 "latency_ms": time.time() * 1000
