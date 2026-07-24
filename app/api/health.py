@@ -1,11 +1,15 @@
 """Health check endpoints for Election Intelligence Platform."""
 
-from fastapi import FastAPI, HTTPException
-from fastapi.responses import JSONResponse
+import os
 import time
 from datetime import datetime
+from pathlib import Path
+
 import psutil
-import os
+from fastapi.responses import JSONResponse
+
+from app.core.cache import cache_client
+from app.core.config import get_db_session
 
 
 async def health_check(request = None):
@@ -36,9 +40,8 @@ async def health_check(request = None):
 
         # Database connectivity check
         try:
-            from app.core.config import get_db_session
             db_session = get_db_session()
-            result = db_session.execute("SELECT 1")
+            db_session.execute("SELECT 1")
             health_info["database"] = {
                 "status": "connected",
                 "latency_ms": time.time() * 1000
@@ -52,7 +55,6 @@ async def health_check(request = None):
 
         # Cache service check
         try:
-            from app.core.cache import cache_client
             test_key = "health_check_test"
             test_value = {"timestamp": datetime.now().isoformat()}
             await cache_client.setex(test_key, 60, test_value)
@@ -72,9 +74,9 @@ async def health_check(request = None):
         # File system access check
         try:
             test_file = "/tmp/health_check_test.txt"
-            with open(test_file, "w") as f:
+            with Path(test_file).open("w") as f:
                 f.write("health check")
-            os.remove(test_file)
+            Path(test_file).unlink()
             health_info["filesystem"] = {"status": "accessible"}
         except Exception as e:
             health_info["filesystem"] = {"status": "error", "error": str(e)}
