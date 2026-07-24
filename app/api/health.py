@@ -1,6 +1,5 @@
 """Health check endpoints for Election Intelligence Platform."""
 
-from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
 import time
 from datetime import datetime
