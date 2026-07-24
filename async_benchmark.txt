@@ -1,0 +1,6 @@
+Running benchmark with 10 concurrent chaos experiments...
+Running benchmark with 100 concurrent chaos experiments (0.01s latency each)...
+Using async run_chaos_experiment
+Total execution time: 0.0126 seconds
+Average time per request: 0.0001 seconds
+Event Loop Lag - Max: 0.0014s, Avg: 0.0003s

@@ -168,11 +168,12 @@ class TestResilienceAndChaos:
         res = policy.execute(lambda: "ok")
         assert res == "ok"
 
-    def test_fault_injector_and_chaos_runner(self) -> None:
+    @pytest.mark.asyncio
+    async def test_fault_injector_and_chaos_runner(self) -> None:
         injector = FaultInjector(failure_rate=0.0, latency_delay_sec=0.0)
-        injector.maybe_inject_fault("test_service")
+        await injector.maybe_inject_fault("test_service")
 
-        res = ChaosRunner.run_chaos_experiment("db_latency_experiment")
+        res = await ChaosRunner.run_chaos_experiment("db_latency_experiment")
         assert res["status"] == "passed"
 
 

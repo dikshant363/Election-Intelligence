@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+import asyncio
 import random
-import time
 from typing import Any
 
 
@@ -14,10 +14,10 @@ class FaultInjector:
         self.failure_rate = failure_rate
         self.latency_delay_sec = latency_delay_sec
 
-    def maybe_inject_fault(self, target_name: str) -> None:
+    async def maybe_inject_fault(self, target_name: str) -> None:
         """Inject fault if randomized failure rate threshold is exceeded."""
         if self.latency_delay_sec > 0:
-            time.sleep(self.latency_delay_sec)
+            await asyncio.sleep(self.latency_delay_sec)
 
         if self.failure_rate > 0 and random.random() < self.failure_rate:
             raise RuntimeError(f"Chaos injected failure for '{target_name}'")
@@ -27,9 +27,9 @@ class ChaosRunner:
     """Runs chaos experiments simulating database latency, AI provider outages, or search failures."""
 
     @staticmethod
-    def run_chaos_experiment(experiment_name: str) -> dict[str, Any]:
+    async def run_chaos_experiment(experiment_name: str) -> dict[str, Any]:
         injector = FaultInjector(failure_rate=0.0, latency_delay_sec=0.01)
-        injector.maybe_inject_fault(experiment_name)
+        await injector.maybe_inject_fault(experiment_name)
         return {
             "experiment": experiment_name,
             "status": "passed",
