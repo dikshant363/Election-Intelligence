@@ -50,7 +50,8 @@ class ControlCenterShellScreen extends ConsumerWidget {
                     color: theme.colorScheme.surface,
                     border: Border(
                       bottom: BorderSide(
-                        color: theme.colorScheme.outlineVariant.withValues(alpha: 0.5),
+                        color: theme.colorScheme.outlineVariant
+                            .withValues(alpha: 0.5),
                         width: 1,
                       ),
                     ),
@@ -69,58 +70,64 @@ class ControlCenterShellScreen extends ConsumerWidget {
                         const SizedBox(width: 24),
 
                         // Command Palette Trigger (Cmd/Ctrl + K)
-                        InkWell(
-                          onTap: () {
-                            showDialog<String>(
-                              context: context,
-                              builder: (context) => const CommandPaletteDialog(),
-                            );
-                          },
-                          borderRadius: BorderRadius.circular(10),
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: theme.colorScheme.outlineVariant,
+                        Tooltip(
+                          message: 'Open Command Palette',
+                          child: InkWell(
+                            onTap: () {
+                              showDialog<String>(
+                                context: context,
+                                builder: (context) =>
+                                    const CommandPaletteDialog(),
+                              );
+                            },
+                            borderRadius: BorderRadius.circular(10),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 12,
+                                vertical: 6,
                               ),
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.search,
-                                  size: 16,
-                                  color: theme.colorScheme.onSurfaceVariant,
+                              decoration: BoxDecoration(
+                                color: theme.colorScheme.surfaceContainerHighest
+                                    .withValues(alpha: 0.5),
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(
+                                  color: theme.colorScheme.outlineVariant,
                                 ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  'Quick Search & Commands...',
-                                  style: theme.textTheme.bodySmall?.copyWith(
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.search,
+                                    size: 16,
                                     color: theme.colorScheme.onSurfaceVariant,
                                   ),
-                                ),
-                                const SizedBox(width: 12),
-                                Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 6,
-                                    vertical: 2,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: theme.colorScheme.surface,
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Text(
-                                    '⌘ K',
-                                    style: theme.textTheme.labelSmall?.copyWith(
-                                      fontWeight: FontWeight.bold,
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    'Quick Search & Commands...',
+                                    style: theme.textTheme.bodySmall?.copyWith(
+                                      color: theme.colorScheme.onSurfaceVariant,
                                     ),
                                   ),
-                                ),
-                              ],
+                                  const SizedBox(width: 12),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 6,
+                                      vertical: 2,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: theme.colorScheme.surface,
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Text(
+                                      '⌘ K',
+                                      style:
+                                          theme.textTheme.labelSmall?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -155,6 +162,7 @@ class ControlCenterShellScreen extends ConsumerWidget {
 
                         // Notifications Icon
                         IconButton(
+                          tooltip: 'Notifications',
                           icon: const Badge(
                             label: Text('3'),
                             child: Icon(Icons.notifications_outlined),
