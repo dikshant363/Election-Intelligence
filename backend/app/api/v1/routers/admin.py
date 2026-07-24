@@ -6,10 +6,15 @@ Operations Console, Executive Command Center, and Security Governance.
 
 from typing import Any
 
-from fastapi import APIRouter, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel, Field
 
-router = APIRouter(prefix="/admin", tags=["Enterprise Control Center"])
+from app.identity.dependencies import require_role
+from app.identity.services.rbac_service import RoleHierarchy
+
+router = APIRouter(prefix="/admin", tags=["Enterprise Control Center"], dependencies=[
+    Depends(require_role(RoleHierarchy.PLATFORM_ADMIN))
+])
 
 # ── Feature Flags In-Memory State ───────────────────────────────────────────
 _FEATURE_FLAGS: dict[str, dict[str, Any]] = {
