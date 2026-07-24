@@ -1,10 +1,10 @@
 """Election Intelligence Platform - FastAPI Application Entry Point."""
 
 import logging
-from fastapi import FastAPI, HTTPException
+
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic_settings import BaseSettings
-from typing import Optional
 
 # Configure logging
 logging.basicConfig(
