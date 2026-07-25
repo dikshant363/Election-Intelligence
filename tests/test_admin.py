@@ -1,17 +1,28 @@
 """Unit and integration tests for the Enterprise Control Center admin router."""
 
-import pytest
 from fastapi import status
 from fastapi.testclient import TestClient
 
+from app.identity.services.jwt_service import JwtService
+from app.identity.services.rbac_service import RoleHierarchy
 from app.main import app
+
+
+def get_auth_headers():
+    token = JwtService.create_access_token(
+        subject="test_admin",
+        roles=[RoleHierarchy.PLATFORM_ADMIN],
+        permissions=[]
+    )
+    return {"Authorization": f"Bearer {token}"}
+
 
 client = TestClient(app)
 
 
 def test_get_admin_overview():
     """Test retrieving consolidated Enterprise Control Center overview telemetry."""
-    response = client.get("/api/v1/admin/overview")
+    response = client.get("/api/v1/admin/overview", headers=get_auth_headers())
     assert response.status_code == status.HTTP_200_OK
     data = response.json()
     assert data["platform_name"] == "Election Intelligence Platform"
@@ -23,7 +34,7 @@ def test_get_admin_overview():
 
 def test_get_feature_flags():
     """Test listing platform feature flags."""
-    response = client.get("/api/v1/admin/feature-flags")
+    response = client.get("/api/v1/admin/feature-flags", headers=get_auth_headers())
     assert response.status_code == status.HTTP_200_OK
     data = response.json()
     assert isinstance(data, list)
@@ -39,6 +50,7 @@ def test_toggle_feature_flag():
     response = client.post(
         "/api/v1/admin/feature-flags/enable_chaos_testing/toggle",
         json={"enabled": True},
+        headers=get_auth_headers(),
     )
     assert response.status_code == status.HTTP_200_OK
     data = response.json()
@@ -49,6 +61,7 @@ def test_toggle_feature_flag():
     client.post(
         "/api/v1/admin/feature-flags/enable_chaos_testing/toggle",
         json={"enabled": False},
+        headers=get_auth_headers(),
     )
 
 
@@ -57,13 +70,14 @@ def test_toggle_nonexistent_feature_flag():
     response = client.post(
         "/api/v1/admin/feature-flags/non_existent_flag/toggle",
         json={"enabled": True},
+        headers=get_auth_headers(),
     )
     assert response.status_code == status.HTTP_404_NOT_FOUND
 
 
 def test_list_admin_users():
     """Test listing administrative user accounts and roles."""
-    response = client.get("/api/v1/admin/security/users")
+    response = client.get("/api/v1/admin/security/users", headers=get_auth_headers())
     assert response.status_code == status.HTTP_200_OK
     data = response.json()
     assert isinstance(data, list)
@@ -75,7 +89,7 @@ def test_list_admin_users():
 
 def test_get_audit_logs():
     """Test querying security audit log entries."""
-    response = client.get("/api/v1/admin/security/audit-logs?limit=2")
+    response = client.get("/api/v1/admin/security/audit-logs?limit=2", headers=get_auth_headers())
     assert response.status_code == status.HTTP_200_OK
     data = response.json()
     assert isinstance(data, list)
@@ -86,7 +100,7 @@ def test_get_audit_logs():
 
 def test_get_ai_status():
     """Test retrieving AI control center status."""
-    response = client.get("/api/v1/admin/ai/status")
+    response = client.get("/api/v1/admin/ai/status", headers=get_auth_headers())
     assert response.status_code == status.HTTP_200_OK
     data = response.json()
     assert data["active_provider"] == "openai"
@@ -96,7 +110,7 @@ def test_get_ai_status():
 
 def test_ops_flush_cache():
     """Test triggering manual cache eviction."""
-    response = client.post("/api/v1/admin/ops/flush-cache")
+    response = client.post("/api/v1/admin/ops/flush-cache", headers=get_auth_headers())
     assert response.status_code == status.HTTP_200_OK
     data = response.json()
     assert data["status"] == "SUCCESS"
@@ -104,7 +118,7 @@ def test_ops_flush_cache():
 
 def test_ops_trigger_reindex():
     """Test triggering search reindexing."""
-    response = client.post("/api/v1/admin/ops/reindex")
+    response = client.post("/api/v1/admin/ops/reindex", headers=get_auth_headers())
     assert response.status_code == status.HTTP_200_OK
     data = response.json()
     assert data["status"] == "SUCCESS"
@@ -112,7 +126,7 @@ def test_ops_trigger_reindex():
 
 def test_get_executive_kpis():
     """Test retrieving Executive Command Center strategic KPIs."""
-    response = client.get("/api/v1/admin/executive/kpis")
+    response = client.get("/api/v1/admin/executive/kpis", headers=get_auth_headers())
     assert response.status_code == status.HTTP_200_OK
     data = response.json()
     assert data["total_elections_managed"] == 24
