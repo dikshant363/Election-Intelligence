@@ -8,6 +8,7 @@ import uuid
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
+from app.config.settings import settings
 from app.identity.exceptions import (
     AuthenticationError,
     InvalidTokenError,
@@ -20,7 +21,7 @@ JWT_PARTS_COUNT = 3
 class JwtService:
     """Service providing JWT encoding, decoding, signing, and claim verification."""
 
-    SECRET_KEY = "election-intelligence-secret-key-change-in-prod"
+    SECRET_KEY = settings.JWT_SECRET_KEY
     ISSUER = "election-intelligence-platform"
     AUDIENCE = "election-intelligence-api"
     CLOCK_SKEW_TOLERANCE_SECONDS = 60

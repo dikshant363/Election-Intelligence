@@ -1,0 +1,4 @@
+## 2026-07-27 - [Sentinel] Move Hardcoded JWT Secret to Config
+**Vulnerability:** A hardcoded `SECRET_KEY` was found in `backend/app/identity/services/jwt_service.py` for signing JWT tokens.
+**Learning:** Hardcoded secrets in code pose a critical security risk because anyone with access to the source code can read the secret. This would allow an attacker to sign arbitrary JWTs, effectively bypassing the authentication and authorization (RBAC) systems, and perform actions as any user. The secret should be moved out of the code and read dynamically from the environment.
+**Prevention:** Always read security-critical values like secrets and API keys from environment variables or a configuration manager. Ensure configuration mechanisms like `pydantic-settings` are used, and do not hardcode secrets within service modules or class definitions.
