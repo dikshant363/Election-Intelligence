@@ -44,6 +44,7 @@ class Settings(BaseSettings):
     MAX_REQUEST_SIZE: int = 10 * 1024 * 1024  # 10 MB limit
     REQUEST_TIMEOUT: float = 30.0  # 30 seconds limit
     ENABLE_HSTS: bool = False
+    JWT_SECRET_KEY: str = "election-intelligence-secret-key-change-in-prod"
     HSTS_MAX_AGE: int = 31536000  # 1 year in seconds
     CONTENT_SECURITY_POLICY: str = (
         "default-src 'self'; frame-ancestors 'none'; object-src 'none';"

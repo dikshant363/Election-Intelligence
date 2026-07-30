@@ -8,6 +8,7 @@ import uuid
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
+from app.config import settings
 from app.identity.exceptions import (
     AuthenticationError,
     InvalidTokenError,
@@ -20,7 +21,6 @@ JWT_PARTS_COUNT = 3
 class JwtService:
     """Service providing JWT encoding, decoding, signing, and claim verification."""
 
-    SECRET_KEY = "election-intelligence-secret-key-change-in-prod"
     ISSUER = "election-intelligence-platform"
     AUDIENCE = "election-intelligence-api"
     CLOCK_SKEW_TOLERANCE_SECONDS = 60
@@ -90,7 +90,7 @@ class JwtService:
 
         signing_input = f"{encoded_header}.{encoded_payload}".encode("ascii")
         signature = hmac.new(
-            cls.SECRET_KEY.encode("utf-8"), signing_input, hashlib.sha256
+            settings.JWT_SECRET_KEY.encode("utf-8"), signing_input, hashlib.sha256
         ).digest()
         encoded_signature = cls._base64url_encode(signature)
 
@@ -109,7 +109,7 @@ class JwtService:
             # Verify signature
             signing_input = f"{encoded_header}.{encoded_payload}".encode("ascii")
             expected_signature = hmac.new(
-                cls.SECRET_KEY.encode("utf-8"), signing_input, hashlib.sha256
+                settings.JWT_SECRET_KEY.encode("utf-8"), signing_input, hashlib.sha256
             ).digest()
             candidate_signature = cls._base64url_decode(encoded_signature)
 
