@@ -11,6 +11,8 @@ from httpx import ASGITransport, AsyncClient
 # Ensure backend root is on sys.path for app imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "backend")))
 
+os.environ["JWT_SECRET_KEY"] = "test-secret-key-for-pytest"
+
 from app.main import app  # noqa: E402
 
 
