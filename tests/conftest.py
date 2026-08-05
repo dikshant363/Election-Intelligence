@@ -8,6 +8,9 @@ import pytest
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
 
+# Set environment variables for tests before importing the application
+os.environ["JWT_SECRET_KEY"] = "test-secret-key"
+
 # Ensure backend root is on sys.path for app imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "backend")))
 
