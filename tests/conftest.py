@@ -11,6 +11,9 @@ from httpx import ASGITransport, AsyncClient
 # Ensure backend root is on sys.path for app imports
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "backend")))
 
+# Setup test environment variables before any application code is imported
+os.environ["JWT_SECRET_KEY"] = "test-secret-key-do-not-use-in-prod"
+
 from app.main import app  # noqa: E402
 
 
