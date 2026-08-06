@@ -8,6 +8,7 @@ import uuid
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
+from app.config.settings import settings
 from app.identity.exceptions import (
     AuthenticationError,
     InvalidTokenError,
@@ -20,9 +21,6 @@ JWT_PARTS_COUNT = 3
 class JwtService:
     """Service providing JWT encoding, decoding, signing, and claim verification."""
 
-    SECRET_KEY = "election-intelligence-secret-key-change-in-prod"
-    ISSUER = "election-intelligence-platform"
-    AUDIENCE = "election-intelligence-api"
     CLOCK_SKEW_TOLERANCE_SECONDS = 60
 
     @classmethod
@@ -49,8 +47,8 @@ class JwtService:
             "roles": roles,
             "permissions": permissions,
             "type": "access",
-            "iss": cls.ISSUER,
-            "aud": cls.AUDIENCE,
+            "iss": settings.JWT_ISSUER,
+            "aud": settings.JWT_AUDIENCE,
             "iat": int(now.timestamp()),
             "exp": int((now + expires_delta).timestamp()),
             "jti": str(uuid.uuid4()),
@@ -69,8 +67,8 @@ class JwtService:
         payload = {
             "sub": subject,
             "type": "refresh",
-            "iss": cls.ISSUER,
-            "aud": cls.AUDIENCE,
+            "iss": settings.JWT_ISSUER,
+            "aud": settings.JWT_AUDIENCE,
             "iat": int(now.timestamp()),
             "exp": int(expires_at.timestamp()),
             "jti": str(uuid.uuid4()),
@@ -90,7 +88,7 @@ class JwtService:
 
         signing_input = f"{encoded_header}.{encoded_payload}".encode("ascii")
         signature = hmac.new(
-            cls.SECRET_KEY.encode("utf-8"), signing_input, hashlib.sha256
+            settings.JWT_SECRET_KEY.encode("utf-8"), signing_input, hashlib.sha256
         ).digest()
         encoded_signature = cls._base64url_encode(signature)
 
@@ -109,7 +107,7 @@ class JwtService:
             # Verify signature
             signing_input = f"{encoded_header}.{encoded_payload}".encode("ascii")
             expected_signature = hmac.new(
-                cls.SECRET_KEY.encode("utf-8"), signing_input, hashlib.sha256
+                settings.JWT_SECRET_KEY.encode("utf-8"), signing_input, hashlib.sha256
             ).digest()
             candidate_signature = cls._base64url_decode(encoded_signature)
 
@@ -125,10 +123,10 @@ class JwtService:
             if now > exp + cls.CLOCK_SKEW_TOLERANCE_SECONDS:
                 raise TokenExpiredError()
 
-            if payload.get("iss") != cls.ISSUER:
+            if payload.get("iss") != settings.JWT_ISSUER:
                 raise InvalidTokenError(f"Invalid token issuer: {payload.get('iss')}")
 
-            if payload.get("aud") != cls.AUDIENCE:
+            if payload.get("aud") != settings.JWT_AUDIENCE:
                 raise InvalidTokenError(f"Invalid token audience: {payload.get('aud')}")
 
             return payload

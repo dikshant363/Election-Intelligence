@@ -1,0 +1,4 @@
+## 2026-08-06 - [Fix Hardcoded JWT Secret Key]
+**Vulnerability:** A hardcoded secret string (`election-intelligence-secret-key-change-in-prod`) was directly embedded within `JwtService` (`backend/app/identity/services/jwt_service.py`), allowing unauthorized actors to forge valid JWTs if source code was leaked.
+**Learning:** Hardcoded credentials are a frequent vulnerability when setting up standard security utilities like JWT services. This setup bypassed dynamic configuration from `pydantic-settings`.
+**Prevention:** Always manage secrets via robust configuration libraries like `pydantic-settings` without defining default string values for keys (`JWT_SECRET_KEY: str`), which ensures missing secrets securely fail applications on startup.

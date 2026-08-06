@@ -32,6 +32,10 @@ class Settings(BaseSettings):
     DB_POOL_PRE_PING: bool = True
 
     # Security Settings
+    JWT_SECRET_KEY: str
+    JWT_ISSUER: str = "election-intelligence-platform"
+    JWT_AUDIENCE: str = "election-intelligence-api"
+
     ALLOWED_ORIGINS: list[str] = [
         "http://localhost:3000",
         "http://localhost:8000",
