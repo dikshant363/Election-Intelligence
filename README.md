@@ -1,126 +1,76 @@
 # Election Intelligence Platform v1.0.0
 
-[![CI/CD Pipeline](https://github.com/CivicLens-India/Election-Intelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/CivicLens-India/Election-Intelligence/actions/workflows/ci.yml)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/CivicLens-India/Election-Intelligence)
-[![Python](https://img.shields.io/badge/python-3.12-blue.svg)](https://python.org)
-[![Flutter](https://img.shields.io/badge/flutter-3.x-blue.svg)](https://flutter.dev)
+[![Framework](https://img.shields.io/badge/framework-Next.js%2015-black.svg)](https://nextjs.org)
+[![Runtime](https://img.shields.io/badge/node-22.x-green.svg)](https://nodejs.org)
+[![TypeScript](https://img.shields.io/badge/typescript-5.7-blue.svg)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/tailwind-4.0-38bdf8.svg)](https://tailwindcss.com)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-*Election Intelligence Platform is an independent, politically neutral, AI-powered public research platform that helps Indian citizens make informed voting decisions by organizing, verifying, and explaining publicly available election information with complete transparency, evidence, and source attribution—without recommending or endorsing any candidate or political party.*
+*Election Intelligence Platform is an independent, politically neutral, AI-powered public research platform that helps Indian citizens and election administrators make informed decisions by organizing, verifying, and explaining publicly available election information with complete transparency, evidence, and source attribution—without recommending or endorsing any candidate or political party.*
 
-An enterprise-grade, production-ready Election Intelligence Platform providing multi-tier election data ingestion, full-text search, spatial queries, hybrid AI retrieval (RAG), real-time event streaming, observability, distributed caching, security controls, and a cross-platform Flutter mobile application.
+This application was rewritten from Dynamic (Python FastAPI backend & Flutter frontend) to a full-stack **Next.js 15 App Router** architecture, preserving all domain schemas, operational interfaces, administrative control workflows, search capabilities, and grounded AI retrieval.
 
 ---
 
-## Quick Start
+## Key Features & Interfaces
+
+### 1. Enterprise Control Center
+- **System Health Telemetry**: Live CPU utilization, memory distribution, PostgreSQL connection pool metrics, and Redis cache latency.
+- **Dynamic Feature Flags**: Interactive toggles for RAG pipelines, WebSocket streaming, async background workers, chaos hooks, and MFA enforcement.
+- **AI Subsystem Control & Routing**: Multi-provider routing (Gemini 2.5 Flash, local vector fallback), strict citation attribution, and pre/post-generation safety guardrails.
+- **Security & Audit Logs**: Immutable audit event stream with CSV export and role-based access control (RBAC).
+
+### 2. Executive Command Center
+- **Strategic KPIs**: Real-time tracking of managed elections, 968.8M registered electors, national voter turnout percentages, and 99.98% platform SLA.
+- **Regional Performance Aggregation**: Detailed turnout analysis across Northern, Southern, Eastern, Western, and Central electoral zones.
+
+### 3. Operations Console
+- **Election Lifecycle Management**: Schedule new general and assembly elections via CQRS pipeline.
+- **Candidate Registry & Form 26**: Candidate nomination filing, asset declarations, and judicial background tracking.
+- **Results Declaration**: EVM and postal ballot tallying with automatic margin calculation.
+- **ETL Data Ingestion**: Provenance-tracked batch import of CSV and JSON election records.
+
+### 4. Public Portal & Search
+- **Search Abstraction Layer (SAL)**: Instant multi-field search across elections, constituencies, candidates, and political parties.
+- **Candidate Form 26 Transparency**: Filter candidates by political party and parliamentary constituency with verified asset and criminal record badges.
+
+### 5. AI Intelligence Assistant & RAG Engine
+- Grounded conversational Q&A referencing official Election Commission records and Form 26 affidavits.
+- Full source citation attribution with confidence scores and explainability reasoning.
+- Command Palette (`⌘ K` / `Ctrl + K`) for instant navigation and operations across all platform modules.
+
+---
+
+## API Endpoints
+
+All endpoints are implemented as Next.js API route handlers under `/api/v1/*`:
+
+- `GET /api/v1/health` - Platform readiness and dependency telemetry
+- `GET /api/v1/version` - System version and runtime information
+- `GET, POST /api/v1/elections` - List and schedule elections
+- `GET, POST /api/v1/candidates` - Query and register candidates
+- `GET /api/v1/constituencies` - Electoral constituencies directory
+- `GET /api/v1/parties` - Political party symbols and statistics
+- `GET, POST /api/v1/results` - Fetch and declare constituency election results
+- `GET, PATCH /api/v1/admin/feature-flags` - Inspect and toggle runtime feature flags
+- `GET /api/v1/admin/audit-logs` - Query administrative audit logs
+- `GET /api/v1/search` - Multi-field search across all electoral entities
+- `POST /api/v1/ai/query` - Grounded RAG query answering with citations
+- `POST /api/v1/ai/chat` - Multi-turn conversational AI intelligence
+- `GET /api/v1/ai/metrics` - AI grounding scores and citation coverage metrics
+- `GET, POST /api/v1/etl` - Ingestion batch tracking and file import
+
+---
+
+## Development
 
 ```bash
-# 1. Clone and set up
-git clone https://github.com/CivicLens-India/Election-Intelligence.git
-cd Election-Intelligence
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+# Install dependencies
+npm install
 
-# 2. Configure environment
-cp .env.example .env   # edit DATABASE_URL and other required vars
+# Start development server on port 3000
+npm run dev
 
-# 3. Run database migrations
-PYTHONPATH=backend .venv/bin/alembic upgrade head
-
-# 4. Start the API server
-PYTHONPATH=backend .venv/bin/uvicorn app.main:app --reload --port 8000
-
-# 5. API docs
-open http://localhost:8000/api/v1/docs
+# Compile and build production bundle
+npm run build
 ```
-
-**Or with Docker:**
-```bash
-docker compose up -d --build
-```
-
-**Flutter mobile app:**
-```bash
-cd frontend && flutter pub get && flutter run
-```
-
----
-
-## Quality Status
-
-| Gate | Command | Status |
-| :--- | :--- | :--- |
-| Backend lint | `ruff check backend` | ✅ 0 errors |
-| Python compile | `python -m compileall backend` | ✅ 0 errors |
-| Backend tests | `pytest` | ✅ 287 / 287 passed |
-| Flutter analysis | `flutter analyze` | ✅ 0 issues |
-| Flutter tests | `flutter test` | ✅ 6 / 6 passed |
-
----
-
-## Documentation
-
-All documentation lives in **[`docs/`](docs/INDEX.md)** — organized into 13 categories.
-
-**→ [Browse the Documentation Index](docs/INDEX.md)**
-
-Key starting points:
-
-| I want to… | Document |
-| :--- | :--- |
-| Understand the full system | [System Operation Guide](docs/architecture/SYSTEM_OPERATION_GUIDE.md) |
-| Set up my environment | [Development Guide](docs/development/DEVELOPMENT_GUIDE.md) |
-| Onboard as a new developer | [New Developer Onboarding](docs/onboarding/NEW_DEVELOPER_ONBOARDING.md) |
-| Deploy to production | [Deployment Runbook](docs/operations/DEPLOYMENT_RUNBOOK.md) |
-| Understand the architecture | [Architecture](docs/architecture/ARCHITECTURE.md) |
-| Read all commands | [Command Reference](docs/reference/COMMAND_REFERENCE.md) |
-
----
-
-## Technology Stack
-
-| Layer | Technology |
-| :--- | :--- |
-| API | Python 3.12, FastAPI 0.115, Pydantic v2 |
-| Database | PostgreSQL 15, SQLAlchemy 2 async, Alembic |
-| Cache | Redis 7, CacheService abstraction |
-| Security | Argon2id, JWT, RBAC, OWASP headers |
-| AI | Hybrid BM25 + Vector RAG, pluggable LLMProvider |
-| Realtime | EventEnvelope, InMemoryEventBus, SSE, WebSocket |
-| Observability | OpenTelemetry, Prometheus, JSON structured logs |
-| Mobile | Flutter 3.x, Material 3, Riverpod, GoRouter |
-| CI/CD | GitHub Actions, multi-stage Docker |
-
----
-
-## Repository Structure
-
-```text
-.
-├── backend/          # FastAPI Python backend (15 subsystems)
-├── frontend/         # Flutter cross-platform app
-├── tests/            # 287 pytest tests
-├── docs/             # All documentation (70+ files, 13 categories)
-├── .github/          # CI/CD workflows and CODEOWNERS
-├── Dockerfile        # Multi-stage production image
-├── docker-compose.yml
-├── requirements.txt
-├── pyproject.toml
-├── README.md
-├── CHANGELOG.md
-├── CONTRIBUTING.md
-├── SECURITY.md
-└── CODE_OF_CONDUCT.md
-```
-
----
-
-## Contributing
-
-Read [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/development/DEVELOPER_WORKFLOW.md](docs/development/DEVELOPER_WORKFLOW.md) before submitting a pull request.
-
----
-
-## Security
-
-To report a security vulnerability, see [SECURITY.md](SECURITY.md).

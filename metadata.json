@@ -1,0 +1,9 @@
+{
+  "name": "Election Intelligence Platform",
+  "description": "Enterprise Election Intelligence Platform & Control Center for managing elections, candidates, constituencies, polling, real-time analytics, and AI-assisted governance.",
+  "version": "1.0.0",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

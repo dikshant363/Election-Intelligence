@@ -6,16 +6,9 @@ __pycache__/
 venv/
 ENV/
 env/
-# Dependency directories
-/lib/
-!frontend/lib/
-# Pytest cache
-.coverage
-htmlcov/
-# Packages
-webdist/
-dist/
-build/
+# Next.js
+.next/
+out/
 # Installer logs
 pip-log.txt
 pip-delete-this-directory
