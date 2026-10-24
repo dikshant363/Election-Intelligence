@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [v1.0.0] - 2026-10-24
+
+### Added
+- **Pure Rust High-Performance Architecture**: Complete full-stack migration to Rust 1.85+ (Axum 0.7, Tokio 1.x, SQLx 0.8, PostgreSQL 17), compiling into a self-contained 9.3 MB native executable.
+- **Stitch Civic Restraint Design System**: Apple Human Interface Guidelines-inspired civic research user experience across 7 production surfaces:
+  - Public Research Homepage (`/`)
+  - Candidate Profile & Form 26 Sworn Disclosures (`/candidates`)
+  - Constituency Explorer & Demographics (`/constituencies`)
+  - Certified Results & Turnout Analytics (`/results`)
+  - Grounded AI Research Assistant with Statutory Citations (`/ai`)
+  - Evidence Source Explorer & Document Hash Registry (`/evidence`)
+  - Community Ingestion Pipeline & Administration (`/community`, `/admin`)
+- **Evidence-First PostgreSQL Foundation**: 20 normalized relational tables and trigram indexes (`migrations/0001_initial_schema.sql`) with real-world seeded records from official ECI notifications and ADR/MyNeta Form 26 filings (`migrations/0002_seed_initial_data.sql`).
+- **In-Process Multi-Field BM25 Search**: Zero-latency ranker across candidates, parties, constituencies, and elections with global keyboard command palette (`⌘K`).
+- **Cryptographic SHA-256 Audit Chaining**: Immutable administrative audit event ledger with tamper-detection verification across sequential records.
+- **Evidence-Grounded AI Engine**: Conversational research assistant with prompt-injection defense, citation extraction, grounding verification scores, and strict political neutrality guarantees.
+- **Production CI/CD & Dockerization**: Multi-stage hardened Debian runtime container (`Dockerfile`) and automated GitHub Actions workflow (`.github/workflows/ci.yml`) validating formatting, clippy linter, and PostgreSQL integration tests.
+
+---
+
 ## [v1.0.0-RC] - 2026-07-23
 
 ### Added

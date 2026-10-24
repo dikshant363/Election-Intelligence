@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>Election Intelligence | Open Civic Research</title><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface-card":"#FFFFFF","surface-container":"#f0edef","surface-container-low":"#f6f3f5","surface-container-lowest":"#ffffff","inverse-primary":"#b6c4ff","outline":"#757682","archive-slate-bg":"#F1F5F9","secondary-container":"#316bf3","surface":"#fcf8fb","status-verified-bg":"#ECFDF5","surface-bright":"#fcf8fb","surface-container-highest":"#e4e2e4","error-container":"#ffdad6","secondary-fixed":"#dbe1ff","on-primary-fixed":"#00164e","on-tertiary-container":"#9eadc4","archive-slate":"#475569","inverse-on-surface":"#f3f0f2","status-disputed-bg":"#FFFBEB","on-background":"#1b1b1d","on-tertiary-fixed-variant":"#3a485b","outline-variant":"#c5c5d3","on-tertiary-fixed":"#0d1c2e","tertiary":"#1d2b3d","status-disputed":"#D97706","secondary-fixed-dim":"#b4c5ff","on-secondary-fixed":"#00174b","status-verified":"#15803D","on-surface":"#1b1b1d","on-secondary-fixed-variant":"#003ea8","inverse-surface":"#303032","on-primary-container":"#90a8ff","error":"#ba1a1a","on-primary-fixed-variant":"#264191","tertiary-container":"#334154","primary-container":"#1e3a8a","on-surface-variant":"#444651","surface-tint":"#4059aa","surface-dim":"#dcd9dc","surface-subtle":"#F5F5F7","on-secondary-container":"#fefcff","primary-fixed-dim":"#b6c4ff","on-error":"#ffffff","tertiary-fixed-dim":"#b9c7df","secondary":"#0051d5","on-tertiary":"#ffffff","border-subtle":"#E5E5EA","background":"#fcf8fb","on-primary":"#ffffff","primary-fixed":"#dce1ff","surface-container-high":"#eae7ea","surface-canvas":"#FBFBFD","tertiary-fixed":"#d5e3fc","surface-variant":"#e4e2e4","on-secondary":"#ffffff","primary":"#00236f","on-error-container":"#93000a"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin":"2rem","space-xl":"2.5rem","gutter-mobile":"0.75rem","gutter":"1.25rem","margin-mobile":"1rem","space-sm":"0.5rem","space-xs":"0.25rem","space-lg":"1.5rem","space-md":"1rem"},"fontFamily":{"body-lg":["Inter"],"label-sm":["Inter"],"headline-lg-mobile":["Inter"],"headline-lg":["Inter"],"headline-sm":["Inter"],"headline-md":["Inter"],"body-sm":["Inter"],"numeric-data":["Inter"],"label-md":["Inter"],"body-md":["Inter"],"display":["Inter"]},"fontSize":{"body-lg":["17px",{"lineHeight":"24px","letterSpacing":"-0.008em","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"600"}],"headline-lg-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.019em","fontWeight":"600"}],"headline-sm":["19px",{"lineHeight":"26px","letterSpacing":"-0.011em","fontWeight":"600"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"18px","letterSpacing":"-0.002em","fontWeight":"400"}],"numeric-data":["14px",{"lineHeight":"20px","letterSpacing":"0em","fontWeight":"500"}],"label-md":["13px",{"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"500"}],"body-md":["15px",{"lineHeight":"22px","letterSpacing":"-0.005em","fontWeight":"400"}],"display":["44px",{"lineHeight":"52px","letterSpacing":"-0.022em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface-canvas font-body-md text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-card/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="bg-surface-subtle text-archive-slate py-1 px-margin flex items-center justify-between text-label-sm font-label-sm border-b border-border-subtle"><div class="flex items-center gap-space-sm mx-auto"><span class="w-1.5 h-1.5 rounded-full bg-status-verified inline-block"></span><span>Public Research Notice: Independent civic research initiative. Not affiliated with the Election Commission of India or any political entity. All records cite primary public filings.</span></div><div class="hidden xl:flex items-center gap-space-xs"><span class="text-label-sm text-archive-slate font-label-sm">ECI Affidavits: Verifiable</span></div></div><div class="h-20 w-full px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md shrink-0"><div class="flex items-center gap-space-sm"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UsEZD4Kc5uYzFfcYSNRTyl_7OLG8UnzHlfBllNmWuCkEO6QRRq1MGW-OQnOyPS5ZV-iifxm38o_q--T5Jvi8-tGxmPn8ojGJ7rrwrfbcdsgDglnaMWyw4qCVaUE-Mynq9wR8lz9NmgcXeSa2_Ok_L7GsKii1Dtj1ldZJ19V2tanjsgMzHGOQa4eL5zi4JLhltl9c64cAzwHHO2Mp4hNcNBAZU5ur5VrH572qjN0SKj0scCOmFTG7cLFE4"/><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">Election Intelligence</span><span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-medium">चुनाव प्रज्ञा</span></div><span class="font-label-sm text-label-sm text-outline tracking-normal">Public Civic Research • Independent &amp; Politically Neutral</span></div></div></div><nav class="hidden 2xl:flex items-center gap-1 bg-surface-subtle/80 p-1 rounded-xl" data-active-classes="bg-surface-container text-on-surface font-semibold shadow-[0_1px_2px_rgba(0,0,0,0.03)]"><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="overview" href="/">Home</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="elections" href="/#elections">Elections</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="constituencies" href="/constituencies">Constituencies</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="candidates" href="/candidates">Candidates</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="results-and-insights" href="/results">Results &amp; Insights</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="ai-research-assistant" href="/ai">AI Assistant</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="source-and-evidence-explorer" href="/evidence">Evidence Explorer</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="community-and-reviews" href="/community">Community</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="admin-workspace" href="/admin">Maintainer</a></nav><div class="flex items-center gap-space-sm shrink-0"><div class="relative hidden lg:flex items-center w-64 xl:w-80 h-9 bg-surface-subtle rounded-lg px-2.5 transition-all text-on-surface-variant"><span class="material-symbols-outlined text-outline text-[18px] mr-2">search</span><span class="font-body-sm text-body-sm text-outline truncate flex-1">Search elections, affidavits...</span><kbd class="hidden sm:inline-block font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-card text-outline shadow-sm font-semibold">⌘K</kbd></div><div class="inline-flex items-center rounded-lg bg-surface-subtle p-0.5 text-label-sm font-label-sm"><button class="px-2 py-1 rounded bg-surface-card font-semibold text-on-surface shadow-[0_1px_2px_rgba(0,0,0,0.04)]" type="button">EN</button><button class="px-2 py-1 rounded text-on-surface-variant hover:text-on-surface transition-colors" type="button">हिन्दी</button></div><button aria-label="Theme toggle" class="w-8 h-8 flex items-center justify-center rounded-lg bg-surface-subtle text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[19px]">light_mode</span></button><div class="flex items-center gap-space-xs pl-space-xs"><div class="flex items-center gap-space-xs bg-surface-subtle hover:bg-surface-container-high p-1 pr-2.5 rounded-full transition-colors cursor-pointer"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UsEZD4Kc5uYzFfcYSNRTyl_7OLG8UnzHlfBllNmWuCkEO6QRRq1MGW-OQnOyPS5ZV-iifxm38o_q--T5Jvi8-tGxmPn8ojGJ7rrwrfbcdsgDglnaMWyw4qCVaUE-Mynq9wR8lz9NmgcXeSa2_Ok_L7GsKii1Dtj1ldZJ19V2tanjsgMzHGOQa4eL5zi4JLhltl9c64cAzwHHO2Mp4hNcNBAZU5ur5VrH572qjN0SKj0scCOmFTG7cLFE4"/><div class="hidden sm:flex flex-col text-left"><span class="font-label-sm text-label-sm text-on-surface font-semibold leading-tight">Dr. Priya Nair</span><span class="font-label-sm text-label-sm text-archive-slate leading-tight">Contributor</span></div></div></div></div></div></header><main class="w-full pt-20 bg-surface-canvas min-h-screen"><div class="flex flex-col w-full">
+<div class="w-full bg-surface-subtle/70 px-margin py-space-sm">
+<div class="max-w-[1440px] mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-space-sm text-label-sm font-label-sm">
+<div class="flex flex-wrap items-center gap-space-xs text-archive-slate">
+<span class="hover:text-primary transition-colors cursor-pointer">National Roll</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="hover:text-primary transition-colors cursor-pointer">Uttar Pradesh (State 09)</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-on-surface font-semibold flex items-center gap-1.5">
+          PC-77 Varanasi Parliamentary Constituency
+          <span class="font-normal text-on-surface-variant font-label-sm">(वाराणसी संसदीय क्षेत्र)</span>
+</span>
+</div>
+<div class="flex items-center gap-2 flex-wrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-status-verified-bg text-status-verified font-medium">
+<span class="material-symbols-outlined text-[13px]">verified</span>
+          Delimitation 2008 Normalized
+        </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-card text-on-surface-variant font-numeric-data text-label-sm shadow-sm">
+          ECI: PC-UP-77
+        </span>
+<span class="inline-flex items-center px-2 py-0.5 rounded bg-surface-card text-on-surface-variant font-numeric-data text-label-sm shadow-sm">
+          Category: GEN
+        </span>
+<span class="hidden sm:inline-flex items-center px-2 py-0.5 rounded bg-surface-card text-archive-slate font-numeric-data text-label-sm shadow-sm">
+          SHA-256: 4b91...ce20
+        </span>
+</div>
+</div>
+</div>
+<div class="w-full px-margin pt-space-lg pb-space-xl">
+<div class="max-w-[1440px] mx-auto flex flex-col gap-space-lg">
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs max-w-3xl">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider px-2 py-0.5 rounded bg-primary-fixed text-on-primary-fixed font-semibold">
+              Constituency Dossier
+            </span>
+<span class="text-archive-slate text-label-sm font-label-sm">Returning Officer: District Magistrate, Varanasi</span>
+<span class="text-outline text-label-sm font-label-sm">•</span>
+<span class="text-archive-slate text-label-sm font-label-sm">Electoral Revision: Jan 2024 Final Roll</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">
+            PC-77 Varanasi — Constituency Explorer &amp; Delimitation Intelligence
+          </h1>
+<p class="font-headline-sm text-headline-sm text-outline -mt-1 font-normal">
+            संसदीय एवं विधान सभा खंड अन्वेषक
+          </p>
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed mt-1">
+            Authoritative spatial boundary mapping, Assembly Constituency (AC) segment breakdowns, polling booth densities, and booth-level Form 20 telemetry verified against gazetted ECI records.
+          </p>
+</div>
+<div class="flex flex-col sm:flex-row lg:flex-col items-stretch lg:items-end gap-2 shrink-0">
+<div class="flex items-center gap-2">
+<button class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold hover:opacity-95 active:scale-[0.99] transition-all shadow-sm" type="button">
+<span class="material-symbols-outlined text-[17px]">download</span>
+<span>Export GeoJSON &amp; GIS</span>
+</button>
+<button class="inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-surface-subtle text-on-surface font-label-md text-label-md font-medium hover:bg-surface-container-high transition-colors" type="button">
+<span class="material-symbols-outlined text-[17px]">history_edu</span>
+<span>Audit Form 20 Sheets</span>
+</button>
+</div>
+<div class="flex items-center gap-2 text-label-sm font-label-sm text-archive-slate">
+<span class="inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-verified"></span>
+              Digital Signature: RO-VARANASI-2024
+            </span>
+<span>•</span>
+<button class="text-secondary hover:underline inline-flex items-center gap-0.5" type="button">
+<span>Methodology &amp; Codebook</span>
+<span class="material-symbols-outlined text-[14px]">arrow_outward</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-space-sm items-center">
+<div class="md:col-span-6 relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[20px]">search</span>
+<input class="w-full h-11 pl-10 pr-16 bg-surface-subtle text-on-surface placeholder:text-outline rounded-lg text-body-sm font-body-sm focus:outline-none focus:bg-surface-card shadow-inner" id="quick-constituency-search" placeholder="Search by PC name, AC segment, or 6-digit ECI Booth Code..." type="text"/>
+<kbd class="absolute right-3 font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-card text-outline shadow-sm font-semibold">⌘K</kbd>
+</div>
+<div class="md:col-span-3 flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-archive-slate shrink-0">State:</span>
+<div class="relative w-full">
+<select class="w-full h-11 px-3 appearance-none bg-surface-subtle text-on-surface rounded-lg text-body-sm font-body-sm font-medium focus:outline-none focus:bg-surface-card cursor-pointer">
+<option selected="">09 • Uttar Pradesh (उत्तर प्रदेश)</option>
+<option>19 • West Bengal (पश्चिम बंगाल)</option>
+<option>27 • Maharashtra (महाराष्ट्र)</option>
+<option>29 • Karnataka (कर्नाटक)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-outline text-[18px]">unfold_more</span>
+</div>
+</div>
+<div class="md:col-span-3 flex items-center gap-2">
+<span class="text-label-sm font-label-sm text-archive-slate shrink-0">Constituency:</span>
+<div class="relative w-full">
+<select class="w-full h-11 px-3 appearance-none bg-surface-subtle text-on-surface rounded-lg text-body-sm font-body-sm font-medium focus:outline-none focus:bg-surface-card cursor-pointer">
+<option selected="">PC-77 Varanasi (वाराणसी)</option>
+<option>PC-76 Chandauli (चंदौली)</option>
+<option>PC-78 Ghazipur (गाज़ीपुर)</option>
+<option>PC-79 Mirzapur (मिर्ज़ापुर)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-outline text-[18px]">unfold_more</span>
+</div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-archive-slate">Total Electors</span>
+<span class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight mt-1">1,997,570</span>
+</div>
+<span class="p-2 rounded-lg bg-surface-subtle text-primary">
+<span class="material-symbols-outlined text-[20px]">how_to_reg</span>
+</span>
+</div>
+<div class="mt-space-sm pt-space-xs flex flex-col gap-1.5">
+<div class="w-full h-1.5 bg-surface-container rounded-full overflow-hidden flex">
+<div class="bg-primary h-full" style="width: 53.3%"></div>
+<div class="bg-secondary-container h-full" style="width: 46.7%"></div>
+</div>
+<div class="flex items-center justify-between font-numeric-data text-label-sm text-on-surface-variant">
+<span>M: 1,065,420 (53.3%)</span>
+<span>F: 932,015 (46.7%)</span>
+</div>
+<span class="font-label-sm text-label-sm text-archive-slate">Third Gender Electors: 135 registered</span>
+</div>
+</div>
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-archive-slate">2024 Valid Votes Polled</span>
+<span class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight mt-1">1,128,450</span>
+</div>
+<span class="p-2 rounded-lg bg-status-verified-bg text-status-verified">
+<span class="material-symbols-outlined text-[20px]">ballot</span>
+</span>
+</div>
+<div class="mt-space-sm pt-space-xs flex flex-col gap-1">
+<div class="flex items-baseline justify-between">
+<span class="font-label-sm text-label-sm text-archive-slate">Official Turnout</span>
+<span class="font-headline-sm text-headline-sm text-status-verified font-bold">56.49%</span>
+</div>
+<div class="flex items-center justify-between text-label-sm font-label-sm text-on-surface-variant">
+<span>EVM Votes: 1,118,290</span>
+<span class="text-status-verified font-medium">+0.14% audit reconciliation</span>
+</div>
+<span class="font-label-sm text-label-sm text-archive-slate">Postal Ballots: 10,160 certified</span>
+</div>
+</div>
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-archive-slate">Assembly Segments</span>
+<span class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight mt-1">5 ACs in PC-77</span>
+</div>
+<span class="p-2 rounded-lg bg-surface-subtle text-tertiary">
+<span class="material-symbols-outlined text-[20px]">domain</span>
+</span>
+</div>
+<div class="mt-space-sm pt-space-xs flex flex-col gap-1">
+<div class="flex flex-wrap gap-1">
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-subtle text-on-surface">387 Rohaniya</span>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-subtle text-on-surface">388 North</span>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-subtle text-on-surface">389 South</span>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-subtle text-on-surface">390 Cantt</span>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-subtle text-on-surface">391 Sevapuri</span>
+</div>
+<span class="font-label-sm text-label-sm text-archive-slate mt-1">Delimitation Order 2008 schedule item #77</span>
+</div>
+</div>
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-archive-slate">Total Polling Stations</span>
+<span class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight mt-1">1,984 Booths</span>
+</div>
+<span class="p-2 rounded-lg bg-surface-subtle text-primary">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+</span>
+</div>
+<div class="mt-space-sm pt-space-xs flex flex-col gap-1">
+<div class="flex items-center justify-between text-label-sm font-label-sm text-on-surface">
+<span>Locations: 624 complexes</span>
+<span class="font-numeric-data">Avg: 1,006 / booth</span>
+</div>
+<div class="flex items-center justify-between text-label-sm font-label-sm text-on-surface-variant">
+<span>Vulnerable / Critical:</span>
+<span class="font-semibold text-status-disputed">142 (ECI Webcasted)</span>
+</div>
+<span class="font-label-sm text-label-sm text-archive-slate">100% CCTV &amp; GPS tracked deployment</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+<div class="lg:col-span-7 flex flex-col gap-space-lg">
+<div class="bg-surface-card rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="p-space-md flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm bg-surface-subtle/50">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-archive-slate">Geospatial Partition Engine</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface tracking-tight">
+                  2008 Delimitation Commission Boundary Architecture
+                </h2>
+</div>
+<div class="inline-flex p-0.5 rounded-lg bg-surface-subtle self-start sm:self-auto text-label-sm font-label-sm">
+<button class="px-2.5 py-1 rounded bg-surface-card font-semibold text-on-surface shadow-sm transition-all" id="btn-view-ac" type="button">
+                  AC Segments View
+                </button>
+<button class="px-2.5 py-1 rounded text-on-surface-variant hover:text-on-surface transition-all" id="btn-view-density" type="button">
+                  Booth Density Heatmap
+                </button>
+</div>
+</div>
+<div class="p-space-md flex flex-col gap-space-md">
+<div class="relative w-full h-[360px] bg-archive-slate-bg/40 rounded-xl overflow-hidden flex items-center justify-center">
+<div class="absolute inset-0 opacity-15 pointer-events-none" style="background-image: radial-gradient(#1e3a8a 1px, transparent 1px); background-size: 24px 24px;"></div>
+<svg aria-label="Vector map representation of PC-77 Varanasi Assembly segments" class="w-full h-full p-4 transition-all duration-300" id="spatial-delimit-svg" role="img" viewbox="0 0 760 420">
+<path d="M 470 10 C 490 80, 520 140, 505 210 C 490 280, 475 340, 510 410" fill="none" opacity="0.6" stroke="#2563EB" stroke-dasharray="6,4" stroke-width="2.5"></path>
+<text class="text-[10px] font-semibold" fill="#0051d5" font-family="Inter" letter-spacing="1" x="515" y="40">RIVER GANGES (पवित्र गंगा प्रवाह)</text>
+<g class="cursor-pointer group" id="poly-sevapuri">
+<polygon class="group-hover:fill-primary-fixed transition-colors duration-150" fill="#f0edef" points="40,80 180,60 210,180 120,270 30,210"></polygon>
+<text class="text-[11px] font-semibold pointer-events-none" fill="#1b1b1d" font-family="Inter" x="95" y="150">AC-391 SEVAPURI</text>
+<text class="text-[9px] pointer-events-none" fill="#475569" font-family="Inter" x="100" y="166">365,800 Electors</text>
+</g>
+<g class="cursor-pointer group" id="poly-rohaniya">
+<polygon class="group-hover:fill-primary-fixed transition-colors duration-150" fill="#eae7ea" points="180,60 360,50 350,190 210,180"></polygon>
+<text class="text-[11px] font-semibold pointer-events-none" fill="#1b1b1d" font-family="Inter" x="240" y="120">AC-387 ROHANIYA</text>
+<text class="text-[9px] pointer-events-none" fill="#475569" font-family="Inter" x="245" y="136">412,890 Electors</text>
+</g>
+<g class="cursor-pointer group" id="poly-north">
+<polygon class="group-hover:fill-primary-fixed transition-colors duration-150" fill="#f6f3f5" points="360,50 490,40 500,160 370,165"></polygon>
+<text class="text-[11px] font-semibold pointer-events-none" fill="#1b1b1d" font-family="Inter" x="390" y="105">AC-388 VARANASI N.</text>
+<text class="text-[9px] pointer-events-none" fill="#475569" font-family="Inter" x="395" y="121">428,110 Electors</text>
+</g>
+<g class="cursor-pointer group" id="poly-cantt">
+<polygon class="group-hover:fill-primary-fixed transition-colors duration-150" fill="#e4e2e4" points="210,180 350,190 380,310 260,340 120,270"></polygon>
+<text class="text-[11px] font-semibold pointer-events-none" fill="#1b1b1d" font-family="Inter" x="240" y="245">AC-390 VARANASI CANTT</text>
+<text class="text-[9px] pointer-events-none" fill="#475569" font-family="Inter" x="250" y="261">456,210 Electors</text>
+</g>
+<g class="cursor-pointer group" id="poly-south">
+<polygon class="group-hover:fill-primary-fixed transition-colors duration-150" fill="#dcd9dc" points="370,165 500,160 485,280 380,310 350,190"></polygon>
+<text class="text-[11px] font-semibold pointer-events-none" fill="#1b1b1d" font-family="Inter" x="395" y="225">AC-389 VARANASI S.</text>
+<text class="text-[9px] pointer-events-none" fill="#475569" font-family="Inter" x="400" y="241">334,560 Electors</text>
+</g>
+<g class="opacity-90" id="booth-clusters">
+<circle cx="410" cy="190" fill="#1e3a8a" r="3.5"></circle>
+<circle cx="430" cy="180" fill="#1e3a8a" r="3.5"></circle>
+<circle cx="440" cy="205" fill="#1e3a8a" r="3.5"></circle>
+<circle cx="420" cy="220" fill="#1e3a8a" r="3.5"></circle>
+<circle cx="390" cy="140" fill="#1e3a8a" r="3"></circle>
+<circle cx="450" cy="120" fill="#1e3a8a" r="3"></circle>
+<circle cx="460" cy="90" fill="#1e3a8a" r="3"></circle>
+<circle cx="300" cy="100" fill="#1e3a8a" r="3"></circle>
+<circle cx="270" cy="130" fill="#1e3a8a" r="3"></circle>
+<circle cx="280" cy="250" fill="#1e3a8a" r="3"></circle>
+<circle cx="320" cy="270" fill="#1e3a8a" r="3"></circle>
+<circle cx="160" cy="160" fill="#1e3a8a" r="2.5"></circle>
+<circle cx="110" cy="190" fill="#1e3a8a" r="2.5"></circle>
+<circle cx="90" cy="140" fill="#1e3a8a" r="2.5"></circle>
+<circle cx="140" cy="220" fill="#1e3a8a" r="2.5"></circle>
+</g>
+<g transform="translate(620, 20)">
+<rect fill="#ffffff" fill-opacity="0.9" height="74" rx="6" width="115"></rect>
+<text class="text-[9px] font-semibold" fill="#1b1b1d" font-family="Inter" x="10" y="18">PC-77 EXTENTS</text>
+<text class="text-[8px]" fill="#475569" font-family="Inter" x="10" y="32">Lat: 25.18° - 25.42° N</text>
+<text class="text-[8px]" fill="#475569" font-family="Inter" x="10" y="44">Lng: 82.85° - 83.12° E</text>
+<text class="text-[8px] font-semibold" fill="#15803D" font-family="Inter" x="10" y="58">Datum: WGS-84 / ECI</text>
+</g>
+</svg>
+<div class="absolute bottom-3 left-3 bg-surface-card/90 backdrop-blur-md px-3 py-1.5 rounded-lg shadow-sm flex items-center gap-3 text-label-sm font-label-sm text-archive-slate">
+<span class="flex items-center gap-1.5">
+<span class="w-2.5 h-2.5 rounded-sm bg-primary-fixed"></span> Hover segment to highlight
+                  </span>
+<span>•</span>
+<span class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary"></span> Polling Station Cluster
+                  </span>
+<span>•</span>
+<span>Scale 1:50,000</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center justify-between gap-space-xs text-label-sm font-label-sm text-archive-slate bg-surface-subtle px-space-sm py-space-xs rounded-lg">
+<div class="flex items-center gap-2">
+<span class="font-medium text-on-surface">GIS Engine: ECI GIS Layer v4.2</span>
+<span>•</span>
+<span>Projection: Transverse Mercator</span>
+</div>
+<div class="flex items-center gap-2 font-numeric-data">
+<span>GeoJSON SHA-256: 8c3e41...99ef</span>
+<a class="text-secondary hover:underline flex items-center gap-0.5" href="#">
+<span>Inspect Raw Polygon</span>
+<span class="material-symbols-outlined text-[13px]">code</span>
+</a>
+</div>
+</div>
+</div>
+<div class="px-space-md pb-space-md">
+<div class="flex items-center justify-between pb-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">
+                  Constituent Assembly Constituencies (AC) Performance
+                </h3>
+<span class="text-label-sm font-label-sm text-archive-slate font-numeric-data">5 of 5 Verified</span>
+</div>
+<div class="w-full overflow-x-auto rounded-lg bg-surface-card shadow-sm">
+<table class="w-full text-left font-body-sm text-body-sm border-collapse">
+<thead>
+<tr class="bg-surface-subtle text-archive-slate font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-2.5 px-3">AC Segment &amp; Code</th>
+<th class="py-2.5 px-3">Type</th>
+<th class="py-2.5 px-3 text-right">Electors</th>
+<th class="py-2.5 px-3 text-right">2024 Votes</th>
+<th class="py-2.5 px-3 text-right">Turnout</th>
+<th class="py-2.5 px-3 text-right">Segment Lead</th>
+<th class="py-2.5 px-3 text-center">Booths</th>
+<th class="py-2.5 px-3 text-center">Form 20 Status</th>
+</tr>
+</thead>
+<tbody class="divide-y-0 text-on-surface">
+<tr class="hover:bg-surface-subtle/80 transition-colors">
+<td class="py-2.5 px-3 font-medium">
+<div class="flex flex-col">
+<span class="font-semibold text-primary">AC-387 Rohaniya</span>
+<span class="text-outline text-label-sm font-label-sm">रोहनिया</span>
+</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="px-1.5 py-0.5 rounded bg-surface-subtle text-archive-slate font-label-sm text-label-sm">GEN</span>
+</td>
+<td class="py-2.5 px-3 text-right font-numeric-data">412,890</td>
+<td class="py-2.5 px-3 text-right font-numeric-data font-medium">235,120</td>
+<td class="py-2.5 px-3 text-right font-numeric-data text-status-verified font-semibold">56.94%</td>
+<td class="py-2.5 px-3 text-right font-numeric-data font-medium text-primary">+48,210</td>
+<td class="py-2.5 px-3 text-center font-numeric-data">418</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-status-verified-bg text-status-verified text-label-sm font-label-sm font-medium">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> Gazetted
+                        </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-subtle/80 transition-colors bg-surface-subtle/30">
+<td class="py-2.5 px-3 font-medium">
+<div class="flex flex-col">
+<span class="font-semibold text-primary">AC-388 Varanasi North</span>
+<span class="text-outline text-label-sm font-label-sm">वाराणसी उत्तर</span>
+</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="px-1.5 py-0.5 rounded bg-surface-subtle text-archive-slate font-label-sm text-label-sm">GEN</span>
+</td>
+<td class="py-2.5 px-3 text-right font-numeric-data">428,110</td>
+<td class="py-2.5 px-3 text-right font-numeric-data font-medium">241,890</td>
+<td class="py-2.5 px-3 text-right font-numeric-data text-status-verified font-semibold">56.50%</td>
+<td class="py-2.5 px-3 text-right font-numeric-data font-medium text-primary">+32,450</td>
+<td class="py-2.5 px-3 text-center font-numeric-data">422</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-status-verified-bg text-status-verified text-label-sm font-label-sm font-medium">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> Gazetted
+                        </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-subtle/80 transition-colors">
+<td class="py-2.5 px-3 font-medium">
+<div class="flex flex-col">
+<span class="font-semibold text-primary">AC-389 Varanasi South</span>
+<span class="text-outline text-label-sm font-label-sm">वाराणसी दक्षिण</span>
+</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="px-1.5 py-0.5 rounded bg-surface-subtle text-archive-slate font-label-sm text-label-sm">GEN</span>
+</td>
+<td class="py-2.5 px-3 text-right font-numeric-data">334,560</td>
+<td class="py-2.5 px-3 text-right font-numeric-data font-medium">189,450</td>
+<td class="py-2.5 px-3 text-right font-numeric-data text-status-verified font-semibold">56.63%</td>
+<td class="py-2.5 px-3 text-right font-numeric-data font-medium text-primary">+28,190</td>
+<td class="py-2.5 px-3 text-center font-numeric-data">338</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-status-verified-bg text-status-verified text-label-sm font-label-sm font-medium">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> Gazetted
+                        </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-subtle/80 transition-colors bg-surface-subtle/30">
+<td class="py-2.5 px-3 font-medium">
+<div class="flex flex-col">
+<span class="font-semibold text-primary">AC-390 Varanasi Cantt</span>
+<span class="text-outline text-label-sm font-label-sm">वाराणसी कैंट</span>
+</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="px-1.5 py-0.5 rounded bg-surface-subtle text-archive-slate font-label-sm text-label-sm">GEN</span>
+</td>
+<td class="py-2.5 px-3 text-right font-numeric-data">456,210</td>
+<td class="py-2.5 px-3 text-right font-numeric-data font-medium">254,300</td>
+<td class="py-2.5 px-3 text-right font-numeric-data text-status-verified font-semibold">55.74%</td>
+<td class="py-2.5 px-3 text-right font-numeric-data font-medium text-primary">+35,820</td>
+<td class="py-2.5 px-3 text-center font-numeric-data">446</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-status-verified-bg text-status-verified text-label-sm font-label-sm font-medium">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> Gazetted
+                        </span>
+</td>
+</tr>
+<tr class="hover:bg-surface-subtle/80 transition-colors">
+<td class="py-2.5 px-3 font-medium">
+<div class="flex flex-col">
+<span class="font-semibold text-primary">AC-391 Sevapuri</span>
+<span class="text-outline text-label-sm font-label-sm">सेवापुरी</span>
+</div>
+</td>
+<td class="py-2.5 px-3">
+<span class="px-1.5 py-0.5 rounded bg-surface-subtle text-archive-slate font-label-sm text-label-sm">GEN</span>
+</td>
+<td class="py-2.5 px-3 text-right font-numeric-data">365,800</td>
+<td class="py-2.5 px-3 text-right font-numeric-data font-medium">207,690</td>
+<td class="py-2.5 px-3 text-right font-numeric-data text-status-verified font-semibold">56.78%</td>
+<td class="py-2.5 px-3 text-right font-numeric-data font-medium text-primary">+7,843</td>
+<td class="py-2.5 px-3 text-center font-numeric-data">360</td>
+<td class="py-2.5 px-3 text-center">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-status-verified-bg text-status-verified text-label-sm font-label-sm font-medium">
+<span class="material-symbols-outlined text-[13px]">check_circle</span> Gazetted
+                        </span>
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr class="bg-surface-subtle font-semibold text-on-surface">
+<td class="py-2 px-3 font-label-sm text-label-sm uppercase">Total / Weighted Mean</td>
+<td class="py-2 px-3">—</td>
+<td class="py-2 px-3 text-right font-numeric-data">1,997,570</td>
+<td class="py-2 px-3 text-right font-numeric-data">1,128,450</td>
+<td class="py-2 px-3 text-right font-numeric-data text-status-verified">56.49%</td>
+<td class="py-2 px-3 text-right font-numeric-data">+152,513</td>
+<td class="py-2 px-3 text-center font-numeric-data">1,984</td>
+<td class="py-2 px-3 text-center text-label-sm font-label-sm text-status-verified">Audited 100%</td>
+</tr>
+</tfoot>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="lg:col-span-5 flex flex-col gap-space-md">
+<div class="bg-surface-card rounded-xl shadow-sm p-space-md flex flex-col gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-archive-slate">Real-Time Ingestion Log</span>
+<span class="inline-flex items-center gap-1 text-label-sm font-label-sm text-status-verified font-medium">
+<span class="w-2 h-2 rounded-full bg-status-verified animate-pulse"></span>
+                  1,984 of 1,984 Digitized (100%)
+                </span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface tracking-tight">
+                Booth-Level Telemetry &amp; Form 17C / 20 Ingestion
+              </h2>
+</div>
+<div class="flex flex-wrap gap-1.5">
+<button class="px-2.5 py-1 rounded-full bg-primary text-on-primary font-label-sm text-label-sm font-semibold shadow-sm" type="button">All Booths (1,984)</button>
+<button class="px-2.5 py-1 rounded-full bg-surface-subtle text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" type="button">Urban (68%)</button>
+<button class="px-2.5 py-1 rounded-full bg-surface-subtle text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" type="button">Rural (32%)</button>
+<button class="px-2.5 py-1 rounded-full bg-surface-subtle text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" type="button">Turnout &gt;70%</button>
+<button class="px-2.5 py-1 rounded-full bg-surface-subtle text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" type="button">Turnout &lt;45%</button>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[18px]">filter_list</span>
+<input class="w-full h-10 pl-9 pr-3 bg-surface-subtle text-on-surface placeholder:text-outline rounded-lg text-body-sm font-body-sm focus:outline-none focus:bg-surface-card" placeholder="Filter by Polling Station Name or Location..." type="text"/>
+</div>
+<div class="flex flex-col gap-2 max-h-[380px] overflow-y-auto pr-1">
+<div class="p-space-sm rounded-lg bg-surface-subtle hover:bg-surface-container-high transition-colors cursor-pointer border-l-4 border-primary">
+<div class="flex items-start justify-between gap-2">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Booth #104: Primary School, Orderly Bazar</span>
+<span class="font-body-sm text-body-sm text-archive-slate">Room No. 1 • AC-388 Varanasi North</span>
+</div>
+<span class="font-numeric-data font-semibold text-status-verified text-label-md">60.0%</span>
+</div>
+<div class="mt-2 flex items-center justify-between text-label-sm font-label-sm text-archive-slate pt-1.5 bg-surface-card/60 p-1.5 rounded">
+<span>Electors: 980 | Polled: 588</span>
+<span class="font-numeric-data">EVM: ECI-BU-48291</span>
+<span class="text-status-verified font-medium">17C Matched</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-subtle hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="flex items-start justify-between gap-2">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Booth #212: Harishchandra Inter College</span>
+<span class="font-body-sm text-body-sm text-archive-slate">Maidagin • AC-389 Varanasi South</span>
+</div>
+<span class="font-numeric-data font-semibold text-status-verified text-label-md">57.1%</span>
+</div>
+<div class="mt-2 flex items-center justify-between text-label-sm font-label-sm text-archive-slate pt-1.5 bg-surface-card/60 p-1.5 rounded">
+<span>Electors: 1,124 | Polled: 642</span>
+<span class="font-numeric-data">EVM: ECI-BU-10492</span>
+<span class="text-status-verified font-medium">17C Matched</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-subtle hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="flex items-start justify-between gap-2">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Booth #305: Central Hindu School</span>
+<span class="font-body-sm text-body-sm text-archive-slate">Kamachha • AC-390 Varanasi Cantt</span>
+</div>
+<span class="font-numeric-data font-semibold text-status-verified text-label-md">56.2%</span>
+</div>
+<div class="mt-2 flex items-center justify-between text-label-sm font-label-sm text-archive-slate pt-1.5 bg-surface-card/60 p-1.5 rounded">
+<span>Electors: 1,050 | Polled: 590</span>
+<span class="font-numeric-data">EVM: ECI-BU-77382</span>
+<span class="text-status-verified font-medium">17C Matched</span>
+</div>
+</div>
+<div class="p-space-sm rounded-lg bg-surface-subtle hover:bg-surface-container-high transition-colors cursor-pointer">
+<div class="flex items-start justify-between gap-2">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Booth #88: Panchayat Bhavan</span>
+<span class="font-body-sm text-body-sm text-archive-slate">Rameshwar • AC-391 Sevapuri</span>
+</div>
+<span class="font-numeric-data font-semibold text-status-verified text-label-md">63.3%</span>
+</div>
+<div class="mt-2 flex items-center justify-between text-label-sm font-label-sm text-archive-slate pt-1.5 bg-surface-card/60 p-1.5 rounded">
+<span>Electors: 840 | Polled: 532</span>
+<span class="font-numeric-data">EVM: ECI-BU-99120</span>
+<span class="text-status-verified font-medium">17C Matched</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-subtle/80 rounded-xl p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-archive-slate">Active Booth Audit Inspector</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-status-verified-bg text-status-verified font-semibold">ECI Form 20 Validated</span>
+</div>
+<div class="flex items-baseline justify-between">
+<span class="font-headline-sm text-headline-sm text-on-surface">Booth #104 (Orderly Bazar Room 1)</span>
+<span class="font-label-sm text-label-sm text-archive-slate font-numeric-data">Station Code: 09-77-388-104</span>
+</div>
+<div class="bg-surface-card rounded-lg p-2.5 shadow-sm flex flex-col gap-1.5 font-numeric-data text-label-sm">
+<div class="flex items-center justify-between text-archive-slate">
+<span>RO Attestation Hash</span>
+<span class="text-on-surface font-mono">ec99f2...a104</span>
+</div>
+<div class="flex items-center justify-between text-archive-slate">
+<span>Discrepancy Status</span>
+<span class="text-status-verified font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check</span>
+                    0 Discrepancies vs PO Diary
+                  </span>
+</div>
+</div>
+<div class="flex flex-col gap-1 pt-1">
+<span class="text-label-sm font-label-sm text-archive-slate font-medium">Turnout Velocity Progression (Form 17C Reconciled)</span>
+<div class="grid grid-cols-4 gap-1 text-center font-numeric-data text-label-sm">
+<div class="bg-surface-card p-1.5 rounded shadow-sm">
+<span class="text-outline block text-[10px]">9:00 AM</span>
+<span class="font-semibold text-on-surface">12.4%</span>
+</div>
+<div class="bg-surface-card p-1.5 rounded shadow-sm">
+<span class="text-outline block text-[10px]">1:00 PM</span>
+<span class="font-semibold text-on-surface">34.2%</span>
+</div>
+<div class="bg-surface-card p-1.5 rounded shadow-sm">
+<span class="text-outline block text-[10px]">5:00 PM</span>
+<span class="font-semibold text-on-surface">53.8%</span>
+</div>
+<div class="bg-surface-card p-1.5 rounded shadow-sm border border-status-verified/30">
+<span class="text-status-verified block text-[10px] font-semibold">6:00 PM Close</span>
+<span class="font-bold text-status-verified">60.0%</span>
+</div>
+</div>
+</div>
+<div class="pt-1 flex items-center justify-between">
+<button class="text-secondary font-label-sm text-label-sm font-medium hover:underline inline-flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[15px]">description</span>
+<span>View Scanned Form 17C Part I &amp; II PDF</span>
+</button>
+<span class="text-label-sm font-label-sm text-outline">File size: 1.4 MB</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-xs">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-archive-slate">Longitudinal Constitutional Trajectory</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface tracking-tight mt-0.5">
+              Historical Delimitation &amp; Demographic Context (1976 – 2024)
+            </h2>
+</div>
+<div class="flex items-center gap-1.5 self-start sm:self-auto bg-surface-subtle p-0.5 rounded-lg text-label-sm font-label-sm">
+<button class="px-3 py-1.5 rounded bg-surface-card font-semibold text-on-surface shadow-sm" type="button">Electors Growth</button>
+<button class="px-3 py-1.5 rounded text-on-surface-variant hover:text-on-surface" type="button">1976 vs 2008 Boundary Re-alignments</button>
+<button class="px-3 py-1.5 rounded text-on-surface-variant hover:text-on-surface" type="button">Postal vs EVM Variance</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter pt-space-xs">
+<div class="bg-surface-subtle/70 rounded-xl p-space-md flex flex-col justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-archive-slate uppercase">2009 Roll (Post Delimitation)</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold mt-1">1,561,049</span>
+<span class="font-body-sm text-body-sm text-outline mt-0.5">Turnout: 42.61%</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-3 overflow-hidden">
+<div class="bg-outline h-full" style="width: 42.6%"></div>
+</div>
+</div>
+<div class="bg-surface-subtle/70 rounded-xl p-space-md flex flex-col justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-archive-slate uppercase">2014 Roll</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold mt-1">1,767,112</span>
+<span class="font-body-sm text-body-sm text-primary font-medium mt-0.5">Turnout: 58.35% (+15.74%)</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-3 overflow-hidden">
+<div class="bg-primary h-full" style="width: 58.35%"></div>
+</div>
+</div>
+<div class="bg-surface-subtle/70 rounded-xl p-space-md flex flex-col justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-archive-slate uppercase">2019 Roll</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold mt-1">1,856,791</span>
+<span class="font-body-sm text-body-sm text-archive-slate mt-0.5">Turnout: 57.13% (-1.22%)</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-3 overflow-hidden">
+<div class="bg-archive-slate h-full" style="width: 57.13%"></div>
+</div>
+</div>
+<div class="bg-surface-subtle/70 rounded-xl p-space-md flex flex-col justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-archive-slate uppercase">2024 Current Roll</span>
+<span class="font-headline-md text-headline-md text-on-surface font-semibold mt-1">1,997,570</span>
+<span class="font-body-sm text-body-sm text-status-verified font-medium mt-0.5">Turnout: 56.49% (-0.64%)</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-3 overflow-hidden">
+<div class="bg-status-verified h-full" style="width: 56.49%"></div>
+</div>
+</div>
+</div>
+<div class="p-space-md rounded-xl bg-surface-subtle/60 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm mt-space-xs">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-archive-slate text-[22px] mt-0.5">balance</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Statutory Authority &amp; Gazette Precedence</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-4xl">
+                Delimitation of Parliamentary and Assembly Constituencies Order, 2008 under Delimitation Act, 2002. All boundaries conform strictly to official Surveyor General, Registrar General of India, and Election Commission of India notifications. No alteration is permissible except by parliamentary statute.
+              </p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 self-end sm:self-auto">
+<span class="font-label-sm text-label-sm px-2 py-1 rounded bg-surface-card text-archive-slate font-numeric-data shadow-sm">
+              Gazette Ext. 19-B
+            </span>
+<span class="font-label-sm text-label-sm px-2 py-1 rounded bg-surface-card text-archive-slate font-numeric-data shadow-sm">
+              CC BY-SA 4.0
+            </span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function initConstituencyExplorer() {
+    const btnAc = document.getElementById('btn-view-ac');
+    const btnDensity = document.getElementById('btn-view-density');
+    const clusters = document.getElementById('booth-clusters');
+    const searchInput = document.getElementById('quick-constituency-search');
+
+    if (btnAc && btnDensity && clusters) {
+      btnAc.addEventListener('click', () => {
+        btnAc.classList.add('bg-surface-card', 'font-semibold', 'text-on-surface', 'shadow-sm');
+        btnAc.classList.remove('text-on-surface-variant');
+        btnDensity.classList.remove('bg-surface-card', 'font-semibold', 'text-on-surface', 'shadow-sm');
+        btnDensity.classList.add('text-on-surface-variant');
+        clusters.setAttribute('opacity', '0.9');
+      });
+
+      btnDensity.addEventListener('click', () => {
+        btnDensity.classList.add('bg-surface-card', 'font-semibold', 'text-on-surface', 'shadow-sm');
+        btnDensity.classList.remove('text-on-surface-variant');
+        btnAc.classList.remove('bg-surface-card', 'font-semibold', 'text-on-surface', 'shadow-sm');
+        btnAc.classList.add('text-on-surface-variant');
+        clusters.setAttribute('opacity', '0.35');
+      });
+    }
+
+    if (searchInput) {
+      window.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          searchInput.focus();
+        }
+      });
+    }
+  })();
+</script></main><footer class="w-full bg-surface-card mt-margin border-t border-border-subtle"><div class="w-full px-margin py-space-xl"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-gutter mb-space-xl"><div class="lg:col-span-2 flex flex-col gap-space-sm pr-space-lg"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary">Election Intelligence</span><span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-status-verified-bg text-status-verified font-medium">Open Source</span></div><p class="font-body-sm text-body-sm text-on-surface-variant max-w-md">An open civic technology laboratory curating authoritative electoral records, gazette boundaries, and sworn affidavits under open data licenses. Dedicated to analytical rigor, algorithmic transparency, and non-partisan public literacy.</p><div class="flex items-center gap-space-sm mt-space-xs"><span class="font-label-sm text-label-sm px-2 py-1 rounded bg-archive-slate-bg text-archive-slate font-medium">[ECI Verified API]</span><span class="font-label-sm text-label-sm px-2 py-1 rounded bg-archive-slate-bg text-archive-slate font-medium">[Delimitation 2008]</span><span class="font-label-sm text-label-sm px-2 py-1 rounded bg-archive-slate-bg text-archive-slate font-medium">[ADR Form 26]</span></div></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider mb-space-xs">Civic Charter</span><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Methodology &amp; Neutrality</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Cryptographic Audit Logs</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Data Citation Guide</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Peer Review Board</a></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider mb-space-xs">Legal &amp; Archives</span><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Form 26 Affidavits Archive</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Public Disclosures</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Constitutional Delimitation</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">RTI Open Data Repository</a></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider mb-space-xs">Standards &amp; Tech</span><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Accessibility (WCAG 2.2 AA)</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy &amp; Telemetry Zero</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">GitHub Repository</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Community Guidelines</a></div></div><div class="pt-space-md border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-space-sm"><span class="font-body-sm text-body-sm text-outline">© 2025 Election Intelligence Initiative. Public domain under CC BY-SA 4.0 International.</span><div class="flex items-center gap-space-md text-label-sm font-label-sm text-outline"><span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-status-verified"></span> System Status: Verified Normal</span><span>ISO/IEC 27001 Aligned</span></div></div></div></footer><script>
+// Election Intelligence Platform - Civic Client Interaction Engine
+// Implements Apple HIG interactions: Command Palette (⌘K), Grounded AI Assistant (⌘J), Theme Toggle, and Live Search
+
+(function () {
+  'use strict';
+
+  // 1. Theme Management (Dark / Light)
+  function initTheme() {
+    const savedTheme = localStorage.getItem('civic_theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    document.querySelectorAll('button[aria-label="Theme toggle"], button:has(.material-symbols-outlined:contains("mode"))').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('civic_theme', isDark ? 'dark' : 'light');
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (icon) {
+          icon.textContent = isDark ? 'dark_mode' : 'light_mode';
+        }
+      });
+    });
+  }
+
+  // 2. Command Palette (⌘K) & Search
+  function createCommandPalette() {
+    if (document.getElementById('civic-command-palette')) return;
+
+    const overlay = document.createElement('div');
+    overlay.id = 'civic-command-palette';
+    overlay.style.display = 'none';
+    overlay.className = 'fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex items-start justify-center pt-20 px-4 animate-in fade-in duration-150';
+    overlay.innerHTML = `
+      <div class="bg-surface-card dark:bg-[#1c1c1e] w-full max-w-2xl rounded-2xl shadow-2xl border border-black/[0.08] dark:border-white/[0.12] overflow-hidden flex flex-col max-h-[80vh]">
+        <div class="flex items-center px-4 py-3 border-b border-border-subtle dark:border-white/[0.08] gap-3">
+          <span class="material-symbols-outlined text-outline">search</span>
+          <input id="civic-palette-input" type="text" placeholder="Search elections, candidates, constituencies, affidavits..." class="w-full bg-transparent font-body-md text-on-surface dark:text-[#f5f5f7] placeholder:text-outline focus:outline-none text-base" />
+          <kbd class="px-2 py-0.5 rounded text-xs bg-surface-subtle dark:bg-[#2c2c2e] text-archive-slate font-mono font-medium">ESC</kbd>
+        </div>
+        <div id="civic-palette-results" class="p-3 overflow-y-auto divide-y divide-border-subtle/50 dark:divide-white/[0.04]">
+          <div class="p-6 text-center text-sm text-archive-slate">Type at least 2 characters to search across verified election records.</div>
+        </div>
+        <div class="px-4 py-2.5 bg-surface-subtle dark:bg-[#2c2c2e]/50 border-t border-border-subtle dark:border-white/[0.08] flex items-center justify-between text-xs text-archive-slate">
+          <div class="flex items-center gap-3">
+            <span><kbd class="font-mono bg-surface-card dark:bg-[#1c1c1e] px-1 rounded">↑↓</kbd> Navigate</span>
+            <span><kbd class="font-mono bg-surface-card dark:bg-[#1c1c1e] px-1 rounded">↵</kbd> Select</span>
+          </div>
+          <span class="text-[11px] font-medium text-status-verified flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-status-verified"></span> Verified BM25 Index</span>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closePalette();
+    });
+
+    const input = document.getElementById('civic-palette-input');
+    let debounceTimer;
+
+    input.addEventListener('input', (e) => {
+      clearTimeout(debounceTimer);
+      const query = e.target.value.trim();
+      if (query.length < 2) {
+        document.getElementById('civic-palette-results').innerHTML = `
+          <div class="p-6 text-center text-sm text-archive-slate">Type at least 2 characters to search across verified election records.</div>
+        `;
+        return;
+      }
+      debounceTimer = setTimeout(() => executeSearch(query), 150);
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePalette();
+    });
+  }
+
+  async function executeSearch(query) {
+    const resultsContainer = document.getElementById('civic-palette-results');
+    resultsContainer.innerHTML = `<div class="p-4 text-center text-sm text-archive-slate animate-pulse">Querying BM25 in-process index...</div>`;
+
+    try {
+      const res = await fetch(`/api/v1/search?q=${encodeURIComponent(query)}`);
+      const json = await res.json();
+      if (!json.success || !json.data.results || json.data.results.length === 0) {
+        resultsContainer.innerHTML = `
+          <div class="p-6 text-center text-sm text-archive-slate">No verified electoral records found for "${query}".</div>
+        `;
+        return;
+      }
+
+      resultsContainer.innerHTML = json.data.results.map(r => `
+        <a href="${getTargetUrl(r)}" class="block p-3 rounded-xl hover:bg-surface-subtle dark:hover:bg-white/[0.04] transition-colors group">
+          <div class="flex items-center justify-between">
+            <span class="font-semibold text-sm text-primary dark:text-[#5e9eff] group-hover:underline">${escapeHtml(r.title)}</span>
+            <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-primary-fixed/30 dark:bg-primary-container text-primary dark:text-primary-fixed font-bold">${escapeHtml(r.category)}</span>
+          </div>
+          <p class="text-xs text-on-surface-variant dark:text-[#a1a1a6] mt-1 line-clamp-2">${escapeHtml(r.description)}</p>
+          <div class="flex items-center gap-3 mt-1.5 text-[10px] text-archive-slate font-mono">
+            <span>Score: ${r.score.toFixed(2)}</span>
+            <span>ID: ${escapeHtml(r.id)}</span>
+          </div>
+        </a>
+      `).join('');
+    } catch (err) {
+      resultsContainer.innerHTML = `<div class="p-4 text-center text-xs text-error">Error connecting to search service: ${err.message}</div>`;
+    }
+  }
+
+  function getTargetUrl(item) {
+    if (item.category === 'candidate') return `/candidates?id=${item.id}`;
+    if (item.category === 'constituency') return `/constituencies?id=${item.id}`;
+    if (item.category === 'party') return `/candidates?party=${item.id}`;
+    return `/#${item.id}`;
+  }
+
+  function openPalette() {
+    createCommandPalette();
+    const overlay = document.getElementById('civic-command-palette');
+    overlay.style.display = 'flex';
+    const input = document.getElementById('civic-palette-input');
+    input.focus();
+    input.select();
+  }
+
+  function closePalette() {
+    const overlay = document.getElementById('civic-command-palette');
+    if (overlay) overlay.style.display = 'none';
+  }
+
+  // 3. Grounded AI Query Interactivity
+  function initAiForms() {
+    const aiInputs = document.querySelectorAll('input[placeholder*="Ask"], input[placeholder*="research question"], textarea[placeholder*="Ask"]');
+    aiInputs.forEach(input => {
+      const parent = input.closest('form') || input.parentElement;
+      const submitBtn = parent.querySelector('button[type="submit"], button:has(.material-symbols-outlined)');
+      
+      const runQuery = async () => {
+        const q = input.value.trim();
+        if (!q) return;
+
+        // Find or create response container
+        let resContainer = document.getElementById('ai-response-stream');
+        if (!resContainer) {
+          resContainer = document.createElement('div');
+          resContainer.id = 'ai-response-stream';
+          resContainer.className = 'mt-6 p-6 rounded-2xl bg-surface-card dark:bg-[#1e1e1e] border border-border-subtle dark:border-white/[0.08] shadow-sm';
+          input.closest('.max-w-4xl, .max-w-3xl, main')?.appendChild(resContainer);
+        }
+
+        resContainer.innerHTML = `
+          <div class="flex items-center gap-3 text-sm text-primary dark:text-[#5e9eff]">
+            <span class="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></span>
+            <span>Retrieving statutory Form 26 evidence passages and ECI declarations...</span>
+          </div>
+        `;
+
+        try {
+          const res = await fetch('/api/v1/ai/query', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query: q, session_id: 'web-session-' + Date.now() })
+          });
+          const data = await res.json();
+          if (data.success && data.data) {
+            renderAiAnswer(resContainer, data.data);
+          } else {
+            resContainer.innerHTML = `<div class="text-sm text-error">Query failed: ${data.error?.message || 'Unknown error'}</div>`;
+          }
+        } catch (e) {
+          resContainer.innerHTML = `<div class="text-sm text-error">Connection error: ${e.message}</div>`;
+        }
+      };
+
+      if (submitBtn) {
+        submitBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          runQuery();
+        });
+      }
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          runQuery();
+        }
+      });
+    });
+  }
+
+  function renderAiAnswer(container, aiData) {
+    const citationsHtml = aiData.citations.map(c => `
+      <div class="p-3.5 rounded-xl bg-surface-subtle dark:bg-white/[0.04] border border-border-subtle dark:border-white/[0.08] text-xs">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="font-semibold text-primary dark:text-[#5e9eff] flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[14px]">verified</span>
+            ${escapeHtml(c.publisher)}
+          </span>
+          <span class="font-mono text-[10px] text-archive-slate">${escapeHtml(c.section)}</span>
+        </div>
+        <p class="text-on-surface-variant dark:text-[#d1d1d6] italic mb-2">"${escapeHtml(c.quote)}"</p>
+        <a href="${escapeHtml(c.url)}" target="_blank" rel="noopener noreferrer" class="text-[11px] text-secondary dark:text-[#64d2ff] hover:underline flex items-center gap-1">
+          <span>Official Gazette Filing</span>
+          <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+        </a>
+      </div>
+    `).join('');
+
+    container.innerHTML = `
+      <div class="space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-border-subtle dark:border-white/[0.08]">
+          <div class="flex items-center gap-2 text-xs font-semibold text-status-verified">
+            <span class="w-2 h-2 rounded-full bg-status-verified"></span>
+            <span>Grounded Response (Verification Score: ${(aiData.grounding_score * 100).toFixed(1)}%)</span>
+          </div>
+          <span class="text-[10px] font-mono text-archive-slate">${escapeHtml(aiData.model_used)}</span>
+        </div>
+
+        <div class="font-body-md text-on-surface dark:text-[#f5f5f7] leading-relaxed whitespace-pre-line text-sm">
+          ${escapeHtml(aiData.answer)}
+        </div>
+
+        ${aiData.citations.length > 0 ? `
+          <div class="pt-3 border-t border-border-subtle dark:border-white/[0.08]">
+            <h4 class="text-xs font-semibold text-archive-slate uppercase tracking-wider mb-2.5">Statutory Citations (${aiData.citations.length})</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+              ${citationsHtml}
+            </div>
+          </div>
+        ` : ''}
+
+        <div class="p-3 rounded-lg bg-surface-subtle dark:bg-white/[0.03] text-[11px] text-archive-slate leading-normal">
+          <strong>Non-Partisan Charter Guarantee:</strong> ${escapeHtml(aiData.disclaimer)}
+        </div>
+      </div>
+    `;
+  }
+
+  // 4. Global Keyboard Shortcuts
+  function initKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+      // ⌘K or Ctrl+K for Search
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        openPalette();
+      }
+      // ⌘J or Ctrl+J for AI Assistant
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'j') {
+        e.preventDefault();
+        window.location.href = '/ai';
+      }
+      // ESC closes open palette or modals
+      if (e.key === 'Escape') {
+        closePalette();
+      }
+    });
+
+    // Wire up on-page search inputs to open palette or search directly
+    document.querySelectorAll('input[placeholder*="Search elections"]').forEach(input => {
+      input.addEventListener('focus', () => {
+        openPalette();
+      });
+    });
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  // DOM Ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      initKeyboardShortcuts();
+      initAiForms();
+    });
+  } else {
+    initTheme();
+    initKeyboardShortcuts();
+    initAiForms();
+  }
+})();
+
+</script>
+</body></html>

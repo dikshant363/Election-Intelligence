@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>Election Intelligence | Open Civic Research</title><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface-card":"#FFFFFF","surface-container":"#f0edef","surface-container-low":"#f6f3f5","surface-container-lowest":"#ffffff","inverse-primary":"#b6c4ff","outline":"#757682","archive-slate-bg":"#F1F5F9","secondary-container":"#316bf3","surface":"#fcf8fb","status-verified-bg":"#ECFDF5","surface-bright":"#fcf8fb","surface-container-highest":"#e4e2e4","error-container":"#ffdad6","secondary-fixed":"#dbe1ff","on-primary-fixed":"#00164e","on-tertiary-container":"#9eadc4","archive-slate":"#475569","inverse-on-surface":"#f3f0f2","status-disputed-bg":"#FFFBEB","on-background":"#1b1b1d","on-tertiary-fixed-variant":"#3a485b","outline-variant":"#c5c5d3","on-tertiary-fixed":"#0d1c2e","tertiary":"#1d2b3d","status-disputed":"#D97706","secondary-fixed-dim":"#b4c5ff","on-secondary-fixed":"#00174b","status-verified":"#15803D","on-surface":"#1b1b1d","on-secondary-fixed-variant":"#003ea8","inverse-surface":"#303032","on-primary-container":"#90a8ff","error":"#ba1a1a","on-primary-fixed-variant":"#264191","tertiary-container":"#334154","primary-container":"#1e3a8a","on-surface-variant":"#444651","surface-tint":"#4059aa","surface-dim":"#dcd9dc","surface-subtle":"#F5F5F7","on-secondary-container":"#fefcff","primary-fixed-dim":"#b6c4ff","on-error":"#ffffff","tertiary-fixed-dim":"#b9c7df","secondary":"#0051d5","on-tertiary":"#ffffff","border-subtle":"#E5E5EA","background":"#fcf8fb","on-primary":"#ffffff","primary-fixed":"#dce1ff","surface-container-high":"#eae7ea","surface-canvas":"#FBFBFD","tertiary-fixed":"#d5e3fc","surface-variant":"#e4e2e4","on-secondary":"#ffffff","primary":"#00236f","on-error-container":"#93000a"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin":"2rem","space-xl":"2.5rem","gutter-mobile":"0.75rem","gutter":"1.25rem","margin-mobile":"1rem","space-sm":"0.5rem","space-xs":"0.25rem","space-lg":"1.5rem","space-md":"1rem"},"fontFamily":{"body-lg":["Inter"],"label-sm":["Inter"],"headline-lg-mobile":["Inter"],"headline-lg":["Inter"],"headline-sm":["Inter"],"headline-md":["Inter"],"body-sm":["Inter"],"numeric-data":["Inter"],"label-md":["Inter"],"body-md":["Inter"],"display":["Inter"]},"fontSize":{"body-lg":["17px",{"lineHeight":"24px","letterSpacing":"-0.008em","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"600"}],"headline-lg-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.019em","fontWeight":"600"}],"headline-sm":["19px",{"lineHeight":"26px","letterSpacing":"-0.011em","fontWeight":"600"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"18px","letterSpacing":"-0.002em","fontWeight":"400"}],"numeric-data":["14px",{"lineHeight":"20px","letterSpacing":"0em","fontWeight":"500"}],"label-md":["13px",{"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"500"}],"body-md":["15px",{"lineHeight":"22px","letterSpacing":"-0.005em","fontWeight":"400"}],"display":["44px",{"lineHeight":"52px","letterSpacing":"-0.022em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface-canvas font-body-md text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-card/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="bg-surface-subtle text-archive-slate py-1 px-margin flex items-center justify-between text-label-sm font-label-sm border-b border-border-subtle"><div class="flex items-center gap-space-sm mx-auto"><span class="w-1.5 h-1.5 rounded-full bg-status-verified inline-block"></span><span>Public Research Notice: Independent civic research initiative. Not affiliated with the Election Commission of India or any political entity. All records cite primary public filings.</span></div><div class="hidden xl:flex items-center gap-space-xs"><span class="text-label-sm text-archive-slate font-label-sm">ECI Affidavits: Verifiable</span></div></div><div class="h-20 w-full px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md shrink-0"><div class="flex items-center gap-space-sm"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UsEZD4Kc5uYzFfcYSNRTyl_7OLG8UnzHlfBllNmWuCkEO6QRRq1MGW-OQnOyPS5ZV-iifxm38o_q--T5Jvi8-tGxmPn8ojGJ7rrwrfbcdsgDglnaMWyw4qCVaUE-Mynq9wR8lz9NmgcXeSa2_Ok_L7GsKii1Dtj1ldZJ19V2tanjsgMzHGOQa4eL5zi4JLhltl9c64cAzwHHO2Mp4hNcNBAZU5ur5VrH572qjN0SKj0scCOmFTG7cLFE4"/><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">Election Intelligence</span><span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-medium">चुनाव प्रज्ञा</span></div><span class="font-label-sm text-label-sm text-outline tracking-normal">Public Civic Research • Independent &amp; Politically Neutral</span></div></div></div><nav class="hidden 2xl:flex items-center gap-1 bg-surface-subtle/80 p-1 rounded-xl" data-active-classes="bg-surface-container text-on-surface font-semibold shadow-[0_1px_2px_rgba(0,0,0,0.03)]"><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="overview" href="#">Home</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="elections" href="#">Elections</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="constituencies" href="#">Constituencies</a><a aria-current="page" class="px-3 py-1.5 rounded-lg transition-colors bg-surface-container text-on-surface font-semibold shadow-[0_1px_2px_rgba(0,0,0,0.03)]" data-path="candidates" href="#">Candidates</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="results-and-insights" href="#">Results &amp; Insights</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="ai-research-assistant" href="#">AI Assistant</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="source-and-evidence-explorer" href="#">Evidence Explorer</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="community-and-reviews" href="#">Community</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="admin-workspace" href="#">Maintainer</a></nav><div class="flex items-center gap-space-sm shrink-0"><div class="relative hidden lg:flex items-center w-64 xl:w-80 h-9 bg-surface-subtle rounded-lg px-2.5 transition-all text-on-surface-variant"><span class="material-symbols-outlined text-outline text-[18px] mr-2">search</span><span class="font-body-sm text-body-sm text-outline truncate flex-1">Search elections, affidavits...</span><kbd class="hidden sm:inline-block font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-card text-outline shadow-sm font-semibold">⌘K</kbd></div><div class="inline-flex items-center rounded-lg bg-surface-subtle p-0.5 text-label-sm font-label-sm"><button class="px-2 py-1 rounded bg-surface-card font-semibold text-on-surface shadow-[0_1px_2px_rgba(0,0,0,0.04)]" type="button">EN</button><button class="px-2 py-1 rounded text-on-surface-variant hover:text-on-surface transition-colors" type="button">हिन्दी</button></div><button aria-label="Theme toggle" class="w-8 h-8 flex items-center justify-center rounded-lg bg-surface-subtle text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[19px]">light_mode</span></button><div class="flex items-center gap-space-xs pl-space-xs"><div class="flex items-center gap-space-xs bg-surface-subtle hover:bg-surface-container-high p-1 pr-2.5 rounded-full transition-colors cursor-pointer"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UsEZD4Kc5uYzFfcYSNRTyl_7OLG8UnzHlfBllNmWuCkEO6QRRq1MGW-OQnOyPS5ZV-iifxm38o_q--T5Jvi8-tGxmPn8ojGJ7rrwrfbcdsgDglnaMWyw4qCVaUE-Mynq9wR8lz9NmgcXeSa2_Ok_L7GsKii1Dtj1ldZJ19V2tanjsgMzHGOQa4eL5zi4JLhltl9c64cAzwHHO2Mp4hNcNBAZU5ur5VrH572qjN0SKj0scCOmFTG7cLFE4"/><div class="hidden sm:flex flex-col text-left"><span class="font-label-sm text-label-sm text-on-surface font-semibold leading-tight">Dr. Priya Nair</span><span class="font-label-sm text-label-sm text-archive-slate leading-tight">Contributor</span></div></div></div></div></div></header><main class="w-full pt-20 bg-surface-canvas min-h-screen"><div class="flex flex-col w-full">
+<!-- Top Archival Context Bar -->
+<div class="w-full bg-surface-container-high px-margin py-space-xs flex flex-wrap items-center justify-between text-label-sm font-label-sm text-archive-slate">
+<div class="flex items-center gap-space-sm">
+<span class="inline-flex items-center gap-1 font-semibold text-primary">
+<span class="material-symbols-outlined text-[15px]">verified</span> ECI PUBLIC RECORD ARCHIVE
+      </span>
+<span>•</span>
+<span>General Election 2024 (Lok Sabha)</span>
+<span>•</span>
+<span class="font-numeric-data">State Code: U05 (Uttar Pradesh)</span>
+<span>•</span>
+<span class="font-numeric-data">PC-24 Lucknow</span>
+</div>
+<div class="flex items-center gap-space-md">
+<span class="font-numeric-data">Digest: sha256:d8b74a...88c9</span>
+<span class="bg-surface-card px-2 py-0.5 rounded text-archive-slate">Form 26 Audited</span>
+</div>
+</div>
+<div class="w-full px-margin py-space-lg flex flex-col gap-space-lg">
+<!-- Breadcrumb & Neutral Dossier Metadata -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm text-label-sm font-label-sm text-outline">
+<div class="flex items-center gap-space-xs">
+<a class="hover:text-primary transition-colors" href="#">National Roll</a>
+<span>/</span>
+<a class="hover:text-primary transition-colors" href="#">Uttar Pradesh</a>
+<span>/</span>
+<a class="hover:text-primary transition-colors" href="#">PC-24 Lucknow</a>
+<span>/</span>
+<span class="text-on-surface font-semibold">Candidate Dossier #UP-2024-PC24-004</span>
+</div>
+<div class="flex items-center gap-space-xs text-archive-slate">
+<span class="material-symbols-outlined text-[14px]">history</span>
+<span>Version: v2.4 (Re-verified May 11, 2024)</span>
+</div>
+</div>
+<!-- Candidate Header Card -->
+<div class="w-full bg-surface-card rounded-xl shadow-sm p-space-lg relative overflow-hidden">
+<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-lg">
+<div class="flex flex-col sm:flex-row items-start sm:items-center gap-space-lg">
+<div class="relative shrink-0">
+<img class="w-24 h-28 sm:w-28 sm:h-32 rounded-lg object-cover bg-surface-container" data-alt="Dignified, neutral institutional portrait of Dr. Ramesh Chandra Verma, an Indian male parliamentary candidate in his mid-50s wearing formal khadi attire with spectacles, shot against a plain neutral daylight backdrop for an election research database." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1Rn1Z-NUJ3yZh2iRiJJYYIffgoBUKCpQsV5J799ow-B5Kq-ZcpWTxJKapk9rb-o32a0bjroWjYy_DUD1ijYX1eSemXAFd4rzfoFzFFsS1ps36AL3-B7c0bCmbhl_4F_FYTnW7TIvik_ZeSe0tWMOiX9voQa8ymVlxSzWtFUoedoXtG8Qbvxqf42adUihKiNxjFy0De-OL5J3sdvBV4mw3EBBIkk4O3nDhjjoEGQLFIkw0niPp8XJs"/>
+<div class="absolute -bottom-2 -right-2 bg-status-verified text-on-primary w-6 h-6 rounded-full flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[16px]">check</span>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs min-w-0">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Dr. Ramesh Chandra Verma</span>
+<span class="font-headline-sm text-headline-sm text-outline font-normal">| डॉ. रमेश चन्द्र वर्मा</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-sm text-body-sm font-body-sm text-on-surface-variant">
+<span class="inline-flex items-center gap-1 font-semibold text-primary">
+<span class="material-symbols-outlined text-[16px]">how_to_reg</span> Registration ID: ECI-UP-2024-LKO-0412
+              </span>
+<span>•</span>
+<span>Age: 52 Years</span>
+<span>•</span>
+<span>Gender: Male</span>
+<span>•</span>
+<span>Father's Name: Late S. P. Verma</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs mt-1">
+<span class="px-2.5 py-1 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm font-medium">
+                Affiliation: Rashtriya Jan Chetna Dal (Party Nominee)
+              </span>
+<span class="px-2.5 py-1 rounded bg-status-verified-bg text-status-verified font-label-sm text-label-sm font-semibold inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-verified"></span> Nomination Accepted (Contesting)
+              </span>
+<span class="px-2.5 py-1 rounded bg-archive-slate-bg text-archive-slate font-label-sm text-label-sm">
+                Symbol: Battery Torch
+              </span>
+</div>
+</div>
+</div>
+<!-- Verification Pill and Action -->
+<div class="flex flex-col sm:items-end gap-space-xs shrink-0 self-stretch lg:self-center bg-surface-subtle p-space-md rounded-lg">
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-status-verified-bg text-status-verified font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[15px]">verified_user</span>
+            Primary Affidavit Audited [100% Verified against ECI Form 26 Archive]
+          </div>
+<span class="font-label-sm text-label-sm text-outline">
+            Returning Officer Serial: RO/LKO/PC24/2024/09
+          </span>
+<div class="flex items-center gap-space-xs mt-1">
+<button class="px-3 py-1.5 rounded-lg bg-surface-card hover:bg-surface-container transition-colors text-label-sm font-label-sm text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">file_download</span> Download Form 26
+            </button>
+<button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary hover:bg-primary-container transition-colors text-label-sm font-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">policy</span> View Legal Disclosures
+            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Apple HIG Inspired Segmented Navigation Bar -->
+<div class="w-full bg-surface-subtle p-1 rounded-xl flex items-center overflow-x-auto shadow-sm">
+<div class="flex items-center gap-1 min-w-max w-full">
+<button class="px-4 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">person</span> Overview
+        </button>
+<button class="px-4 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">history_edu</span> Election History
+        </button>
+<button class="px-4 py-2 rounded-lg font-label-md text-label-md bg-surface-card text-on-surface font-semibold shadow-sm flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-primary">description</span> Disclosures &amp; Form 26 Affidavit
+        </button>
+<button class="px-4 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">account_balance_wallet</span> Assets &amp; Liabilities
+        </button>
+<button class="px-4 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">gavel</span> Reported Legal Cases
+          <span class="px-1.5 py-0.2 rounded-full bg-surface-container-high text-archive-slate font-label-sm text-label-sm">2</span>
+</button>
+<button class="px-4 py-2 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">published_with_changes</span> Source History &amp; Corrections
+        </button>
+</div>
+</div>
+<!-- Main Content Grid: 12-Column Layout -->
+<div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- Primary Column: Dossier Details & Financials (8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg min-w-0">
+<!-- Executive Financial Summary Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter">
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Total Gross Assets</span>
+<span class="material-symbols-outlined text-outline text-[18px]">payments</span>
+</div>
+<div class="my-space-xs">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">₹8.37 Cr</span>
+<span class="font-body-sm text-body-sm text-archive-slate block">Movable + Immovable</span>
+</div>
+<div class="pt-space-xs bg-surface-subtle p-2 rounded flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-archive-slate">Self + Spouse Combined</span>
+<span class="text-status-verified font-semibold">Audited</span>
+</div>
+</div>
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Total Liabilities</span>
+<span class="material-symbols-outlined text-outline text-[18px]">credit_card_off</span>
+</div>
+<div class="my-space-xs">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">₹42.50 Lakh</span>
+<span class="font-body-sm text-body-sm text-archive-slate block">Scheduled Commercial Banks</span>
+</div>
+<div class="pt-space-xs bg-surface-subtle p-2 rounded flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-archive-slate">Nil Govt Dues Declared</span>
+<span class="text-status-verified font-semibold">Form 26 Part B</span>
+</div>
+</div>
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">PAN &amp; Tax Compliance</span>
+<span class="material-symbols-outlined text-outline text-[18px]">fact_check</span>
+</div>
+<div class="my-space-xs">
+<span class="font-headline-md text-headline-md text-on-surface font-semibold">₹14.85 Lakh</span>
+<span class="font-body-sm text-body-sm text-archive-slate block">Annual Income (AY 2023-24)</span>
+</div>
+<div class="pt-space-xs bg-surface-subtle p-2 rounded flex items-center justify-between text-label-sm font-label-sm">
+<span class="text-archive-slate">ITR Form 5 Sourced</span>
+<span class="text-status-verified font-semibold">Matched</span>
+</div>
+</div>
+</div>
+<!-- Declared Assets & Liabilities Panel -->
+<div class="bg-surface-card rounded-xl shadow-sm overflow-hidden">
+<div class="p-space-md bg-surface-subtle flex flex-wrap items-center justify-between gap-space-sm">
+<div>
+<span class="font-headline-sm text-headline-sm text-on-surface block">Declared Assets &amp; Liabilities Matrix</span>
+<span class="font-body-sm text-body-sm text-archive-slate">Strictly extracted from sworn affidavit Form 26 with verifiable line-item citations</span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-card text-archive-slate">Currency: INR (₹)</span>
+</div>
+</div>
+<!-- Assets Table -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container-high text-archive-slate font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-2.5 px-4 font-semibold">Asset Category / Description</th>
+<th class="py-2.5 px-4 font-semibold text-right">Self (Candidate)</th>
+<th class="py-2.5 px-4 font-semibold text-right">Spouse</th>
+<th class="py-2.5 px-4 font-semibold text-right">Dependents</th>
+<th class="py-2.5 px-4 font-semibold text-right">Verified Source Citation</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-4 font-medium text-on-surface">
+                    Cash in Hand &amp; Bank Balances
+                    <span class="block text-label-sm text-outline">State Bank of India &amp; Punjab National Bank branches</span>
+</td>
+<td class="py-3 px-4 text-right font-numeric-data">₹18,45,210</td>
+<td class="py-3 px-4 text-right font-numeric-data">₹6,20,500</td>
+<td class="py-3 px-4 text-right font-numeric-data">₹85,000</td>
+<td class="py-3 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-archive-slate-bg text-archive-slate font-label-sm text-label-sm hover:text-primary transition-colors">
+                      [Source: Form 26, Page 7, Item 4(i)]
+                      <span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-4 font-medium text-on-surface">
+                    Bonds, Debentures &amp; Mutual Funds
+                    <span class="block text-label-sm text-outline">HDFC Balanced Growth &amp; Sovereign Gold Bonds</span>
+</td>
+<td class="py-3 px-4 text-right font-numeric-data">₹74,10,000</td>
+<td class="py-3 px-4 text-right font-numeric-data">₹38,50,000</td>
+<td class="py-3 px-4 text-right font-numeric-data">Nil</td>
+<td class="py-3 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-archive-slate-bg text-archive-slate font-label-sm text-label-sm hover:text-primary transition-colors">
+                      [Source: Form 26, Page 8, Item 4(iv)]
+                      <span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-4 font-medium text-on-surface">
+                    Motor Vehicles (Personal Use)
+                    <span class="block text-label-sm text-outline">Toyota Innova Crysta (2019), Maruti Brezza (2021)</span>
+</td>
+<td class="py-3 px-4 text-right font-numeric-data">₹21,50,000</td>
+<td class="py-3 px-4 text-right font-numeric-data">₹9,80,000</td>
+<td class="py-3 px-4 text-right font-numeric-data">Nil</td>
+<td class="py-3 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-archive-slate-bg text-archive-slate font-label-sm text-label-sm hover:text-primary transition-colors">
+                      [Source: Form 26, Page 9, Item 4(vi)]
+                      <span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-4 font-medium text-on-surface">
+                    Jewellery &amp; Bullion
+                    <span class="block text-label-sm text-outline">Gold: Self 120g, Spouse 450g; Silver: 2.1kg</span>
+</td>
+<td class="py-3 px-4 text-right font-numeric-data">₹8,40,000</td>
+<td class="py-3 px-4 text-right font-numeric-data">₹31,50,000</td>
+<td class="py-3 px-4 text-right font-numeric-data">Nil</td>
+<td class="py-3 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-archive-slate-bg text-archive-slate font-label-sm text-label-sm hover:text-primary transition-colors">
+                      [Source: Form 26, Page 10, Item 4(vii)]
+                      <span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</button>
+</td>
+</tr>
+<tr class="bg-surface-subtle font-semibold">
+<td class="py-2.5 px-4 text-on-surface">Subtotal: Movable Assets</td>
+<td class="py-2.5 px-4 text-right font-numeric-data text-primary">₹2.45 Cr</td>
+<td class="py-2.5 px-4 text-right font-numeric-data text-primary">₹1.12 Cr</td>
+<td class="py-2.5 px-4 text-right font-numeric-data">₹85,000</td>
+<td class="py-2.5 px-4 text-right font-label-sm text-label-sm text-archive-slate">Total: ₹3.57 Cr</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-4 font-medium text-on-surface">
+                    Agricultural Land &amp; Cultivable Holdings
+                    <span class="block text-label-sm text-outline">Village Mohanlalganj, Lucknow (Inherited &amp; Self-acquired 4.2 Acres)</span>
+</td>
+<td class="py-3 px-4 text-right font-numeric-data">₹1,80,00,000</td>
+<td class="py-3 px-4 text-right font-numeric-data">Nil</td>
+<td class="py-3 px-4 text-right font-numeric-data">Nil</td>
+<td class="py-3 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-archive-slate-bg text-archive-slate font-label-sm text-label-sm hover:text-primary transition-colors">
+                      [Source: Form 26, Page 11, Item 5(i)]
+                      <span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-4 font-medium text-on-surface">
+                    Commercial Properties
+                    <span class="block text-label-sm text-outline">Office Unit #302, Hazratganj Commercial Complex, Lucknow</span>
+</td>
+<td class="py-3 px-4 text-right font-numeric-data">₹1,15,00,000</td>
+<td class="py-3 px-4 text-right font-numeric-data">Nil</td>
+<td class="py-3 px-4 text-right font-numeric-data">Nil</td>
+<td class="py-3 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-archive-slate-bg text-archive-slate font-label-sm text-label-sm hover:text-primary transition-colors">
+                      [Source: Form 26, Page 12, Item 5(ii)]
+                      <span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-4 font-medium text-on-surface">
+                    Residential Premises
+                    <span class="block text-label-sm text-outline">Plot 14/B, Gomti Nagar, Lucknow (Built-up 3,400 sq.ft)</span>
+</td>
+<td class="py-3 px-4 text-right font-numeric-data">₹1,85,00,000</td>
+<td class="py-3 px-4 text-right font-numeric-data">Nil</td>
+<td class="py-3 px-4 text-right font-numeric-data">Nil</td>
+<td class="py-3 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-archive-slate-bg text-archive-slate font-label-sm text-label-sm hover:text-primary transition-colors">
+                      [Source: Form 26, Page 13, Item 5(iv)]
+                      <span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</button>
+</td>
+</tr>
+<tr class="bg-surface-subtle font-semibold">
+<td class="py-2.5 px-4 text-on-surface">Subtotal: Immovable Assets</td>
+<td class="py-2.5 px-4 text-right font-numeric-data text-primary">₹4.80 Cr</td>
+<td class="py-2.5 px-4 text-right font-numeric-data">Nil</td>
+<td class="py-2.5 px-4 text-right font-numeric-data">Nil</td>
+<td class="py-2.5 px-4 text-right font-label-sm text-label-sm text-archive-slate">Total: ₹4.80 Cr</td>
+</tr>
+<tr class="bg-surface-container-high font-semibold text-on-surface">
+<td class="py-3 px-4">Liabilities (Bank Loans &amp; Financial Institutions)</td>
+<td class="py-3 px-4 text-right font-numeric-data text-error">₹34.50 Lakh</td>
+<td class="py-3 px-4 text-right font-numeric-data text-error">₹8.00 Lakh</td>
+<td class="py-3 px-4 text-right font-numeric-data">Nil</td>
+<td class="py-3 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-surface-card text-archive-slate font-label-sm text-label-sm hover:text-primary transition-colors">
+                      [Source: Form 26, Page 14, Item 8]
+                      <span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Section 4: Legal Disclosures & Reported Cases -->
+<div class="bg-surface-card rounded-xl shadow-sm p-space-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-outline text-[22px]">gavel</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Reported Legal Proceedings &amp; Criminal Disclosures</span>
+</div>
+<span class="font-label-sm text-label-sm px-2.5 py-0.5 rounded-full bg-status-disputed-bg text-status-disputed font-semibold">
+              2 Cases Disclosed in Form 26
+            </span>
+</div>
+<!-- Prominent Mandatory Neutrality Disclaimer Box -->
+<div class="bg-status-disputed-bg p-space-md rounded-lg flex items-start gap-space-sm text-status-disputed">
+<span class="material-symbols-outlined text-[20px] shrink-0 mt-0.5">info</span>
+<div class="flex flex-col gap-1">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Statutory Research &amp; Legal Disclaimer</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                The cases listed below represent mandatory candidate self-disclosures submitted under oath in Form 26 sworn affidavits. In accordance with Indian constitutional jurisprudence and the principle of presumption of innocence, the existence of an FIR, charge-sheet, or ongoing judicial trial does not imply guilt or criminal conviction unless ruled by a court of competent jurisdiction.
+              </p>
+</div>
+</div>
+<!-- Table of Reported Cases -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead>
+<tr class="bg-surface-container-high text-archive-slate font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-2.5 px-4 font-semibold">Case Identifier &amp; Court</th>
+<th class="py-2.5 px-4 font-semibold">Police Station / District</th>
+<th class="py-2.5 px-4 font-semibold">Alleged Acts &amp; Sections</th>
+<th class="py-2.5 px-4 font-semibold">Current Judicial Status</th>
+<th class="py-2.5 px-4 font-semibold text-right">Affidavit Source</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-4 font-medium text-on-surface">
+                    CC No. 412/2021
+                    <span class="block text-label-sm text-outline">ACMM-II Court, Lucknow</span>
+</td>
+<td class="py-3 px-4 text-on-surface-variant font-numeric-data">
+                    PS Hazratganj, Lucknow
+                    <span class="block text-label-sm text-outline">FIR No. 0184/2020</span>
+</td>
+<td class="py-3 px-4 text-on-surface-variant">
+<span class="font-medium text-on-surface">Section 188, 269, 270 IPC</span>
+<span class="block text-label-sm text-outline">Alleged disobedience of public servant order during Covid-19 agricultural protest assembly</span>
+</td>
+<td class="py-3 px-4">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-archive-slate font-label-sm text-label-sm font-medium">
+                      Charges Framed / Trial Pending
+                    </span>
+<span class="block text-label-sm text-outline mt-0.5">Next Hearing: 18-Jul-2024</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-archive-slate-bg text-archive-slate font-label-sm text-label-sm hover:text-primary transition-colors">
+                      [Affidavit Part A, Para 5(ii)]
+                      <span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="py-3 px-4 font-medium text-on-surface">
+                    Case No. 908/2022
+                    <span class="block text-label-sm text-outline">CJM Court, Lucknow</span>
+</td>
+<td class="py-3 px-4 text-on-surface-variant font-numeric-data">
+                    PS Qaiserbagh, Lucknow
+                    <span class="block text-label-sm text-outline">FIR No. 0302/2022</span>
+</td>
+<td class="py-3 px-4 text-on-surface-variant">
+<span class="font-medium text-on-surface">Section 341, 143 IPC</span>
+<span class="block text-label-sm text-outline">Alleged wrongful restraint during power-tariff hike demonstration</span>
+</td>
+<td class="py-3 px-4">
+<span class="px-2 py-0.5 rounded bg-surface-container-high text-archive-slate font-label-sm text-label-sm font-medium">
+                      Cognizance Taken / Bail Granted
+                    </span>
+<span class="block text-label-sm text-outline mt-0.5">Trial stage: Pre-charge evidence</span>
+</td>
+<td class="py-3 px-4 text-right">
+<button class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-archive-slate-bg text-archive-slate font-label-sm text-label-sm hover:text-primary transition-colors">
+                      [Affidavit Part A, Para 5(iii)]
+                      <span class="material-symbols-outlined text-[13px]">open_in_new</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="flex items-center justify-between text-label-sm font-label-sm text-outline pt-space-xs">
+<span>Section 8 Representation of the People Act, 1951: No disqualifying convictions on record.</span>
+<span class="text-status-verified font-medium">ECI Disclosure Verified</span>
+</div>
+</div>
+<!-- Section 5: Educational & Professional Background -->
+<div class="bg-surface-card rounded-xl shadow-sm p-space-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-outline text-[22px]">school</span>
+<span class="font-headline-sm text-headline-sm text-on-surface">Educational Qualifications &amp; Professional Verification</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-status-verified-bg text-status-verified font-label-sm text-label-sm font-semibold">
+              Degrees Cross-Verified
+            </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md">
+<div class="bg-surface-subtle p-space-md rounded-lg flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Doctorate (Ph.D.)</span>
+<span class="font-headline-sm text-headline-sm text-on-surface block mt-1">Ph.D. in Renewable Energy Policy</span>
+<span class="font-body-sm text-body-sm text-archive-slate">Indian Institute of Technology (IIT) Delhi</span>
+</div>
+<span class="material-symbols-outlined text-status-verified text-[20px]">verified</span>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-label-sm font-label-sm">
+<span class="font-numeric-data text-outline">Graduation Year: 2004</span>
+<span class="text-archive-slate bg-surface-card px-2 py-0.5 rounded">[Source: IITD Convocation Roll #04-REN-12]</span>
+</div>
+</div>
+<div class="bg-surface-subtle p-space-md rounded-lg flex flex-col justify-between">
+<div class="flex items-start justify-between">
+<div>
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Postgraduate Degree</span>
+<span class="font-headline-sm text-headline-sm text-on-surface block mt-1">M.Sc. in Physics</span>
+<span class="font-body-sm text-body-sm text-archive-slate">University of Lucknow, Lucknow</span>
+</div>
+<span class="material-symbols-outlined text-status-verified text-[20px]">verified</span>
+</div>
+<div class="mt-space-md pt-space-xs flex items-center justify-between text-label-sm font-label-sm">
+<span class="font-numeric-data text-outline">Graduation Year: 1998</span>
+<span class="text-archive-slate bg-surface-card px-2 py-0.5 rounded">[Source: Form 26, Page 15, Part B]</span>
+</div>
+</div>
+</div>
+<div class="p-space-sm bg-surface-container-low rounded-lg flex items-center justify-between text-label-sm font-label-sm text-on-surface-variant">
+<span>Primary Profession: Public Policy Consultant &amp; Solar Energy Researcher</span>
+<span>Spouse Profession: Associate Professor (Economics), State University</span>
+</div>
+</div>
+</div>
+<!-- Right Column: Verification Drawer & Cryptographic Audit (4 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg min-w-0">
+<!-- Scanned Form 26 Inspection Snippet -->
+<div class="bg-surface-card rounded-xl shadow-sm p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-on-surface uppercase tracking-wider">Scanned Document Proof</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-archive-slate-bg text-archive-slate font-numeric-data">Page 1 of 18</span>
+</div>
+<div class="relative w-full h-56 rounded-lg overflow-hidden bg-surface-container flex items-center justify-center group">
+<img class="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-300" data-alt="Monochrome scanned archival snippet of Indian Election Commission Form 26 official sworn affidavit with official stamps, red notary seal, stamp paper header, and bilingual Hindi and English text in formal legal printing style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgnkDpnacZ8P5p5ApOs9fUh16g8a-5qTSzloEsV839GIFh3O54LDhz3C7iF968-49ULxx3KzYYogki356tj-xzLMfteMVIZuCxNO98L3uOzy8mtTruelrd0pX3AFJREU5nD2Yz2sI-Ykpg6m9KP6kM3hdgdSsPYSRKNS6qP9QRrYVdTBoLm69m7_APWO3q8h_esMItbXoVyvENHt-5LzbUkxnGP-hQrW0LY1dZiNuD7DWKWhDLB_t5"/>
+<div class="absolute inset-0 bg-primary/40 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+<button class="px-3 py-1.5 rounded-lg bg-surface-card text-on-surface font-label-sm text-label-sm font-semibold flex items-center gap-1 shadow-md">
+<span class="material-symbols-outlined text-[16px]">visibility</span> Open Full Resolution PDF
+              </button>
+</div>
+<div class="absolute bottom-2 left-2 right-2 bg-surface-card/90 backdrop-blur px-2 py-1 rounded text-label-sm font-label-sm text-on-surface flex items-center justify-between">
+<span class="truncate">Affidavit_PC24_LKO_Verma.pdf</span>
+<span class="text-status-verified font-semibold">Digitally Signed</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 p-2.5 rounded bg-surface-subtle font-numeric-data text-label-sm text-archive-slate">
+<span class="font-medium text-on-surface">ECI Cryptographic Checksum</span>
+<span class="truncate text-[10px] text-outline font-mono">SHA-256: 7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069</span>
+<span class="text-[10px] text-outline">Timestamp: 2024-05-02T11:42:19Z (IST)</span>
+</div>
+</div>
+<!-- Audit & Verification Change Log -->
+<div class="bg-surface-card rounded-xl shadow-sm p-space-md flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md font-semibold text-on-surface uppercase tracking-wider">Audit Log &amp; Pipeline</span>
+<span class="w-2 h-2 rounded-full bg-status-verified"></span>
+</div>
+<div class="flex flex-col gap-space-sm relative">
+<div class="flex items-start gap-space-sm text-body-sm font-body-sm">
+<div class="w-6 h-6 rounded-full bg-status-verified-bg text-status-verified flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">Affidavit Ingested from State CEO Portal</span>
+<span class="font-label-sm text-label-sm text-outline">May 2, 2024 at 14:10 IST • Automated Scraper</span>
+</div>
+</div>
+<div class="flex items-start gap-space-sm text-body-sm font-body-sm">
+<div class="w-6 h-6 rounded-full bg-status-verified-bg text-status-verified flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">task</span>
+</div>
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">Dual-Pass OCR &amp; Human Civic Fellow Audit</span>
+<span class="font-label-sm text-label-sm text-outline">May 3, 2024 by Lead Fellow #1042 • Validated</span>
+</div>
+</div>
+<div class="flex items-start gap-space-sm text-body-sm font-body-sm">
+<div class="w-6 h-6 rounded-full bg-archive-slate-bg text-archive-slate flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[14px]">flag</span>
+</div>
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">Community Scrutiny Window</span>
+<span class="font-label-sm text-label-sm text-status-verified">0 unresolved dispute tickets</span>
+</div>
+</div>
+</div>
+<!-- Discrepancy Reporting CTA -->
+<div class="pt-space-xs flex flex-col gap-2">
+<button class="w-full py-2.5 px-3 rounded-lg bg-surface-container-high hover:bg-surface-container transition-colors text-label-md font-label-md font-semibold text-on-surface flex items-center justify-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">report_problem</span>
+              Report a Discrepancy or Submit Evidence
+            </button>
+<span class="font-label-sm text-label-sm text-outline text-center">
+              Requires primary citations (gazette notices or certified affidavits).
+            </span>
+</div>
+</div>
+<!-- Neutrality & Non-Endorsement Protocol Seal -->
+<div class="bg-surface-subtle p-space-md rounded-xl flex flex-col gap-space-xs text-archive-slate">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary">balance</span>
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-on-surface">Neutral Research Seal</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+            Election Intelligence displays uniform data schemas across all political candidates without editorial commentary, campaign rankings, or algorithmic favoritism.
+          </p>
+<div class="flex items-center gap-2 mt-2 pt-2 text-label-sm font-label-sm text-outline">
+<span>Standard: OpenCivic 2.1</span>
+<span>•</span>
+<a class="text-primary hover:underline" href="#">Read Research Protocol</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    // Tab switching interactivity simulation
+    document.querySelectorAll('.overflow-x-auto button').forEach(button => {
+      button.addEventListener('click', function() {
+        document.querySelectorAll('.overflow-x-auto button').forEach(b => {
+          b.classList.remove('bg-surface-card', 'text-on-surface', 'font-semibold', 'shadow-sm');
+          b.classList.add('text-on-surface-variant');
+        });
+        this.classList.add('bg-surface-card', 'text-on-surface', 'font-semibold', 'shadow-sm');
+        this.classList.remove('text-on-surface-variant');
+      });
+    });
+  </script>
+</div></main><footer class="w-full bg-surface-card mt-margin border-t border-border-subtle"><div class="w-full px-margin py-space-xl"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-gutter mb-space-xl"><div class="lg:col-span-2 flex flex-col gap-space-sm pr-space-lg"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary">Election Intelligence</span><span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-status-verified-bg text-status-verified font-medium">Open Source</span></div><p class="font-body-sm text-body-sm text-on-surface-variant max-w-md">An open civic technology laboratory curating authoritative electoral records, gazette boundaries, and sworn affidavits under open data licenses. Dedicated to analytical rigor, algorithmic transparency, and non-partisan public literacy.</p><div class="flex items-center gap-space-sm mt-space-xs"><span class="font-label-sm text-label-sm px-2 py-1 rounded bg-archive-slate-bg text-archive-slate font-medium">[ECI Verified API]</span><span class="font-label-sm text-label-sm px-2 py-1 rounded bg-archive-slate-bg text-archive-slate font-medium">[Delimitation 2008]</span><span class="font-label-sm text-label-sm px-2 py-1 rounded bg-archive-slate-bg text-archive-slate font-medium">[ADR Form 26]</span></div></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider mb-space-xs">Civic Charter</span><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Methodology &amp; Neutrality</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Cryptographic Audit Logs</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Data Citation Guide</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Peer Review Board</a></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider mb-space-xs">Legal &amp; Archives</span><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Form 26 Affidavits Archive</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Public Disclosures</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Constitutional Delimitation</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">RTI Open Data Repository</a></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider mb-space-xs">Standards &amp; Tech</span><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Accessibility (WCAG 2.2 AA)</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy &amp; Telemetry Zero</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">GitHub Repository</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Community Guidelines</a></div></div><div class="pt-space-md border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-space-sm"><span class="font-body-sm text-body-sm text-outline">© 2025 Election Intelligence Initiative. Public domain under CC BY-SA 4.0 International.</span><div class="flex items-center gap-space-md text-label-sm font-label-sm text-outline"><span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-status-verified"></span> System Status: Verified Normal</span><span>ISO/IEC 27001 Aligned</span></div></div></div></footer></body></html>

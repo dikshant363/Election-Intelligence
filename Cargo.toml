@@ -1,0 +1,54 @@
+[package]
+name = "election-intelligence"
+version = "1.0.0"
+edition = "2021"
+authors = ["Election Intelligence Platform Maintainers"]
+description = "Independent, politically neutral, AI-powered public research platform for Indian elections"
+license = "MIT"
+
+[dependencies]
+# Web Framework & Async Runtime
+axum = { version = "0.7", features = ["macros", "multipart", "ws"] }
+tokio = { version = "1", features = ["full"] }
+tower = { version = "0.5", features = ["util"] }
+tower-http = { version = "0.6", features = ["cors", "trace", "fs", "compression-full", "set-header"] }
+
+# Leptos Full-Stack & SSR
+leptos = { version = "0.7", features = ["ssr"] }
+leptos_axum = { version = "0.7" }
+leptos_router = { version = "0.7", features = ["ssr"] }
+leptos_meta = { version = "0.7", features = ["ssr"] }
+
+# Database & Persistence (PostgreSQL)
+sqlx = { version = "0.8", default-features = false, features = [
+    "runtime-tokio",
+    "tls-rustls",
+    "postgres",
+    "chrono",
+    "uuid",
+    "json"
+] }
+
+# Serialization & Data
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1.10", features = ["v4", "serde"] }
+thiserror = "2.0"
+
+# Cryptography & Integrity
+sha2 = "0.10"
+hex = "0.4"
+
+# Observability
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt", "json"] }
+
+# Networking & Utilities
+reqwest = { version = "0.12", features = ["json"] }
+regex = "1.10"
+futures = "0.3"
+async-trait = "0.1"
+
+[dev-dependencies]
+tokio-test = "0.4"

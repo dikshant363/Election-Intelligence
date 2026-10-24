@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><title>Election Intelligence | Open Civic Research</title><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface-card":"#FFFFFF","surface-container":"#f0edef","surface-container-low":"#f6f3f5","surface-container-lowest":"#ffffff","inverse-primary":"#b6c4ff","outline":"#757682","archive-slate-bg":"#F1F5F9","secondary-container":"#316bf3","surface":"#fcf8fb","status-verified-bg":"#ECFDF5","surface-bright":"#fcf8fb","surface-container-highest":"#e4e2e4","error-container":"#ffdad6","secondary-fixed":"#dbe1ff","on-primary-fixed":"#00164e","on-tertiary-container":"#9eadc4","archive-slate":"#475569","inverse-on-surface":"#f3f0f2","status-disputed-bg":"#FFFBEB","on-background":"#1b1b1d","on-tertiary-fixed-variant":"#3a485b","outline-variant":"#c5c5d3","on-tertiary-fixed":"#0d1c2e","tertiary":"#1d2b3d","status-disputed":"#D97706","secondary-fixed-dim":"#b4c5ff","on-secondary-fixed":"#00174b","status-verified":"#15803D","on-surface":"#1b1b1d","on-secondary-fixed-variant":"#003ea8","inverse-surface":"#303032","on-primary-container":"#90a8ff","error":"#ba1a1a","on-primary-fixed-variant":"#264191","tertiary-container":"#334154","primary-container":"#1e3a8a","on-surface-variant":"#444651","surface-tint":"#4059aa","surface-dim":"#dcd9dc","surface-subtle":"#F5F5F7","on-secondary-container":"#fefcff","primary-fixed-dim":"#b6c4ff","on-error":"#ffffff","tertiary-fixed-dim":"#b9c7df","secondary":"#0051d5","on-tertiary":"#ffffff","border-subtle":"#E5E5EA","background":"#fcf8fb","on-primary":"#ffffff","primary-fixed":"#dce1ff","surface-container-high":"#eae7ea","surface-canvas":"#FBFBFD","tertiary-fixed":"#d5e3fc","surface-variant":"#e4e2e4","on-secondary":"#ffffff","primary":"#00236f","on-error-container":"#93000a"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"margin":"2rem","space-xl":"2.5rem","gutter-mobile":"0.75rem","gutter":"1.25rem","margin-mobile":"1rem","space-sm":"0.5rem","space-xs":"0.25rem","space-lg":"1.5rem","space-md":"1rem"},"fontFamily":{"body-lg":["Inter"],"label-sm":["Inter"],"headline-lg-mobile":["Inter"],"headline-lg":["Inter"],"headline-sm":["Inter"],"headline-md":["Inter"],"body-sm":["Inter"],"numeric-data":["Inter"],"label-md":["Inter"],"body-md":["Inter"],"display":["Inter"]},"fontSize":{"body-lg":["17px",{"lineHeight":"24px","letterSpacing":"-0.008em","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"600"}],"headline-lg-mobile":["26px",{"lineHeight":"34px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-lg":["32px",{"lineHeight":"40px","letterSpacing":"-0.019em","fontWeight":"600"}],"headline-sm":["19px",{"lineHeight":"26px","letterSpacing":"-0.011em","fontWeight":"600"}],"headline-md":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"body-sm":["13px",{"lineHeight":"18px","letterSpacing":"-0.002em","fontWeight":"400"}],"numeric-data":["14px",{"lineHeight":"20px","letterSpacing":"0em","fontWeight":"500"}],"label-md":["13px",{"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"500"}],"body-md":["15px",{"lineHeight":"22px","letterSpacing":"-0.005em","fontWeight":"400"}],"display":["44px",{"lineHeight":"52px","letterSpacing":"-0.022em","fontWeight":"600"}]}}}};</script></head><body class="bg-surface-canvas font-body-md text-on-surface antialiased selection:bg-primary-fixed selection:text-on-primary-fixed"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-card/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="bg-surface-subtle text-archive-slate py-1 px-margin flex items-center justify-between text-label-sm font-label-sm border-b border-border-subtle"><div class="flex items-center gap-space-sm mx-auto"><span class="w-1.5 h-1.5 rounded-full bg-status-verified inline-block"></span><span>Public Research Notice: Independent civic research initiative. Not affiliated with the Election Commission of India or any political entity. All records cite primary public filings.</span></div><div class="hidden xl:flex items-center gap-space-xs"><span class="text-label-sm text-archive-slate font-label-sm">ECI Affidavits: Verifiable</span></div></div><div class="h-20 w-full px-margin flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-md shrink-0"><div class="flex items-center gap-space-sm"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UsEZD4Kc5uYzFfcYSNRTyl_7OLG8UnzHlfBllNmWuCkEO6QRRq1MGW-OQnOyPS5ZV-iifxm38o_q--T5Jvi8-tGxmPn8ojGJ7rrwrfbcdsgDglnaMWyw4qCVaUE-Mynq9wR8lz9NmgcXeSa2_Ok_L7GsKii1Dtj1ldZJ19V2tanjsgMzHGOQa4eL5zi4JLhltl9c64cAzwHHO2Mp4hNcNBAZU5ur5VrH572qjN0SKj0scCOmFTG7cLFE4"/><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">Election Intelligence</span><span class="font-label-sm text-label-sm px-1.5 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-medium">चुनाव प्रज्ञा</span></div><span class="font-label-sm text-label-sm text-outline tracking-normal">Public Civic Research • Independent &amp; Politically Neutral</span></div></div></div><nav class="hidden 2xl:flex items-center gap-1 bg-surface-subtle/80 p-1 rounded-xl" data-active-classes="bg-surface-container text-on-surface font-semibold shadow-[0_1px_2px_rgba(0,0,0,0.03)]"><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="overview" href="/">Home</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="elections" href="/#elections">Elections</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="constituencies" href="/constituencies">Constituencies</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="candidates" href="/candidates">Candidates</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="results-and-insights" href="/results">Results &amp; Insights</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="ai-research-assistant" href="/ai">AI Assistant</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="source-and-evidence-explorer" href="/evidence">Evidence Explorer</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="community-and-reviews" href="/community">Community</a><a class="px-3 py-1.5 rounded-lg font-label-md text-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high transition-colors" data-path="admin-workspace" href="/admin">Maintainer</a></nav><div class="flex items-center gap-space-sm shrink-0"><div class="relative hidden lg:flex items-center w-64 xl:w-80 h-9 bg-surface-subtle rounded-lg px-2.5 transition-all text-on-surface-variant"><span class="material-symbols-outlined text-outline text-[18px] mr-2">search</span><span class="font-body-sm text-body-sm text-outline truncate flex-1">Search elections, affidavits...</span><kbd class="hidden sm:inline-block font-label-sm text-label-sm px-1.5 py-0.5 rounded bg-surface-card text-outline shadow-sm font-semibold">⌘K</kbd></div><div class="inline-flex items-center rounded-lg bg-surface-subtle p-0.5 text-label-sm font-label-sm"><button class="px-2 py-1 rounded bg-surface-card font-semibold text-on-surface shadow-[0_1px_2px_rgba(0,0,0,0.04)]" type="button">EN</button><button class="px-2 py-1 rounded text-on-surface-variant hover:text-on-surface transition-colors" type="button">हिन्दी</button></div><button aria-label="Theme toggle" class="w-8 h-8 flex items-center justify-center rounded-lg bg-surface-subtle text-on-surface-variant hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[19px]">light_mode</span></button><div class="flex items-center gap-space-xs pl-space-xs"><div class="flex items-center gap-space-xs bg-surface-subtle hover:bg-surface-container-high p-1 pr-2.5 rounded-full transition-colors cursor-pointer"><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1UsEZD4Kc5uYzFfcYSNRTyl_7OLG8UnzHlfBllNmWuCkEO6QRRq1MGW-OQnOyPS5ZV-iifxm38o_q--T5Jvi8-tGxmPn8ojGJ7rrwrfbcdsgDglnaMWyw4qCVaUE-Mynq9wR8lz9NmgcXeSa2_Ok_L7GsKii1Dtj1ldZJ19V2tanjsgMzHGOQa4eL5zi4JLhltl9c64cAzwHHO2Mp4hNcNBAZU5ur5VrH572qjN0SKj0scCOmFTG7cLFE4"/><div class="hidden sm:flex flex-col text-left"><span class="font-label-sm text-label-sm text-on-surface font-semibold leading-tight">Dr. Priya Nair</span><span class="font-label-sm text-label-sm text-archive-slate leading-tight">Contributor</span></div></div></div></div></div></header><main class="w-full pt-20 bg-surface-canvas min-h-screen"><div class="flex flex-col w-full">
+<!-- Sub-header Breadcrumb & Operational Context Bar -->
+<div class="w-full bg-surface-card px-margin py-space-sm shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-sm">
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-space-xs text-label-sm font-label-sm text-archive-slate">
+<span class="hover:text-primary cursor-pointer transition-colors">Admin Console</span>
+<span class="material-symbols-outlined text-[13px] text-outline">chevron_right</span>
+<span class="text-on-surface font-semibold">Ingestion Operations &amp; Data Quality Engine</span>
+<span class="ml-2 px-1.5 py-0.5 rounded bg-status-verified-bg text-status-verified text-label-sm font-label-sm flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-status-verified animate-pulse"></span>
+          Cluster Sync: Active
+        </span>
+</div>
+<div class="flex flex-wrap items-center gap-x-space-md gap-y-1 text-label-sm font-label-sm text-on-surface-variant">
+<span>Lead Maintainer: <strong class="text-on-surface font-semibold">Dr. Priya Nair</strong></span>
+<span class="text-outline">/</span>
+<span class="font-numeric-data text-numeric-data text-archive-slate">PGP Key ID: <code class="bg-surface-subtle px-1 py-0.5 rounded text-on-surface font-mono text-[11px]">0x9F4A...E82C</code></span>
+<span class="text-outline">/</span>
+<span>Merkle Root: <code class="bg-surface-subtle px-1 py-0.5 rounded text-on-surface font-mono text-[11px]">v4.28-prod#7a1b</code></span>
+<span class="text-outline">/</span>
+<span class="text-status-verified font-medium">99.94% Data Parity</span>
+</div>
+</div>
+<!-- Global Queue & Audit Actions -->
+<div class="flex items-center gap-space-xs self-stretch md:self-auto shrink-0">
+<button class="px-3 py-1.5 rounded-lg bg-surface-subtle text-on-surface hover:bg-surface-container-high transition-colors font-label-md text-label-md flex items-center gap-1.5 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px] text-archive-slate">refresh</span>
+<span>Run Integrity Check</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-subtle text-on-surface hover:bg-surface-container-high transition-colors font-label-md text-label-md flex items-center gap-1.5 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px] text-archive-slate">download</span>
+<span>Export Log (JSON)</span>
+</button>
+<button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary hover:bg-primary-container transition-all font-label-md text-label-md flex items-center gap-1.5 shadow-sm" id="pauseQueuesBtn" onclick="toggleWorkerQueue()" type="button">
+<span class="material-symbols-outlined text-[16px]">pause_circle</span>
+<span id="pauseBtnLabel">Pause Ingestion</span>
+</button>
+</div>
+</div>
+<div class="w-full px-margin py-space-md flex flex-col gap-space-lg">
+<!-- Section 1: KPI Telemetry Bento -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- KPI 1: Active Ingestion Jobs -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-archive-slate uppercase tracking-wider">Active Ingestion Jobs</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">maps_ar</span>
+</div>
+<div class="my-space-sm flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-semibold">14</span>
+<span class="font-body-sm text-body-sm text-archive-slate">Running</span>
+<span class="mx-1 text-outline">/</span>
+<span class="font-numeric-data text-numeric-data text-status-disputed">2 Paused</span>
+</div>
+<div class="flex flex-col gap-1.5 pt-space-xs bg-surface-subtle p-2 rounded-lg">
+<div class="flex justify-between items-center text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Throughput (Form 26 / Gazettes)</span>
+<span class="font-numeric-data text-numeric-data font-semibold text-on-surface">31 docs/min</span>
+</div>
+<div class="w-full bg-surface-container-high h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full transition-all duration-500" style="width: 78%;"></div>
+</div>
+</div>
+</div>
+<!-- KPI 2: OCR & Digitization Queue -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-archive-slate uppercase tracking-wider">OCR Digitization Queue</span>
+<span class="material-symbols-outlined text-status-verified text-[20px]">document_scanner</span>
+</div>
+<div class="my-space-sm flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-semibold">84,120</span>
+<span class="font-body-sm text-body-sm text-archive-slate">Parsed</span>
+</div>
+<div class="flex items-center justify-between bg-status-verified-bg p-2 rounded-lg text-label-sm font-label-sm">
+<span class="text-status-verified font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+            98.6% Confidence
+          </span>
+<span class="text-on-surface font-numeric-data text-numeric-data font-semibold">412 Flagged HITL</span>
+</div>
+</div>
+<!-- KPI 3: Open Discrepancy & Dispute Queue -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-archive-slate uppercase tracking-wider">Discrepancy Triage Queue</span>
+<span class="material-symbols-outlined text-status-disputed text-[20px]">rule_folder</span>
+</div>
+<div class="my-space-sm flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-status-disputed tracking-tight font-semibold">19</span>
+<span class="font-body-sm text-body-sm text-archive-slate">Pending Peer Review</span>
+</div>
+<div class="flex items-center justify-between bg-status-disputed-bg p-2 rounded-lg text-label-sm font-label-sm">
+<span class="text-status-disputed font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+            8 Asset Variances
+          </span>
+<span class="text-archive-slate">11 Typo Flags</span>
+</div>
+</div>
+<!-- KPI 4: Deterministic AI Grounding -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-archive-slate uppercase tracking-wider">Local AI Grounding Mesh</span>
+<span class="material-symbols-outlined text-primary text-[20px]">smart_toy</span>
+</div>
+<div class="my-space-sm flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-primary tracking-tight font-semibold">14ms</span>
+<span class="font-body-sm text-body-sm text-archive-slate">Mistral-7B Latency</span>
+</div>
+<div class="flex flex-col gap-1 bg-surface-subtle p-2 rounded-lg text-label-sm font-label-sm">
+<div class="flex justify-between items-center text-on-surface-variant">
+<span>Deterministic Filter:</span>
+<span class="text-status-verified font-semibold">100% Active</span>
+</div>
+<div class="flex justify-between items-center text-archive-slate">
+<span>External API Fallback:</span>
+<span class="font-mono text-[10px] text-error">OFFLINE (Zero-Telemetry)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 2: Main Operational Split Workspace -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
+<!-- COLUMN 1: Operational Queues & HITL Ledger (65% -> 8 of 12 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-space-lg min-w-0">
+<!-- Panel 1: Real-Time Ingestion Queue -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold flex items-center gap-2">
+<span>Real-Time Ingestion Queue</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container text-archive-slate">Workers 1-6 Online</span>
+</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Live streaming extraction jobs across ECI affidavits, Form 20 tabulations, and official state gazettes.</p>
+</div>
+<div class="flex items-center gap-space-xs self-start sm:self-auto">
+<span class="font-label-sm text-label-sm text-archive-slate">Filter:</span>
+<select class="bg-surface-subtle font-label-sm text-label-sm text-on-surface rounded-lg px-2.5 py-1 outline-none">
+<option value="all">All Documents (5)</option>
+<option value="f26">Form 26 Affidavits</option>
+<option value="f20">Form 20 Returns</option>
+<option value="gazette">State Gazettes</option>
+</select>
+</div>
+</div>
+<!-- Ingestion Job Matrix -->
+<div class="flex flex-col gap-space-xs">
+<!-- Job 1: In Progress -->
+<div class="p-space-sm rounded-lg bg-surface-subtle hover:bg-surface-container-high transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-start gap-space-sm min-w-0 flex-1">
+<div class="w-8 h-8 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-mono text-label-sm font-label-sm text-archive-slate font-semibold">#JOB-8842</span>
+<span class="font-headline-sm text-label-md text-on-surface font-semibold truncate">Form 26 Affidavits — Maharashtra Phase 4 (48 ACs)</span>
+<span class="px-2 py-0.5 rounded-full bg-status-verified-bg text-status-verified text-label-sm font-label-sm">In-Progress</span>
+</div>
+<div class="flex flex-wrap items-center gap-x-space-md text-label-sm font-label-sm text-archive-slate mt-0.5">
+<span>Engine: Tesseract v5 OCR Multi-threaded</span>
+<span>Discrepancies: 0</span>
+<span>Target: 288 PDFs</span>
+</div>
+</div>
+</div>
+<div class="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center shrink-0 gap-1 pl-space-lg sm:pl-0">
+<span class="font-numeric-data text-numeric-data text-on-surface font-semibold">64% [184/288]</span>
+<div class="w-24 bg-surface-container-highest h-1.5 rounded-full overflow-hidden">
+<div class="bg-secondary h-full rounded-full" style="width: 64%;"></div>
+</div>
+</div>
+</div>
+<!-- Job 2: Flagged for Review (Amber) -->
+<div class="p-space-sm rounded-lg bg-status-disputed-bg/40 hover:bg-status-disputed-bg/80 transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-start gap-space-sm min-w-0 flex-1">
+<div class="w-8 h-8 rounded-lg bg-status-disputed/20 text-status-disputed flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-mono text-label-sm font-label-sm text-archive-slate font-semibold">#JOB-8841</span>
+<span class="font-headline-sm text-label-md text-on-surface font-semibold truncate">Form 20 Booth-level Returns — PC-12 Bareilly</span>
+<span class="px-2 py-0.5 rounded-full bg-status-disputed-bg text-status-disputed text-label-sm font-label-sm">Audit Flagged</span>
+</div>
+<div class="flex flex-wrap items-center gap-x-space-md text-label-sm font-label-sm text-archive-slate mt-0.5">
+<span class="text-status-disputed font-medium">Anomaly: Booth 142 total vs sum variance (+12 votes)</span>
+<span>Engine: Table-OCR v2</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 self-end sm:self-center">
+<button class="px-3 py-1 rounded bg-surface-card text-on-surface hover:bg-surface-subtle font-label-sm text-label-sm font-semibold shadow-sm flex items-center gap-1" type="button">
+<span>Inspect Anomaly</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Job 3: Completed Verified -->
+<div class="p-space-sm rounded-lg bg-surface-subtle hover:bg-surface-container-high transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-start gap-space-sm min-w-0 flex-1">
+<div class="w-8 h-8 rounded-lg bg-status-verified/10 text-status-verified flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-mono text-label-sm font-label-sm text-archive-slate font-semibold">#JOB-8839</span>
+<span class="font-headline-sm text-label-md text-on-surface font-semibold truncate">Gazetted Delimitation Orders 2008 Vectorization — Karnataka</span>
+<span class="px-2 py-0.5 rounded-full bg-status-verified-bg text-status-verified text-label-sm font-label-sm">Completed</span>
+</div>
+<div class="flex flex-wrap items-center gap-x-space-md text-label-sm font-label-sm text-archive-slate mt-0.5">
+<span>Merkle Hash: <code class="font-mono text-[11px] text-on-surface">SHA-256 4f8a...c190</code></span>
+<span>GeoJSON Boundary: 224 ACs</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 self-end sm:self-center">
+<button class="px-2.5 py-1 rounded bg-surface-card text-archive-slate hover:text-on-surface font-label-sm text-label-sm font-medium shadow-sm" type="button">
+                  Consensus Log
+                </button>
+</div>
+</div>
+<!-- Job 4: Human Audit Required -->
+<div class="p-space-sm rounded-lg bg-surface-subtle hover:bg-surface-container-high transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-start gap-space-sm min-w-0 flex-1">
+<div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">rate_review</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-mono text-label-sm font-label-sm text-archive-slate font-semibold">#JOB-8835</span>
+<span class="font-headline-sm text-label-md text-on-surface font-semibold truncate">Criminal Case Disclosures Extraction — UP Phase 2</span>
+<span class="px-2 py-0.5 rounded-full bg-archive-slate-bg text-archive-slate text-label-sm font-label-sm">Human Review Needed</span>
+</div>
+<div class="flex flex-wrap items-center gap-x-space-md text-label-sm font-label-sm text-archive-slate mt-0.5">
+<span>3 Non-standard IPC sections detected in handwritten scanned note</span>
+<span>Confidence: 71.4%</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 self-end sm:self-center">
+<button class="px-3 py-1 rounded bg-primary text-on-primary hover:bg-primary-container font-label-sm text-label-sm font-semibold shadow-sm" type="button">
+                  Resolve Docket
+                </button>
+</div>
+</div>
+<!-- Job 5: Worker Node Retry -->
+<div class="p-space-sm rounded-lg bg-surface-subtle hover:bg-surface-container-high transition-colors flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-start gap-space-sm min-w-0 flex-1">
+<div class="w-8 h-8 rounded-lg bg-error-container text-error flex items-center justify-center shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-[18px]">replay</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-mono text-label-sm font-label-sm text-archive-slate font-semibold">#JOB-8829</span>
+<span class="font-headline-sm text-label-md text-on-surface font-semibold truncate">Form 17C Polling Diary Scans — Varanasi Rural</span>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-error text-label-sm font-label-sm">Retrying Worker</span>
+</div>
+<div class="flex flex-wrap items-center gap-x-space-md text-label-sm font-label-sm text-archive-slate mt-0.5">
+<span class="text-error font-medium">Worker Node #03 Network Timeout</span>
+<span>Retry Attempt 2 of 3</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 self-end sm:self-center">
+<button class="px-2.5 py-1 rounded bg-surface-card text-archive-slate hover:text-on-surface font-label-sm text-label-sm font-medium shadow-sm" type="button">
+                  Worker Log
+                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Panel 2: Data Quality & Anomaly Triage Ledger (HITL Review Workspace) -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-status-disputed"></span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Data Quality &amp; Anomaly Triage Ledger</h2>
+</div>
+<span class="text-label-sm font-label-sm px-2.5 py-1 rounded-full bg-status-disputed-bg text-status-disputed font-semibold">
+              Item 1 of 19 Pending Sign-off
+            </span>
+</div>
+<div class="bg-surface-subtle rounded-xl p-space-md flex flex-col gap-space-md">
+<!-- Discrepancy Header -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-space-xs gap-space-xs">
+<div class="flex flex-col">
+<span class="font-headline-sm text-label-md font-semibold text-on-surface">Discrepancy #DISC-1049: Immovable Asset Valuation Variance</span>
+<span class="font-body-sm text-body-sm text-archive-slate">Candidate: Rameshwar Sharma (PC: 24-Nagpur) • Filing Date: 2024-04-03 • Document: Form 26, Page 7</span>
+</div>
+<span class="font-mono text-[11px] text-archive-slate bg-surface-card px-2 py-1 rounded shadow-sm self-start sm:self-auto">
+                Consensus: 2/3 Signatures Verified
+              </span>
+</div>
+<!-- Side by Side Visual Comparison (OCR Snippet vs Proposed) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter items-stretch">
+<!-- Raw Snippet Simulation -->
+<div class="flex flex-col gap-1.5 bg-surface-card p-space-sm rounded-lg shadow-sm">
+<span class="font-label-sm text-label-sm text-archive-slate uppercase tracking-wider flex items-center justify-between">
+<span>1. Scanned Document Snippet</span>
+<span class="material-symbols-outlined text-[15px]">image</span>
+</span>
+<div class="flex-1 bg-surface-container rounded p-3 flex flex-col justify-center items-center text-center">
+<div class="font-serif italic text-archive-slate text-sm line-through select-none tracking-widest bg-surface-card px-3 py-2 rounded shadow-xs w-full">
+                    ₹ 1,45,00,000/-
+                  </div>
+<span class="font-label-sm text-label-sm text-outline mt-2">Form 26 Para (7)(b) Column IV (Agricultural Land)</span>
+</div>
+</div>
+<!-- Raw OCR Extraction Output -->
+<div class="flex flex-col gap-1.5 bg-surface-card p-space-sm rounded-lg shadow-sm">
+<span class="font-label-sm text-label-sm text-error uppercase tracking-wider flex items-center justify-between">
+<span>2. Raw OCR Parser Output</span>
+<span class="material-symbols-outlined text-[15px]">error_outline</span>
+</span>
+<div class="flex-1 bg-surface-container rounded p-3 flex flex-col justify-center font-mono text-[13px] text-on-surface">
+<div class="text-error font-semibold">₹ 14,50,00,000</div>
+<span class="text-label-sm font-label-sm text-archive-slate mt-1 font-sans">
+                    Flag: Extra zero detected due to ink smudge on trailing zero separator. Discrepancy with sub-total table sum (₹ 3.12 Cr).
+                  </span>
+</div>
+</div>
+<!-- Human Reviewer Suggestion -->
+<div class="flex flex-col gap-1.5 bg-surface-card p-space-sm rounded-lg shadow-sm">
+<span class="font-label-sm text-label-sm text-status-verified uppercase tracking-wider flex items-center justify-between">
+<span>3. Verified Peer Resolution</span>
+<span class="material-symbols-outlined text-[15px]">done_all</span>
+</span>
+<div class="flex-1 bg-status-verified-bg/50 rounded p-3 flex flex-col justify-center">
+<div class="text-status-verified font-numeric-data text-headline-sm font-semibold">₹ 1,45,00,000</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant mt-1">
+                    Corrected by Auditor <strong class="font-medium text-on-surface">@VikramK</strong>. Recomputed total accurately reconciles to Summary Table Item 8.
+                  </span>
+</div>
+</div>
+</div>
+<!-- Sign-Off Actions -->
+<div class="flex flex-col sm:flex-row items-center justify-between pt-space-xs gap-space-sm">
+<div class="flex items-center gap-2 text-label-sm font-label-sm text-archive-slate">
+<span class="material-symbols-outlined text-[16px] text-status-verified">verified_user</span>
+<span>Requires your signature to seal Merkle candidate update block #89,410.</span>
+</div>
+<div class="flex items-center gap-space-xs w-full sm:w-auto justify-end">
+<button class="px-3 py-1.5 rounded-lg bg-surface-card text-archive-slate hover:text-error hover:bg-error-container transition-colors font-label-md text-label-md shadow-sm" type="button">
+                  Reject &amp; Re-scan
+                </button>
+<button class="px-3 py-1.5 rounded-lg bg-surface-card text-on-surface hover:bg-surface-container-high transition-colors font-label-md text-label-md shadow-sm" type="button">
+                  Request 3rd Reviewer
+                </button>
+<button class="px-4 py-1.5 rounded-lg bg-status-verified text-on-primary hover:bg-opacity-90 transition-all font-label-md text-label-md flex items-center gap-1.5 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[16px]">draw</span>
+<span>Sign &amp; Approve Override</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- COLUMN 2: Node Topology, Governance & Safety Guards (35% -> 4 of 12 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-space-lg min-w-0">
+<!-- Panel 3: Ingestion Mesh Topology & Hardware Telemetry -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold flex items-center gap-2">
+<span>Node Telemetry</span>
+<span class="w-2 h-2 rounded-full bg-status-verified"></span>
+</h2>
+<span class="font-mono text-label-sm font-label-sm text-archive-slate">Cluster: India-South-Mesh</span>
+</div>
+<!-- Nodes List -->
+<div class="flex flex-col gap-space-xs">
+<!-- Node 1 -->
+<div class="p-space-sm rounded-lg bg-surface-subtle flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-status-verified"></span>
+<span class="font-numeric-data text-numeric-data text-on-surface font-semibold">Node-BLR-01</span>
+<span class="font-label-sm text-label-sm text-archive-slate">[Primary Merkle]</span>
+</div>
+<span class="font-label-sm text-label-sm text-status-verified font-medium">Synced</span>
+</div>
+<div class="grid grid-cols-2 gap-space-xs text-label-sm font-label-sm text-archive-slate">
+<div class="flex items-center justify-between bg-surface-card px-2 py-1 rounded">
+<span>CPU (16 vCPU)</span>
+<span class="font-numeric-data text-numeric-data text-on-surface font-medium">42%</span>
+</div>
+<div class="flex items-center justify-between bg-surface-card px-2 py-1 rounded">
+<span>RAM (64 GB)</span>
+<span class="font-numeric-data text-numeric-data text-on-surface font-medium">12.4 GB</span>
+</div>
+</div>
+</div>
+<!-- Node 2 -->
+<div class="p-space-sm rounded-lg bg-surface-subtle flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-status-disputed"></span>
+<span class="font-numeric-data text-numeric-data text-on-surface font-semibold">Node-DEL-02</span>
+<span class="font-label-sm text-label-sm text-archive-slate">[OCR Inference GPU]</span>
+</div>
+<span class="font-label-sm text-label-sm text-status-disputed font-medium">High Load</span>
+</div>
+<div class="grid grid-cols-2 gap-space-xs text-label-sm font-label-sm text-archive-slate">
+<div class="flex items-center justify-between bg-surface-card px-2 py-1 rounded">
+<span>A100 Tensor</span>
+<span class="font-numeric-data text-numeric-data text-status-disputed font-semibold">88%</span>
+</div>
+<div class="flex items-center justify-between bg-surface-card px-2 py-1 rounded">
+<span>VRAM</span>
+<span class="font-numeric-data text-numeric-data text-on-surface font-medium">34.8 GB</span>
+</div>
+</div>
+</div>
+<!-- Node 3 -->
+<div class="p-space-sm rounded-lg bg-surface-subtle flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-status-verified"></span>
+<span class="font-numeric-data text-numeric-data text-on-surface font-semibold">Node-MUM-01</span>
+<span class="font-label-sm text-label-sm text-archive-slate">[IPFS Content Pinning]</span>
+</div>
+<span class="font-label-sm text-label-sm text-status-verified font-medium">Healthy</span>
+</div>
+<div class="grid grid-cols-2 gap-space-xs text-label-sm font-label-sm text-archive-slate">
+<div class="flex items-center justify-between bg-surface-card px-2 py-1 rounded">
+<span>Pinned PDFs</span>
+<span class="font-numeric-data text-numeric-data text-on-surface font-medium">4.8 TB</span>
+</div>
+<div class="flex items-center justify-between bg-surface-card px-2 py-1 rounded">
+<span>Peers Active</span>
+<span class="font-numeric-data text-numeric-data text-on-surface font-medium">142</span>
+</div>
+</div>
+</div>
+</div>
+<!-- IPFS & Merkle Assurance Box -->
+<div class="p-space-sm rounded-lg bg-primary/5 flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] shrink-0 mt-0.5">lock</span>
+<div class="flex flex-col">
+<span class="font-headline-sm text-label-md font-semibold text-primary">Zero Mutation Guarantee</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Every ingested affidavit and gazette page is cryptographically pinned on IPFS and cross-anchored to the public audit log.</p>
+</div>
+</div>
+</div>
+<!-- Panel 4: Civic Maintainer Directory & Recent Audit Trail -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Maintainer Governance</h2>
+<span class="font-label-sm text-label-sm text-secondary hover:underline cursor-pointer">Manage Access</span>
+</div>
+<div class="flex flex-col gap-space-xs">
+<!-- Maintainer 1 -->
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-subtle">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-[11px]">PN</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-label-md font-semibold text-on-surface">Dr. Priya Nair</span>
+<span class="font-label-sm text-label-sm text-archive-slate">Lead Research Maintainer</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-card text-on-surface font-medium shadow-xs">Admin</span>
+</div>
+<!-- Maintainer 2 -->
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-subtle">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-bold text-[11px]">AR</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-label-md font-semibold text-on-surface">Ananya Roy</span>
+<span class="font-label-sm text-label-sm text-archive-slate">Senior Data Steward</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-card text-on-surface font-medium shadow-xs">Steward</span>
+</div>
+<!-- Maintainer 3 -->
+<div class="flex items-center justify-between p-2 rounded-lg bg-surface-subtle">
+<div class="flex items-center gap-space-sm">
+<div class="w-7 h-7 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center font-bold text-[11px]">VK</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-label-md font-semibold text-on-surface">Vikram Kulkarni</span>
+<span class="font-label-sm text-label-sm text-archive-slate">Volunteer OCR Auditor</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-card text-on-surface font-medium shadow-xs">Auditor</span>
+</div>
+</div>
+<!-- Micro Audit Feed -->
+<div class="flex flex-col gap-1.5 pt-space-xs">
+<span class="font-label-sm text-label-sm text-archive-slate uppercase tracking-wider font-semibold">Live Audit Trail</span>
+<div class="flex flex-col gap-2 font-body-sm text-body-sm">
+<div class="flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-status-verified mt-1.5 shrink-0"></span>
+<span class="text-on-surface-variant"><strong class="text-on-surface font-medium">Ananya Roy</strong> approved correction on #DISC-1048 (2 mins ago)</span>
+</div>
+<div class="flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0"></span>
+<span class="text-on-surface-variant">System anchor: Merkle block #149,820 sealed and signed (14 mins ago)</span>
+</div>
+<div class="flex items-start gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-status-disputed mt-1.5 shrink-0"></span>
+<span class="text-on-surface-variant"><strong class="text-on-surface font-medium">Vikram K.</strong> raised discrepancy flag for PC-12 Bareilly (38 mins ago)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Panel 5: Destructive Maintenance Guard Zone -->
+<div class="bg-surface-card rounded-xl p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-[20px]">shield</span>
+<h2 class="font-headline-sm text-headline-sm text-error font-semibold">Destructive Action Guard</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">These administrative actions trigger pipeline re-indexing or cache invalidation across the distributed consensus network.</p>
+<div class="flex flex-col gap-space-xs">
+<button class="w-full px-3 py-2 rounded-lg bg-surface-subtle text-on-surface hover:bg-surface-container-high transition-colors font-label-md text-label-md flex items-center justify-between text-left" onclick="confirmDestructive('reindex')" type="button">
+<div>
+<span class="font-semibold block">Re-index Full 2024 Gazette Corpus</span>
+<span class="text-label-sm font-label-sm text-archive-slate">Forces recalculation of all AC boundary hashes</span>
+</div>
+<span class="material-symbols-outlined text-outline text-[18px]">chevron_right</span>
+</button>
+<button class="w-full px-3 py-2 rounded-lg bg-surface-subtle text-error hover:bg-error-container transition-colors font-label-md text-label-md flex items-center justify-between text-left" onclick="confirmDestructive('invalidate')" type="button">
+<div>
+<span class="font-semibold block">Purge Corrupted OCR Temp Buffers</span>
+<span class="text-label-sm font-label-sm text-archive-slate">Resets memory cache across Node-DEL-02</span>
+</div>
+<span class="material-symbols-outlined text-error text-[18px]">delete_sweep</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Inline Script for Admin Dashboard Micro-Interactions -->
+<script>
+    let isPaused = false;
+    function toggleWorkerQueue() {
+      isPaused = !isPaused;
+      const btn = document.getElementById('pauseQueuesBtn');
+      const label = document.getElementById('pauseBtnLabel');
+      if (isPaused) {
+        btn.classList.remove('bg-primary');
+        btn.classList.add('bg-error');
+        label.innerText = 'Resume Queues';
+      } else {
+        btn.classList.remove('bg-error');
+        btn.classList.add('bg-primary');
+        label.innerText = 'Pause Ingestion';
+      }
+    }
+
+    function confirmDestructive(actionType) {
+      if (actionType === 'reindex') {
+        const proceed = confirm("Warning: Triggering a complete corpus re-index requires cluster consensus and consumes significant GPU compute. Proceed with cryptographic sign-off?");
+        if (proceed) {
+          alert("Re-index consensus request dispatched to Node-BLR-01. Awaiting peer signatures.");
+        }
+      } else if (actionType === 'invalidate') {
+        const proceed = confirm("Flush OCR cache on Node-DEL-02? In-flight worker jobs will be safely requeued.");
+        if (proceed) {
+          alert("OCR buffers flushed successfully.");
+        }
+      }
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-card mt-margin border-t border-border-subtle"><div class="w-full px-margin py-space-xl"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-gutter mb-space-xl"><div class="lg:col-span-2 flex flex-col gap-space-sm pr-space-lg"><div class="flex items-center gap-space-xs"><span class="font-headline-sm text-headline-sm text-primary">Election Intelligence</span><span class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-status-verified-bg text-status-verified font-medium">Open Source</span></div><p class="font-body-sm text-body-sm text-on-surface-variant max-w-md">An open civic technology laboratory curating authoritative electoral records, gazette boundaries, and sworn affidavits under open data licenses. Dedicated to analytical rigor, algorithmic transparency, and non-partisan public literacy.</p><div class="flex items-center gap-space-sm mt-space-xs"><span class="font-label-sm text-label-sm px-2 py-1 rounded bg-archive-slate-bg text-archive-slate font-medium">[ECI Verified API]</span><span class="font-label-sm text-label-sm px-2 py-1 rounded bg-archive-slate-bg text-archive-slate font-medium">[Delimitation 2008]</span><span class="font-label-sm text-label-sm px-2 py-1 rounded bg-archive-slate-bg text-archive-slate font-medium">[ADR Form 26]</span></div></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider mb-space-xs">Civic Charter</span><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Methodology &amp; Neutrality</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Cryptographic Audit Logs</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Data Citation Guide</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Peer Review Board</a></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider mb-space-xs">Legal &amp; Archives</span><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Form 26 Affidavits Archive</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Public Disclosures</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Constitutional Delimitation</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">RTI Open Data Repository</a></div><div class="flex flex-col gap-space-xs"><span class="font-label-md text-label-md text-on-surface font-semibold uppercase tracking-wider mb-space-xs">Standards &amp; Tech</span><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Accessibility (WCAG 2.2 AA)</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy &amp; Telemetry Zero</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">GitHub Repository</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Community Guidelines</a></div></div><div class="pt-space-md border-t border-border-subtle flex flex-col sm:flex-row items-center justify-between gap-space-sm"><span class="font-body-sm text-body-sm text-outline">© 2025 Election Intelligence Initiative. Public domain under CC BY-SA 4.0 International.</span><div class="flex items-center gap-space-md text-label-sm font-label-sm text-outline"><span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-status-verified"></span> System Status: Verified Normal</span><span>ISO/IEC 27001 Aligned</span></div></div></div></footer><script>
+// Election Intelligence Platform - Civic Client Interaction Engine
+// Implements Apple HIG interactions: Command Palette (⌘K), Grounded AI Assistant (⌘J), Theme Toggle, and Live Search
+
+(function () {
+  'use strict';
+
+  // 1. Theme Management (Dark / Light)
+  function initTheme() {
+    const savedTheme = localStorage.getItem('civic_theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+
+    document.querySelectorAll('button[aria-label="Theme toggle"], button:has(.material-symbols-outlined:contains("mode"))').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('civic_theme', isDark ? 'dark' : 'light');
+        const icon = btn.querySelector('.material-symbols-outlined');
+        if (icon) {
+          icon.textContent = isDark ? 'dark_mode' : 'light_mode';
+        }
+      });
+    });
+  }
+
+  // 2. Command Palette (⌘K) & Search
+  function createCommandPalette() {
+    if (document.getElementById('civic-command-palette')) return;
+
+    const overlay = document.createElement('div');
+    overlay.id = 'civic-command-palette';
+    overlay.style.display = 'none';
+    overlay.className = 'fixed inset-0 z-50 bg-black/60 backdrop-blur-md flex items-start justify-center pt-20 px-4 animate-in fade-in duration-150';
+    overlay.innerHTML = `
+      <div class="bg-surface-card dark:bg-[#1c1c1e] w-full max-w-2xl rounded-2xl shadow-2xl border border-black/[0.08] dark:border-white/[0.12] overflow-hidden flex flex-col max-h-[80vh]">
+        <div class="flex items-center px-4 py-3 border-b border-border-subtle dark:border-white/[0.08] gap-3">
+          <span class="material-symbols-outlined text-outline">search</span>
+          <input id="civic-palette-input" type="text" placeholder="Search elections, candidates, constituencies, affidavits..." class="w-full bg-transparent font-body-md text-on-surface dark:text-[#f5f5f7] placeholder:text-outline focus:outline-none text-base" />
+          <kbd class="px-2 py-0.5 rounded text-xs bg-surface-subtle dark:bg-[#2c2c2e] text-archive-slate font-mono font-medium">ESC</kbd>
+        </div>
+        <div id="civic-palette-results" class="p-3 overflow-y-auto divide-y divide-border-subtle/50 dark:divide-white/[0.04]">
+          <div class="p-6 text-center text-sm text-archive-slate">Type at least 2 characters to search across verified election records.</div>
+        </div>
+        <div class="px-4 py-2.5 bg-surface-subtle dark:bg-[#2c2c2e]/50 border-t border-border-subtle dark:border-white/[0.08] flex items-center justify-between text-xs text-archive-slate">
+          <div class="flex items-center gap-3">
+            <span><kbd class="font-mono bg-surface-card dark:bg-[#1c1c1e] px-1 rounded">↑↓</kbd> Navigate</span>
+            <span><kbd class="font-mono bg-surface-card dark:bg-[#1c1c1e] px-1 rounded">↵</kbd> Select</span>
+          </div>
+          <span class="text-[11px] font-medium text-status-verified flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-status-verified"></span> Verified BM25 Index</span>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closePalette();
+    });
+
+    const input = document.getElementById('civic-palette-input');
+    let debounceTimer;
+
+    input.addEventListener('input', (e) => {
+      clearTimeout(debounceTimer);
+      const query = e.target.value.trim();
+      if (query.length < 2) {
+        document.getElementById('civic-palette-results').innerHTML = `
+          <div class="p-6 text-center text-sm text-archive-slate">Type at least 2 characters to search across verified election records.</div>
+        `;
+        return;
+      }
+      debounceTimer = setTimeout(() => executeSearch(query), 150);
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePalette();
+    });
+  }
+
+  async function executeSearch(query) {
+    const resultsContainer = document.getElementById('civic-palette-results');
+    resultsContainer.innerHTML = `<div class="p-4 text-center text-sm text-archive-slate animate-pulse">Querying BM25 in-process index...</div>`;
+
+    try {
+      const res = await fetch(`/api/v1/search?q=${encodeURIComponent(query)}`);
+      const json = await res.json();
+      if (!json.success || !json.data.results || json.data.results.length === 0) {
+        resultsContainer.innerHTML = `
+          <div class="p-6 text-center text-sm text-archive-slate">No verified electoral records found for "${query}".</div>
+        `;
+        return;
+      }
+
+      resultsContainer.innerHTML = json.data.results.map(r => `
+        <a href="${getTargetUrl(r)}" class="block p-3 rounded-xl hover:bg-surface-subtle dark:hover:bg-white/[0.04] transition-colors group">
+          <div class="flex items-center justify-between">
+            <span class="font-semibold text-sm text-primary dark:text-[#5e9eff] group-hover:underline">${escapeHtml(r.title)}</span>
+            <span class="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-primary-fixed/30 dark:bg-primary-container text-primary dark:text-primary-fixed font-bold">${escapeHtml(r.category)}</span>
+          </div>
+          <p class="text-xs text-on-surface-variant dark:text-[#a1a1a6] mt-1 line-clamp-2">${escapeHtml(r.description)}</p>
+          <div class="flex items-center gap-3 mt-1.5 text-[10px] text-archive-slate font-mono">
+            <span>Score: ${r.score.toFixed(2)}</span>
+            <span>ID: ${escapeHtml(r.id)}</span>
+          </div>
+        </a>
+      `).join('');
+    } catch (err) {
+      resultsContainer.innerHTML = `<div class="p-4 text-center text-xs text-error">Error connecting to search service: ${err.message}</div>`;
+    }
+  }
+
+  function getTargetUrl(item) {
+    if (item.category === 'candidate') return `/candidates?id=${item.id}`;
+    if (item.category === 'constituency') return `/constituencies?id=${item.id}`;
+    if (item.category === 'party') return `/candidates?party=${item.id}`;
+    return `/#${item.id}`;
+  }
+
+  function openPalette() {
+    createCommandPalette();
+    const overlay = document.getElementById('civic-command-palette');
+    overlay.style.display = 'flex';
+    const input = document.getElementById('civic-palette-input');
+    input.focus();
+    input.select();
+  }
+
+  function closePalette() {
+    const overlay = document.getElementById('civic-command-palette');
+    if (overlay) overlay.style.display = 'none';
+  }
+
+  // 3. Grounded AI Query Interactivity
+  function initAiForms() {
+    const aiInputs = document.querySelectorAll('input[placeholder*="Ask"], input[placeholder*="research question"], textarea[placeholder*="Ask"]');
+    aiInputs.forEach(input => {
+      const parent = input.closest('form') || input.parentElement;
+      const submitBtn = parent.querySelector('button[type="submit"], button:has(.material-symbols-outlined)');
+      
+      const runQuery = async () => {
+        const q = input.value.trim();
+        if (!q) return;
+
+        // Find or create response container
+        let resContainer = document.getElementById('ai-response-stream');
+        if (!resContainer) {
+          resContainer = document.createElement('div');
+          resContainer.id = 'ai-response-stream';
+          resContainer.className = 'mt-6 p-6 rounded-2xl bg-surface-card dark:bg-[#1e1e1e] border border-border-subtle dark:border-white/[0.08] shadow-sm';
+          input.closest('.max-w-4xl, .max-w-3xl, main')?.appendChild(resContainer);
+        }
+
+        resContainer.innerHTML = `
+          <div class="flex items-center gap-3 text-sm text-primary dark:text-[#5e9eff]">
+            <span class="w-4 h-4 border-2 border-primary border-t-transparent rounded-full animate-spin"></span>
+            <span>Retrieving statutory Form 26 evidence passages and ECI declarations...</span>
+          </div>
+        `;
+
+        try {
+          const res = await fetch('/api/v1/ai/query', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ query: q, session_id: 'web-session-' + Date.now() })
+          });
+          const data = await res.json();
+          if (data.success && data.data) {
+            renderAiAnswer(resContainer, data.data);
+          } else {
+            resContainer.innerHTML = `<div class="text-sm text-error">Query failed: ${data.error?.message || 'Unknown error'}</div>`;
+          }
+        } catch (e) {
+          resContainer.innerHTML = `<div class="text-sm text-error">Connection error: ${e.message}</div>`;
+        }
+      };
+
+      if (submitBtn) {
+        submitBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          runQuery();
+        });
+      }
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          runQuery();
+        }
+      });
+    });
+  }
+
+  function renderAiAnswer(container, aiData) {
+    const citationsHtml = aiData.citations.map(c => `
+      <div class="p-3.5 rounded-xl bg-surface-subtle dark:bg-white/[0.04] border border-border-subtle dark:border-white/[0.08] text-xs">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="font-semibold text-primary dark:text-[#5e9eff] flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[14px]">verified</span>
+            ${escapeHtml(c.publisher)}
+          </span>
+          <span class="font-mono text-[10px] text-archive-slate">${escapeHtml(c.section)}</span>
+        </div>
+        <p class="text-on-surface-variant dark:text-[#d1d1d6] italic mb-2">"${escapeHtml(c.quote)}"</p>
+        <a href="${escapeHtml(c.url)}" target="_blank" rel="noopener noreferrer" class="text-[11px] text-secondary dark:text-[#64d2ff] hover:underline flex items-center gap-1">
+          <span>Official Gazette Filing</span>
+          <span class="material-symbols-outlined text-[12px]">open_in_new</span>
+        </a>
+      </div>
+    `).join('');
+
+    container.innerHTML = `
+      <div class="space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-border-subtle dark:border-white/[0.08]">
+          <div class="flex items-center gap-2 text-xs font-semibold text-status-verified">
+            <span class="w-2 h-2 rounded-full bg-status-verified"></span>
+            <span>Grounded Response (Verification Score: ${(aiData.grounding_score * 100).toFixed(1)}%)</span>
+          </div>
+          <span class="text-[10px] font-mono text-archive-slate">${escapeHtml(aiData.model_used)}</span>
+        </div>
+
+        <div class="font-body-md text-on-surface dark:text-[#f5f5f7] leading-relaxed whitespace-pre-line text-sm">
+          ${escapeHtml(aiData.answer)}
+        </div>
+
+        ${aiData.citations.length > 0 ? `
+          <div class="pt-3 border-t border-border-subtle dark:border-white/[0.08]">
+            <h4 class="text-xs font-semibold text-archive-slate uppercase tracking-wider mb-2.5">Statutory Citations (${aiData.citations.length})</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5">
+              ${citationsHtml}
+            </div>
+          </div>
+        ` : ''}
+
+        <div class="p-3 rounded-lg bg-surface-subtle dark:bg-white/[0.03] text-[11px] text-archive-slate leading-normal">
+          <strong>Non-Partisan Charter Guarantee:</strong> ${escapeHtml(aiData.disclaimer)}
+        </div>
+      </div>
+    `;
+  }
+
+  // 4. Global Keyboard Shortcuts
+  function initKeyboardShortcuts() {
+    document.addEventListener('keydown', (e) => {
+      // ⌘K or Ctrl+K for Search
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        openPalette();
+      }
+      // ⌘J or Ctrl+J for AI Assistant
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'j') {
+        e.preventDefault();
+        window.location.href = '/ai';
+      }
+      // ESC closes open palette or modals
+      if (e.key === 'Escape') {
+        closePalette();
+      }
+    });
+
+    // Wire up on-page search inputs to open palette or search directly
+    document.querySelectorAll('input[placeholder*="Search elections"]').forEach(input => {
+      input.addEventListener('focus', () => {
+        openPalette();
+      });
+    });
+  }
+
+  function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  // DOM Ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      initKeyboardShortcuts();
+      initAiForms();
+    });
+  } else {
+    initTheme();
+    initKeyboardShortcuts();
+    initAiForms();
+  }
+})();
+
+</script>
+</body></html>
