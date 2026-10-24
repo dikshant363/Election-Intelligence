@@ -5,12 +5,13 @@ use crate::ai::GroundedAIEngine;
 use crate::db::Database;
 use crate::domain::*;
 use crate::error::AppError;
+use crate::ingestion::IngestionPipeline;
 use crate::search::BM25Index;
 use axum::{
-    extract::{Query, State},
-    http::StatusCode,
+    extract::{Path, Query, State},
+    http::{HeaderMap, StatusCode},
     response::IntoResponse,
-    routing::{get, post},
+    routing::{get, patch, post},
     Json, Router,
 };
 use serde::{Deserialize, Serialize};
@@ -55,11 +56,23 @@ pub fn create_api_router(state: AppState) -> Router {
         .route("/api/v1/ai/query", post(ai_query_handler))
         .route("/api/v1/ai/chat", post(ai_chat_handler))
         .route("/api/v1/ai/metrics", get(ai_metrics_handler))
-        // ETL
+        // ETL & Ingestion
         .route(
             "/api/v1/etl",
             get(get_etl_batches_handler).post(create_etl_batch_handler),
         )
+        .route("/api/v1/etl/ingest", post(ingest_batch_handler))
+        // Data Corrections & Integrity
+        .route(
+            "/api/v1/corrections",
+            get(get_corrections_handler).post(submit_correction_handler),
+        )
+        .route(
+            "/api/v1/corrections/:id/review",
+            patch(review_correction_handler),
+        )
+        // Data Coverage Inventory
+        .route("/api/v1/coverage", get(get_coverage_handler))
         // Admin
         .route(
             "/api/v1/admin/feature-flags",
@@ -69,6 +82,35 @@ pub fn create_api_router(state: AppState) -> Router {
         // Observability
         .route("/api/v1/observability", get(observability_handler))
         .with_state(state)
+}
+
+/// Verifies administrative authorization header (Bearer token or X-Admin-Key)
+pub fn check_admin_auth(headers: &HeaderMap) -> Result<(), AppError> {
+    let expected_token =
+        std::env::var("ADMIN_API_KEY").unwrap_or_else(|_| "admin_secret_token_2026".to_string());
+
+    if let Some(auth_val) = headers.get(axum::http::header::AUTHORIZATION) {
+        if let Ok(auth_str) = auth_val.to_str() {
+            if let Some(bearer) = auth_str.strip_prefix("Bearer ") {
+                if bearer.trim() == expected_token {
+                    return Ok(());
+                }
+            }
+        }
+    }
+
+    if let Some(key_val) = headers.get("X-Admin-Key") {
+        if let Ok(key_str) = key_val.to_str() {
+            if key_str.trim() == expected_token {
+                return Ok(());
+            }
+        }
+    }
+
+    Err(AppError::Unauthorized(
+        "Administrative authorization required. Provide valid Bearer token or X-Admin-Key header."
+            .into(),
+    ))
 }
 
 #[derive(Serialize)]
@@ -334,8 +376,10 @@ pub async fn get_etl_batches_handler(
 
 pub async fn create_etl_batch_handler(
     State(state): State<AppState>,
+    headers: HeaderMap,
     Json(payload): Json<ETLImportRequest>,
 ) -> Result<impl IntoResponse, AppError> {
+    check_admin_auth(&headers)?;
     let batch = state
         .db
         .create_etl_batch(payload, "ops_lead", "127.0.0.1")
@@ -343,7 +387,94 @@ pub async fn create_etl_batch_handler(
     Ok((StatusCode::CREATED, ApiResponse::ok(batch)))
 }
 
-// 11. Admin Handlers
+pub async fn ingest_batch_handler(
+    State(state): State<AppState>,
+    headers: HeaderMap,
+    Json(payload): Json<IngestionBatchPayload>,
+) -> Result<impl IntoResponse, AppError> {
+    check_admin_auth(&headers)?;
+    let is_dry_run = payload.dry_run.unwrap_or(false);
+    let result: IngestionDryRunResult =
+        IngestionPipeline::process_batch(&state.db, payload, "admin_pipeline", "127.0.0.1").await?;
+
+    if !is_dry_run {
+        if let Ok(docs) = state.db.get_search_documents().await {
+            *state.search_index.write().await = BM25Index::build(docs);
+        }
+    }
+
+    Ok((StatusCode::OK, ApiResponse::ok(result)))
+}
+
+// 11. Data Corrections & Coverage Handlers
+#[derive(Deserialize)]
+pub struct CorrectionQueryParams {
+    pub status: Option<String>,
+}
+
+pub async fn get_corrections_handler(
+    State(state): State<AppState>,
+    Query(params): Query<CorrectionQueryParams>,
+) -> Result<impl IntoResponse, AppError> {
+    let corrections = state
+        .db
+        .get_data_corrections(params.status.as_deref())
+        .await?;
+    Ok(ApiResponse::ok(corrections))
+}
+
+pub async fn submit_correction_handler(
+    State(state): State<AppState>,
+    Json(payload): Json<DataCorrectionSubmitRequest>,
+) -> Result<impl IntoResponse, AppError> {
+    payload.validate().map_err(AppError::Validation)?;
+    let correction = state.db.submit_data_correction(payload).await?;
+    Ok((StatusCode::CREATED, ApiResponse::ok(correction)))
+}
+
+#[derive(Deserialize)]
+pub struct ReviewCorrectionRequest {
+    pub status: String,
+    pub notes: Option<String>,
+}
+
+pub async fn review_correction_handler(
+    State(state): State<AppState>,
+    headers: HeaderMap,
+    Path(id): Path<String>,
+    Json(payload): Json<ReviewCorrectionRequest>,
+) -> Result<impl IntoResponse, AppError> {
+    check_admin_auth(&headers)?;
+    let valid_statuses = ["APPROVED", "REJECTED", "INVESTIGATING", "RESOLVED"];
+    if !valid_statuses.contains(&payload.status.as_str()) {
+        return Err(AppError::Validation(format!(
+            "Invalid status '{}'. Allowed: {:?}",
+            payload.status, valid_statuses
+        )));
+    }
+
+    let updated = state
+        .db
+        .review_data_correction(
+            &id,
+            &payload.status,
+            "admin_reviewer",
+            payload.notes.as_deref().unwrap_or(""),
+            "127.0.0.1",
+        )
+        .await?;
+
+    Ok(ApiResponse::ok(updated))
+}
+
+pub async fn get_coverage_handler(
+    State(state): State<AppState>,
+) -> Result<impl IntoResponse, AppError> {
+    let metrics = state.db.get_coverage_metrics().await?;
+    Ok(ApiResponse::ok(metrics))
+}
+
+// 12. Admin Handlers
 pub async fn get_feature_flags_handler(
     State(state): State<AppState>,
 ) -> Result<impl IntoResponse, AppError> {
@@ -359,8 +490,10 @@ pub struct FeatureFlagPatchParams {
 
 pub async fn update_feature_flag_handler(
     State(state): State<AppState>,
+    headers: HeaderMap,
     Json(payload): Json<FeatureFlagPatchParams>,
 ) -> Result<impl IntoResponse, AppError> {
+    check_admin_auth(&headers)?;
     let updated = state
         .db
         .update_feature_flag(&payload.name, payload.enabled, "superadmin", "127.0.0.1")

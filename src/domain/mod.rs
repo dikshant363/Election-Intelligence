@@ -414,3 +414,128 @@ pub struct ExecutiveKpis {
     pub ai_queries_processed: i64,
     pub platform_uptime_percent: f64,
 }
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct DataCorrection {
+    pub id: String,
+    pub entity_type: String,
+    pub entity_id: String,
+    pub field_name: String,
+    pub original_value: Option<String>,
+    pub proposed_value: String,
+    pub source_url: String,
+    pub justification: String,
+    pub reporter_email: Option<String>,
+    pub status: String,
+    pub created_at: String,
+    pub reviewed_at: Option<String>,
+    pub reviewed_by: Option<String>,
+    pub review_notes: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct DataCorrectionSubmitRequest {
+    pub entity_type: String,
+    pub entity_id: String,
+    pub field_name: String,
+    pub original_value: Option<String>,
+    pub proposed_value: String,
+    pub source_url: String,
+    pub justification: String,
+    pub reporter_email: Option<String>,
+}
+
+impl DataCorrectionSubmitRequest {
+    pub fn validate(&self) -> Result<(), String> {
+        if self.entity_type.trim().is_empty() {
+            return Err("entity_type is required.".into());
+        }
+        if self.entity_id.trim().is_empty() {
+            return Err("entity_id is required.".into());
+        }
+        if self.field_name.trim().is_empty() {
+            return Err("field_name is required.".into());
+        }
+        if self.proposed_value.trim().is_empty() {
+            return Err("proposed_value is required.".into());
+        }
+        if !self.source_url.starts_with("http://") && !self.source_url.starts_with("https://") {
+            return Err("source_url must be a valid HTTP or HTTPS URL.".into());
+        }
+        if self.justification.trim().len() < 10 {
+            return Err(
+                "justification must provide at least 10 characters of factual context.".into(),
+            );
+        }
+        Ok(())
+    }
+}
+
+#[allow(dead_code)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct DisputedClaim {
+    pub id: String,
+    pub claim_id: String,
+    pub dispute_type: String,
+    pub contending_source_id: String,
+    pub explanation: String,
+    pub status: String,
+    pub reported_at: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct DataCoverageMetric {
+    pub id: String,
+    pub election_id: String,
+    pub jurisdiction: String,
+    pub total_constituencies_in_scope: i32,
+    pub constituencies_indexed: i32,
+    pub candidates_indexed: i32,
+    pub affidavits_verified: i32,
+    pub last_audit_date: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct IngestionCandidateRecord {
+    pub name: String,
+    pub constituency_code: String,
+    pub party_code: String,
+    pub education: Option<String>,
+    pub declared_assets_cr: f64,
+    pub declared_liabilities_cr: f64,
+    pub criminal_cases: i32,
+    pub source_ref: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct IngestionBatchPayload {
+    pub source_publisher: String,
+    pub source_url: String,
+    pub election_id: String,
+    pub dry_run: Option<bool>,
+    pub candidates: Vec<IngestionCandidateRecord>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct IngestionDryRunResult {
+    pub batch_id: String,
+    pub is_dry_run: bool,
+    pub total_records_received: usize,
+    pub valid_records: usize,
+    pub duplicate_records: usize,
+    pub invalid_records: usize,
+    pub rejection_reasons: Vec<String>,
+    pub preview_inserted: Vec<String>,
+}
+
+#[allow(dead_code)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct GroundingEvaluationMetric {
+    pub query: String,
+    pub citations_returned: usize,
+    pub grounding_score: f64,
+    pub token_coverage_ratio: f64,
+    pub source_authority_weight: f64,
+    pub abstained: bool,
+    pub latency_ms: u64,
+}

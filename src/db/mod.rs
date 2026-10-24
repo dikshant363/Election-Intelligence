@@ -911,4 +911,174 @@ impl Database {
 
         Ok(docs)
     }
+
+    // --- Data Corrections & Public Dispute Workflow ---
+    pub async fn submit_data_correction(
+        &self,
+        req: DataCorrectionSubmitRequest,
+    ) -> Result<DataCorrection, AppError> {
+        req.validate().map_err(AppError::Validation)?;
+
+        let id = format!("corr-{}", &uuid::Uuid::new_v4().to_string()[..8]);
+        let now = chrono::Utc::now().to_rfc3339();
+
+        sqlx::query(
+            r#"
+            INSERT INTO data_corrections (id, entity_type, entity_id, field_name, original_value, proposed_value, source_url, justification, reporter_email, status, created_at)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, 'PENDING_REVIEW', $10::timestamptz)
+            "#,
+        )
+        .bind(&id)
+        .bind(&req.entity_type)
+        .bind(&req.entity_id)
+        .bind(&req.field_name)
+        .bind(&req.original_value)
+        .bind(&req.proposed_value)
+        .bind(&req.source_url)
+        .bind(&req.justification)
+        .bind(&req.reporter_email)
+        .bind(&now)
+        .execute(&self.pool)
+        .await?;
+
+        Ok(DataCorrection {
+            id,
+            entity_type: req.entity_type,
+            entity_id: req.entity_id,
+            field_name: req.field_name,
+            original_value: req.original_value,
+            proposed_value: req.proposed_value,
+            source_url: req.source_url,
+            justification: req.justification,
+            reporter_email: req.reporter_email,
+            status: "PENDING_REVIEW".into(),
+            created_at: now,
+            reviewed_at: None,
+            reviewed_by: None,
+            review_notes: None,
+        })
+    }
+
+    pub async fn get_data_corrections(
+        &self,
+        status_filter: Option<&str>,
+    ) -> Result<Vec<DataCorrection>, AppError> {
+        let rows = if let Some(status) = status_filter {
+            sqlx::query(
+                r#"
+                SELECT id, entity_type, entity_id, field_name, original_value, proposed_value, source_url, justification, reporter_email, status, created_at::text, reviewed_at::text, reviewed_by, review_notes
+                FROM data_corrections
+                WHERE status = $1
+                ORDER BY created_at DESC
+                "#,
+            )
+            .bind(status)
+            .fetch_all(&self.pool)
+            .await?
+        } else {
+            sqlx::query(
+                r#"
+                SELECT id, entity_type, entity_id, field_name, original_value, proposed_value, source_url, justification, reporter_email, status, created_at::text, reviewed_at::text, reviewed_by, review_notes
+                FROM data_corrections
+                ORDER BY created_at DESC
+                "#,
+            )
+            .fetch_all(&self.pool)
+            .await?
+        };
+
+        let mut list = Vec::new();
+        for r in rows {
+            list.push(DataCorrection {
+                id: r.get("id"),
+                entity_type: r.get("entity_type"),
+                entity_id: r.get("entity_id"),
+                field_name: r.get("field_name"),
+                original_value: r.get("original_value"),
+                proposed_value: r.get("proposed_value"),
+                source_url: r.get("source_url"),
+                justification: r.get("justification"),
+                reporter_email: r.get("reporter_email"),
+                status: r.get("status"),
+                created_at: r.get("created_at"),
+                reviewed_at: r.get("reviewed_at"),
+                reviewed_by: r.get("reviewed_by"),
+                review_notes: r.get("review_notes"),
+            });
+        }
+        Ok(list)
+    }
+
+    pub async fn review_data_correction(
+        &self,
+        id: &str,
+        status: &str,
+        reviewer: &str,
+        notes: &str,
+        ip_address: &str,
+    ) -> Result<DataCorrection, AppError> {
+        let now = chrono::Utc::now().to_rfc3339();
+
+        let mut tx = self.pool.begin().await?;
+
+        sqlx::query(
+            r#"
+            UPDATE data_corrections
+            SET status = $1, reviewed_at = $2::timestamptz, reviewed_by = $3, review_notes = $4
+            WHERE id = $5
+            "#,
+        )
+        .bind(status)
+        .bind(&now)
+        .bind(reviewer)
+        .bind(notes)
+        .bind(id)
+        .execute(&mut *tx)
+        .await?;
+
+        self.append_audit_log_tx(
+            &mut tx,
+            reviewer,
+            "REVIEW_DATA_CORRECTION",
+            &format!("corrections/{}", id),
+            status,
+            ip_address,
+            serde_json::json!({ "correction_id": id, "status": status, "notes": notes }),
+        )
+        .await?;
+
+        tx.commit().await?;
+
+        let list = self.get_data_corrections(None).await?;
+        list.into_iter()
+            .find(|c| c.id == id)
+            .ok_or_else(|| AppError::NotFound(format!("Correction '{}' not found", id)))
+    }
+
+    pub async fn get_coverage_metrics(&self) -> Result<Vec<DataCoverageMetric>, AppError> {
+        let rows = sqlx::query(
+            r#"
+            SELECT id, election_id, jurisdiction, total_constituencies_in_scope, constituencies_indexed, candidates_indexed, affidavits_verified, last_audit_date::text
+            FROM data_coverage_metrics
+            ORDER BY jurisdiction ASC
+            "#,
+        )
+        .fetch_all(&self.pool)
+        .await?;
+
+        let mut list = Vec::new();
+        for r in rows {
+            list.push(DataCoverageMetric {
+                id: r.get("id"),
+                election_id: r.get("election_id"),
+                jurisdiction: r.get("jurisdiction"),
+                total_constituencies_in_scope: r.get("total_constituencies_in_scope"),
+                constituencies_indexed: r.get("constituencies_indexed"),
+                candidates_indexed: r.get("candidates_indexed"),
+                affidavits_verified: r.get("affidavits_verified"),
+                last_audit_date: r.get("last_audit_date"),
+            });
+        }
+        Ok(list)
+    }
 }

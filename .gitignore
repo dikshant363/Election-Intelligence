@@ -93,8 +93,10 @@ ssh-known_hosts
 .env.staging
 .env.production
 
-# Miscellaneous
-*.log
+# Backups
+backups/
+*.sql.gz
+
 *.tmp
 *.temp
 *.bak

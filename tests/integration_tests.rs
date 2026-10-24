@@ -25,6 +25,8 @@ mod db;
 mod domain;
 #[path = "../src/error.rs"]
 mod error;
+#[path = "../src/ingestion/mod.rs"]
+mod ingestion;
 #[path = "../src/search.rs"]
 mod search;
 #[path = "../src/ui/mod.rs"]
@@ -167,12 +169,85 @@ async fn test_audit_log_cryptographic_chaining() {
         .expect("Failed to append audit log");
 
     assert_eq!(new_entry.actor, "test_runner");
-    assert_eq!(new_entry.previous_hash, logs_before[0].current_hash);
 
     let logs_after = db
         .get_audit_logs()
         .await
         .expect("Failed to fetch logs after append");
+    assert!(audit::verify_audit_chain(&logs_after).is_ok());
+
+    let mut sorted = logs_after.clone();
+    sorted.sort_by_key(|l| l.sequence_number);
+    let idx = sorted
+        .iter()
+        .position(|l| l.id == new_entry.id)
+        .expect("Inserted entry must exist in audit log");
+    if idx > 0 {
+        assert_eq!(sorted[idx].previous_hash, sorted[idx - 1].current_hash);
+    }
+}
+
+#[tokio::test]
+async fn test_audit_chain_tamper_detection_modified_payload() {
+    let (_, db) = setup_test_app().await;
+    let logs = db.get_audit_logs().await.expect("Failed to fetch logs");
+    assert!(logs.len() >= 2);
+
+    let mut tampered_logs = logs.clone();
+    // Tamper with actor field of an entry
+    tampered_logs[1].actor = "malicious_actor".to_string();
+
+    let result = audit::verify_single_entry_hash(&tampered_logs[1]);
+    assert!(result.is_err());
+    assert!(result.unwrap_err().contains("Tampering detected"));
+}
+
+#[tokio::test]
+async fn test_audit_chain_tamper_detection_missing_sequence() {
+    let (_, db) = setup_test_app().await;
+    let logs = db.get_audit_logs().await.expect("Failed to fetch logs");
+    assert!(logs.len() >= 3);
+
+    let mut sorted = logs.clone();
+    sorted.sort_by_key(|l| l.sequence_number);
+
+    // Remove the middle entry to create a sequence gap
+    sorted.remove(1);
+
+    let result = audit::verify_audit_chain(&sorted);
+    assert!(result.is_err());
+    assert!(result
+        .unwrap_err()
+        .contains("non-contiguous sequence_number"));
+}
+
+#[tokio::test]
+async fn test_audit_chain_concurrent_appends() {
+    let (_, db) = setup_test_app().await;
+
+    let mut handles = Vec::new();
+    for i in 0..5 {
+        let db_clone = db.clone();
+        handles.push(tokio::spawn(async move {
+            db_clone
+                .append_audit_log(
+                    &format!("concurrency_worker_{}", i),
+                    "PARALLEL_TEST_OP",
+                    &format!("resource/worker_{}", i),
+                    "SUCCESS",
+                    "127.0.0.1",
+                    serde_json::json!({ "worker_id": i }),
+                )
+                .await
+        }));
+    }
+
+    for h in handles {
+        let res = h.await.unwrap();
+        assert!(res.is_ok(), "Concurrent append failed: {:?}", res);
+    }
+
+    let logs_after = db.get_audit_logs().await.unwrap();
     assert!(audit::verify_audit_chain(&logs_after).is_ok());
 }
 
@@ -296,6 +371,7 @@ async fn test_api_feature_flags_toggle() {
                 .uri("/api/v1/admin/feature-flags")
                 .method("PATCH")
                 .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer admin_secret_token_2026")
                 .body(Body::from(serde_json::to_vec(&body).unwrap()))
                 .unwrap(),
         )
@@ -308,4 +384,232 @@ async fn test_api_feature_flags_toggle() {
     assert_eq!(json["success"], true);
     assert_eq!(json["data"]["name"], "enable_chaos_testing");
     assert_eq!(json["data"]["enabled"], true);
+}
+
+#[tokio::test]
+async fn test_ingestion_csv_parser_and_validation() {
+    let valid_csv = "name,constituency_code,party_code,education,declared_assets_cr,declared_liabilities_cr,criminal_cases,source_ref\n\
+                     Sunita Verma,UP-VARANASI,INC,Post Graduate,4.25,0.35,0,ECI Form 26 Affidavit 2024\n\
+                     Ramesh Chand,DL-NEWDELHI,AAP,Graduate,1.80,0.10,1,ADR Report 2024";
+
+    let records = ingestion::IngestionPipeline::parse_csv_candidates(valid_csv)
+        .expect("CSV parsing should succeed");
+    assert_eq!(records.len(), 2);
+    assert_eq!(records[0].name, "Sunita Verma");
+    assert_eq!(records[0].declared_assets_cr, 4.25);
+    assert_eq!(records[0].criminal_cases, 0);
+
+    // Malformed CSV row
+    let malformed_csv = "name,constituency_code,party_code\nShort Row,UP-VARANASI,INC";
+    let err = ingestion::IngestionPipeline::parse_csv_candidates(malformed_csv);
+    assert!(err.is_err());
+}
+
+#[tokio::test]
+async fn test_ingestion_dry_run_mode() {
+    let (app, _) = setup_test_app().await;
+
+    let payload = serde_json::json!({
+        "source_publisher": "Election Commission of India",
+        "source_url": "https://affidavit.eci.gov.in/Candidate/DryRunTest",
+        "election_id": "elec-2024-ls",
+        "dry_run": true,
+        "candidates": [
+            {
+                "name": "Dr. Kavita Rao",
+                "constituency_code": "Varanasi",
+                "party_code": "INC",
+                "education": "Ph.D.",
+                "declared_assets_cr": 8.50,
+                "declared_liabilities_cr": 1.20,
+                "criminal_cases": 0,
+                "source_ref": "ECI Form 26 Gazette 2024"
+            },
+            {
+                "name": "Narendra Modi",
+                "constituency_code": "Varanasi",
+                "party_code": "BJP",
+                "education": "Post Graduate",
+                "declared_assets_cr": 3.02,
+                "declared_liabilities_cr": 0.0,
+                "criminal_cases": 0,
+                "source_ref": "ECI Form 26 Gazette 2024"
+            }
+        ]
+    });
+
+    let response = app
+        .oneshot(
+            Request::builder()
+                .uri("/api/v1/etl/ingest")
+                .method("POST")
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer admin_secret_token_2026")
+                .body(Body::from(serde_json::to_vec(&payload).unwrap()))
+                .unwrap(),
+        )
+        .await
+        .unwrap();
+
+    assert_eq!(response.status(), StatusCode::OK);
+    let bytes = to_bytes(response.into_body(), usize::MAX).await.unwrap();
+    let json: Value = serde_json::from_slice(&bytes).unwrap();
+    assert_eq!(json["success"], true);
+    assert_eq!(json["data"]["is_dry_run"], true);
+    assert_eq!(json["data"]["valid_records"], 1);
+    assert_eq!(json["data"]["duplicate_records"], 1);
+}
+
+#[tokio::test]
+async fn test_admin_auth_guard() {
+    let (app, _) = setup_test_app().await;
+
+    // Call ingest without Authorization header
+    let payload = serde_json::json!({
+        "source_publisher": "ECI",
+        "source_url": "https://eci.gov.in",
+        "election_id": "elec-2024-ls",
+        "dry_run": true,
+        "candidates": []
+    });
+
+    let res_no_auth = app
+        .clone()
+        .oneshot(
+            Request::builder()
+                .uri("/api/v1/etl/ingest")
+                .method("POST")
+                .header("Content-Type", "application/json")
+                .body(Body::from(serde_json::to_vec(&payload).unwrap()))
+                .unwrap(),
+        )
+        .await
+        .unwrap();
+
+    assert_eq!(res_no_auth.status(), StatusCode::UNAUTHORIZED);
+
+    // Call with invalid token
+    let res_bad_auth = app
+        .oneshot(
+            Request::builder()
+                .uri("/api/v1/etl/ingest")
+                .method("POST")
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer wrong_secret_token")
+                .body(Body::from(serde_json::to_vec(&payload).unwrap()))
+                .unwrap(),
+        )
+        .await
+        .unwrap();
+
+    assert_eq!(res_bad_auth.status(), StatusCode::UNAUTHORIZED);
+}
+
+#[tokio::test]
+async fn test_data_correction_submission_and_review() {
+    let (app, _) = setup_test_app().await;
+
+    // 1. Submit Correction
+    let submit_payload = serde_json::json!({
+        "entity_type": "disclosures",
+        "entity_id": "disc-2024-001",
+        "field_name": "movable_assets_inr",
+        "original_value": "30200000.0",
+        "proposed_value": "30250000.0",
+        "source_url": "https://affidavit.eci.gov.in/Candidate/Varanasi/Modi_Revised.pdf",
+        "justification": "Revised Form 26 corrigendum filed with Returning Officer showing additional bank interest.",
+        "reporter_email": "auditor@myneta.info"
+    });
+
+    let res_submit = app
+        .clone()
+        .oneshot(
+            Request::builder()
+                .uri("/api/v1/corrections")
+                .method("POST")
+                .header("Content-Type", "application/json")
+                .body(Body::from(serde_json::to_vec(&submit_payload).unwrap()))
+                .unwrap(),
+        )
+        .await
+        .unwrap();
+
+    assert_eq!(res_submit.status(), StatusCode::CREATED);
+    let bytes = to_bytes(res_submit.into_body(), usize::MAX).await.unwrap();
+    let json_sub: Value = serde_json::from_slice(&bytes).unwrap();
+    assert_eq!(json_sub["success"], true);
+    let correction_id = json_sub["data"]["id"].as_str().unwrap().to_string();
+    assert_eq!(json_sub["data"]["status"], "PENDING_REVIEW");
+
+    // 2. Fetch Corrections List
+    let res_list = app
+        .clone()
+        .oneshot(
+            Request::builder()
+                .uri("/api/v1/corrections")
+                .method("GET")
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await
+        .unwrap();
+
+    assert_eq!(res_list.status(), StatusCode::OK);
+    let bytes = to_bytes(res_list.into_body(), usize::MAX).await.unwrap();
+    let json_list: Value = serde_json::from_slice(&bytes).unwrap();
+    assert!(json_list["data"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .any(|c| c["id"] == correction_id));
+
+    // 3. Review Correction (Admin Auth required)
+    let review_payload = serde_json::json!({
+        "status": "APPROVED",
+        "notes": "Verified against certified copy from Returning Officer records."
+    });
+
+    let res_review = app
+        .oneshot(
+            Request::builder()
+                .uri(format!("/api/v1/corrections/{}/review", correction_id))
+                .method("PATCH")
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer admin_secret_token_2026")
+                .body(Body::from(serde_json::to_vec(&review_payload).unwrap()))
+                .unwrap(),
+        )
+        .await
+        .unwrap();
+
+    assert_eq!(res_review.status(), StatusCode::OK);
+    let bytes = to_bytes(res_review.into_body(), usize::MAX).await.unwrap();
+    let json_rev: Value = serde_json::from_slice(&bytes).unwrap();
+    assert_eq!(json_rev["success"], true);
+    assert_eq!(json_rev["data"]["status"], "APPROVED");
+    assert_eq!(json_rev["data"]["reviewed_by"], "admin_reviewer");
+}
+
+#[tokio::test]
+async fn test_coverage_metrics_endpoint() {
+    let (app, _) = setup_test_app().await;
+
+    let response = app
+        .oneshot(
+            Request::builder()
+                .uri("/api/v1/coverage")
+                .method("GET")
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await
+        .unwrap();
+
+    assert_eq!(response.status(), StatusCode::OK);
+    let bytes = to_bytes(response.into_body(), usize::MAX).await.unwrap();
+    let json: Value = serde_json::from_slice(&bytes).unwrap();
+    assert_eq!(json["success"], true);
+    let coverage_list = json["data"].as_array().unwrap();
+    assert!(!coverage_list.is_empty());
+    assert_eq!(coverage_list[0]["election_id"], "elec-2024-ls");
 }

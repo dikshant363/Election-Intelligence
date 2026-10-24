@@ -8,6 +8,7 @@ mod config;
 mod db;
 mod domain;
 mod error;
+pub mod ingestion;
 mod search;
 mod ui;
 

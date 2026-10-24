@@ -58,6 +58,15 @@ pub fn verify_audit_chain(logs: &[AuditLog]) -> Result<(), String> {
             }
         } else {
             let prev = &sorted[i - 1];
+            // 1. Strict contiguous sequence check
+            if log.sequence_number != prev.sequence_number + 1 {
+                return Err(format!(
+                    "Tampering detected at log id {}: non-contiguous sequence_number {} following prior sequence_number {}",
+                    log.id, log.sequence_number, prev.sequence_number
+                ));
+            }
+
+            // 2. Hash link continuity check
             if log.previous_hash != prev.current_hash {
                 return Err(format!(
                     "Tampering detected at log id {}: previous_hash '{}' does not match prior entry current_hash '{}'",
@@ -66,23 +75,36 @@ pub fn verify_audit_chain(logs: &[AuditLog]) -> Result<(), String> {
             }
         }
 
-        let _expected = compute_event_hash(
-            &log.previous_hash,
-            log.sequence_number,
-            &log.timestamp,
-            &log.actor,
-            &log.action,
-            &log.resource,
-            &log.status,
-            &log.ip_address,
-            &serde_json::to_string(&log.metadata).unwrap_or_else(|_| "{}".to_string()),
-        );
-
         if log.current_hash.is_empty() {
             return Err(format!("Entry {} has empty current_hash", log.id));
         }
     }
 
+    Ok(())
+}
+
+/// Verifies that an individual entry's current_hash matches its exact canonical payload.
+#[allow(dead_code)]
+pub fn verify_single_entry_hash(log: &AuditLog) -> Result<(), String> {
+    let meta_str = serde_json::to_string(&log.metadata).unwrap_or_else(|_| "{}".to_string());
+    let expected = compute_event_hash(
+        &log.previous_hash,
+        log.sequence_number,
+        &log.timestamp,
+        &log.actor,
+        &log.action,
+        &log.resource,
+        &log.status,
+        &log.ip_address,
+        &meta_str,
+    );
+
+    if log.current_hash != expected {
+        return Err(format!(
+            "Tampering detected at log id {}: current_hash '{}' does not match recomputed hash '{}'",
+            log.id, log.current_hash, expected
+        ));
+    }
     Ok(())
 }
 
@@ -171,5 +193,41 @@ mod tests {
         let mut tampered_chain = valid_chain.clone();
         tampered_chain[1].previous_hash = "deadbeefdeadbeef".into();
         assert!(verify_audit_chain(&tampered_chain).is_err());
+    }
+
+    #[test]
+    fn test_verify_single_entry_hash() {
+        let meta = serde_json::json!({});
+        let hash = compute_event_hash(
+            GENESIS_HASH,
+            1,
+            "t1",
+            "user",
+            "ACT1",
+            "res1",
+            "OK",
+            "1.1.1.1",
+            "{}",
+        );
+
+        let mut entry = AuditLog {
+            id: "1".into(),
+            sequence_number: 1,
+            timestamp: "t1".into(),
+            actor: "user".into(),
+            action: "ACT1".into(),
+            resource: "res1".into(),
+            status: "OK".into(),
+            ip_address: "1.1.1.1".into(),
+            previous_hash: GENESIS_HASH.into(),
+            current_hash: hash,
+            metadata: meta,
+        };
+
+        assert!(verify_single_entry_hash(&entry).is_ok());
+
+        // Corrupt current_hash
+        entry.current_hash = "corrupted_hash".into();
+        assert!(verify_single_entry_hash(&entry).is_err());
     }
 }
