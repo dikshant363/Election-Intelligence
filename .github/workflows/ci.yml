@@ -69,8 +69,10 @@ jobs:
 
       - name: Apply Database Migrations and Seed Data
         run: |
-          PGPASSWORD=password psql -h localhost -U postgres -d election_intelligence -f migrations/0001_initial_schema.sql
-          PGPASSWORD=password psql -h localhost -U postgres -d election_intelligence -f migrations/0002_seed_initial_data.sql
+          for f in $(ls migrations/*.sql | sort); do
+            echo "Applying migration: $f"
+            PGPASSWORD=password psql -h localhost -U postgres -d election_intelligence -f "$f"
+          done
 
       - name: Run Test Suite
         env:
