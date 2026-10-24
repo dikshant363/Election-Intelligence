@@ -669,9 +669,14 @@ impl Database {
         ip_address: &str,
         metadata: serde_json::Value,
     ) -> Result<AuditLog, AppError> {
+        // Exclusively lock audit_log table to serialize sequence and hash chaining
+        sqlx::query("LOCK TABLE audit_log IN EXCLUSIVE MODE")
+            .execute(&mut **tx)
+            .await?;
+
         // Query the latest entry to get sequence and previous_hash
         let latest = sqlx::query(
-            "SELECT sequence_number, current_hash FROM audit_log ORDER BY sequence_number DESC LIMIT 1 FOR UPDATE",
+            "SELECT sequence_number, current_hash FROM audit_log ORDER BY sequence_number DESC LIMIT 1",
         )
         .fetch_optional(&mut **tx)
         .await?;

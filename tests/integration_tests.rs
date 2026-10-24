@@ -36,10 +36,14 @@ use db::Database;
 use domain::*;
 use search::BM25Index;
 
-const DB_URL: &str = "postgres://localhost:5432/election_intelligence";
+fn get_test_db_url() -> String {
+    std::env::var("DATABASE_URL")
+        .unwrap_or_else(|_| "postgres://localhost:5432/election_intelligence".to_string())
+}
 
 async fn setup_test_app() -> (axum::Router, Database) {
-    let db = Database::connect(DB_URL)
+    let db_url = get_test_db_url();
+    let db = Database::connect(&db_url)
         .await
         .expect("Failed to connect to test PostgreSQL");
     let docs = db.get_search_documents().await.unwrap_or_default();

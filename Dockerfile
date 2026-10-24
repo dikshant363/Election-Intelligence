@@ -4,7 +4,7 @@
 # ==============================================================================
 
 # --- Stage 1: Build Environment ---
-FROM rust:1.85-bookworm AS builder
+FROM rust:latest AS builder
 
 WORKDIR /usr/src/election-intelligence
 
