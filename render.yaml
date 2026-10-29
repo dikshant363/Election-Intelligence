@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: election-intelligence-platform
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: oregon
+    branch: feature/sprint-25.0-enterprise-control-center
+    healthCheckPath: /ready
+    envVars:
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: 10000
+      - key: ENVIRONMENT
+        value: production
+      - key: RUST_LOG
+        value: info,election_intelligence=debug
+      - key: DATABASE_URL
+        sync: false
+      - key: ADMIN_API_KEY
+        generateValue: true
+      - key: JWT_SECRET
+        generateValue: true

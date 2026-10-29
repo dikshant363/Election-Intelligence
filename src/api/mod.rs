@@ -28,8 +28,13 @@ pub struct AppState {
 
 pub fn create_api_router(state: AppState) -> Router {
     Router::new()
-        // Health & Version
+        // Health, Readiness & Version
+        .route("/health", get(health_handler))
+        .route("/healthz", get(health_handler))
+        .route("/ready", get(readiness_handler))
+        .route("/readyz", get(readiness_handler))
         .route("/api/v1/health", get(health_handler))
+        .route("/api/v1/ready", get(readiness_handler))
         .route("/api/v1/version", get(version_handler))
         // Elections
         .route(
@@ -167,6 +172,29 @@ pub async fn health_handler(State(state): State<AppState>) -> Result<impl IntoRe
     });
 
     Ok(ApiResponse::ok(health_data))
+}
+
+// 1b. Readiness Handler
+pub async fn readiness_handler(State(state): State<AppState>) -> impl IntoResponse {
+    match sqlx::query("SELECT 1").execute(state.db.pool()).await {
+        Ok(_) => (
+            StatusCode::OK,
+            Json(serde_json::json!({
+                "status": "READY",
+                "database": "CONNECTED",
+                "timestamp": chrono::Utc::now().to_rfc3339()
+            })),
+        ),
+        Err(e) => (
+            StatusCode::SERVICE_UNAVAILABLE,
+            Json(serde_json::json!({
+                "status": "NOT_READY",
+                "database": "DISCONNECTED",
+                "error": e.to_string(),
+                "timestamp": chrono::Utc::now().to_rfc3339()
+            })),
+        ),
+    }
 }
 
 // 2. Version Handler

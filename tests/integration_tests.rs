@@ -275,6 +275,28 @@ async fn test_api_health_endpoint() {
 }
 
 #[tokio::test]
+async fn test_api_readiness_endpoint() {
+    let (app, _) = setup_test_app().await;
+
+    let response = app
+        .oneshot(
+            Request::builder()
+                .uri("/ready")
+                .method("GET")
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await
+        .unwrap();
+
+    assert_eq!(response.status(), StatusCode::OK);
+    let bytes = to_bytes(response.into_body(), usize::MAX).await.unwrap();
+    let json: Value = serde_json::from_slice(&bytes).unwrap();
+    assert_eq!(json["status"], "READY");
+    assert_eq!(json["database"], "CONNECTED");
+}
+
+#[tokio::test]
 async fn test_api_search_endpoint() {
     let (app, _) = setup_test_app().await;
 

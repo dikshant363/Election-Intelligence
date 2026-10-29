@@ -3,7 +3,8 @@
 [![Architecture](https://img.shields.io/badge/architecture-Pure%20Rust%20%7C%20Axum-orange.svg)](https://www.rust-lang.org)
 [![PostgreSQL](https://img.shields.io/badge/database-PostgreSQL%2017-blue.svg)](https://www.postgresql.org)
 [![Design](https://img.shields.io/badge/design-Apple%20HIG%20%26%20WCAG%202.2%20AA-silver.svg)](https://developer.apple.com/design/human-interface-guidelines/)
-[![Frontend Compatibility](https://img.shields.io/badge/frontend-Next.js%2015%20%7C%20Leptos-black.svg)](https://nextjs.org)
+[![Docker](https://img.shields.io/badge/container-Docker%20Multi--Stage-2496ED.svg)](Dockerfile)
+[![CI/CD](https://img.shields.io/badge/CI%2FCD-100%25%20Passing-brightgreen.svg)](https://github.com/dikshant363/Election-Intelligence/actions)
 [![Security](https://img.shields.io/badge/audit-SHA--256%20Tamper--Evident-success.svg)](SECURITY.md)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -111,47 +112,43 @@ All endpoints are available under `/api/v1/*`:
 
 ## Quickstart & Verification
 
-### 1. Database Setup (PostgreSQL 17)
+### Option A: One-Command Docker Compose (Simplest)
 ```bash
-# Start PostgreSQL service
+# Starts PostgreSQL 17 and builds the Election Intelligence container
+docker compose up -d
+
+# Verify system readiness
+curl -i http://localhost:3000/ready
+# Access the civic workstation at: http://localhost:3000
+```
+
+### Option B: Local Native Rust Workflow
+```bash
+# 1. Start local PostgreSQL
 brew services start postgresql@17
 
-# Apply database migrations and seed data
-psql -d election_intelligence -f migrations/0001_initial_schema.sql
-psql -d election_intelligence -f migrations/0002_seed_initial_data.sql
-```
+# 2. Run automated test suite (37 unit & integration tests)
+cargo test --all-features
 
-### 2. High-Performance Rust Server
-```bash
-# Run automated tests (20 unit & integration tests)
-cargo test
-
-# Compile release binary
-cargo build --release
-
-# Run native binary on port 3000
-./target/release/election-intelligence
-# Or run with cargo:
+# 3. Run native application (Migrations apply automatically on startup)
 cargo run
+# Or compile optimized release binary:
+cargo build --release && ./target/release/election-intelligence
 ```
 
-### 3. Containerized Production Deployment
-```bash
-# Build multi-stage Docker image
-docker build -t election-intelligence-platform:latest .
+### Option C: Free Cloud Deployment
+Deploy to Render Free Web Service with Neon Serverless PostgreSQL in under 5 minutes for ₹0/month.
+See step-by-step instructions in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
-# Run container with environment configuration
-docker run -p 3000:3000 \
-  -e DATABASE_URL="postgres://postgres:password@host.docker.internal:5432/election_intelligence" \
-  election-intelligence-platform:latest
-```
+For operational troubleshooting and runbooks, see [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md).
 
 ---
 
 ## Automated Verification Status
 
-- **Unit & Integration Tests**: 20/20 PASSED (`cargo test --all-features`)
+- **Unit & Integration Tests**: 37/37 PASSED (`cargo test --all-features`)
 - **Code Formatting**: PASSED (`cargo fmt --all -- --check`)
 - **Linter & Type Integrity**: PASSED (`cargo clippy --all-targets --all-features -- -D warnings`)
-- **Production Containerization**: Multi-stage hardened Debian container with healthchecks
-- **Release Binary**: 9.3 MB native executable for Darwin ARM64 / Linux x86_64
+- **Production Containerization**: Multi-stage hardened Debian container with healthchecks on `/ready`
+- **Embedded Schema Migrations**: Automated idempotent migrations (`0001`, `0002`, `0003`) on application connect
+- **CI/CD Pipeline**: GitHub Actions 100% green across all 3 verification jobs

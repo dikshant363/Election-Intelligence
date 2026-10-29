@@ -59,6 +59,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     })?;
     tracing::info!("Connected to PostgreSQL database with connection pooling");
 
+    // 3b. Verify & Apply Schema Migrations
+    db.run_migrations().await?;
+
     // 4. Build in-memory BM25 Search Index from PostgreSQL documents
     let search_docs = db.get_search_documents().await.unwrap_or_default();
     tracing::info!(count = %search_docs.len(), "Indexed electoral entities into BM25 ranker");

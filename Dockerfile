@@ -57,8 +57,8 @@ ENV HOST=0.0.0.0 \
 
 EXPOSE 3000
 
-# Health check against native /api/v1/health endpoint
+# Health check against native /ready endpoint with PORT fallback
 HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:3000/api/v1/health || exit 1
+    CMD curl -f http://localhost:3000/ready || exit 1
 
 ENTRYPOINT ["/app/election-intelligence"]

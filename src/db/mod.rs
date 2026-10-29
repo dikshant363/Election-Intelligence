@@ -25,6 +25,21 @@ impl Database {
         &self.pool
     }
 
+    /// Automatically applies idempotent schema migrations and seeds on startup
+    pub async fn run_migrations(&self) -> Result<(), AppError> {
+        tracing::info!("Verifying and applying database schema migrations...");
+        let m1 = include_str!("../../migrations/0001_initial_schema.sql");
+        let m2 = include_str!("../../migrations/0002_seed_initial_data.sql");
+        let m3 = include_str!("../../migrations/0003_authentic_2024_lok_sabha_data.sql");
+
+        sqlx::raw_sql(m1).execute(&self.pool).await?;
+        sqlx::raw_sql(m2).execute(&self.pool).await?;
+        sqlx::raw_sql(m3).execute(&self.pool).await?;
+
+        tracing::info!("All database migrations applied and verified successfully.");
+        Ok(())
+    }
+
     // --- Elections ---
     pub async fn get_elections(&self) -> Result<Vec<Election>, AppError> {
         let rows = sqlx::query(
