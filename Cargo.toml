@@ -11,7 +11,7 @@ license = "MIT"
 axum = { version = "0.7", features = ["macros", "multipart", "ws"] }
 tokio = { version = "1", features = ["full"] }
 tower = { version = "0.5", features = ["util"] }
-tower-http = { version = "0.6", features = ["cors", "trace", "fs", "compression-full", "set-header"] }
+tower-http = { version = "0.7", features = ["cors", "trace", "fs", "compression-full", "set-header"] }
 
 # Leptos Full-Stack & SSR
 leptos = { version = "0.7", features = ["ssr"] }
