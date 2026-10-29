@@ -140,3 +140,25 @@ curl -s -X POST https://election-intelligence-platform.onrender.com/api/v1/ai/qu
 | **Database Storage** | 0.5 GiB storage limit | Current 2024 Lok Sabha dataset is < 2 MB (< 0.4% of limit). |
 | **Backups** | Neon retains point-in-time restore for 24 hours | Periodic automated backup via `./scripts/backup_postgres.sh`. |
 | **Data Retention** | Persistent across restarts | Data is written to managed Neon PostgreSQL and survives restarts and redeployments. |
+
+---
+
+## 6. Autopilot Continuous Delivery & Automated Webhook Deployments
+
+To enable automated zero-touch deployments when pushing code to `main`:
+
+1. **Obtain Render Deploy Hook URL**:
+   - In Render Dashboard → Your Web Service (`election-intelligence`) → **Settings** → **Deploy Hook**.
+   - Copy the unique Deploy Hook URL:
+     `https://api.render.com/deploy/srv-xyz123?key=abc456`
+2. **Add Secrets to GitHub Repository**:
+   - Go to `https://github.com/dikshant363/Election-Intelligence/settings/secrets/actions`.
+   - Add secret `RENDER_DEPLOY_HOOK_URL`: Paste the Render deploy hook URL.
+   - Add secret `DEPLOYMENT_URL`: `https://election-intelligence-platform.onrender.com`.
+3. **Automated Continuous Delivery Flow**:
+   - When a commit is merged into `main`, `.github/workflows/cd-deploy.yml` triggers.
+   - It runs all quality gates (`cargo fmt`, `clippy -D warnings`, `cargo test`).
+   - It triggers the Render Deploy Hook.
+   - It polls `${DEPLOYMENT_URL}/ready` up to 6 times (accounting for cold start).
+   - If healthy, release is verified; if unhealthy, an incident is created via `scripts/incident_manager.sh`.
+

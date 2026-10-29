@@ -1,0 +1,115 @@
+name: Autopilot Health Monitoring
+
+on:
+  schedule:
+    # Daily at 06:00 UTC (respects free tier without continuous pinging)
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: 'Optional override target URL to probe (defaults to DEPLOYMENT_URL or local container)'
+        required: false
+        default: ''
+
+concurrency:
+  group: health-monitoring
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
+jobs:
+  health-check:
+    name: Probe Health & Report Status
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: election_intelligence
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Stable Rust Toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Cargo Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-
+
+      - name: Build Application Binary
+        run: cargo build --release
+
+      - name: Start Background Daemon for Probing
+        env:
+          DATABASE_URL: postgres://postgres:password@localhost:5432/election_intelligence
+          SERVER_HOST: 0.0.0.0
+          PORT: 3000
+          APP_ENV: production
+        run: |
+          ./target/release/election-intelligence &
+          SERVER_PID=$!
+          echo "SERVER_PID=${SERVER_PID}" >> $GITHUB_ENV
+          # Allow server to bind and run embedded migrations
+          sleep 4
+
+      - name: Run Automated Health Check
+        id: health_probe
+        env:
+          TARGET_URL: ${{ inputs.target_url || env.DEPLOYMENT_URL || 'http://127.0.0.1:3000' }}
+        run: |
+          mkdir -p .artifacts
+          if ./scripts/health_check.sh "${TARGET_URL}" > .artifacts/health_output.txt 2>&1; then
+            cat .artifacts/health_output.txt
+            echo "probe_passed=true" >> $GITHUB_OUTPUT
+          else
+            cat .artifacts/health_output.txt
+            echo "probe_passed=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      - name: Generate Operator Status Report
+        if: always()
+        run: |
+          ./scripts/status_report.sh .artifacts/status_summary.md
+
+      - name: Handle Failure & Manage Deduplicated Incident
+        if: failure() && steps.health_probe.outputs.probe_passed != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ./scripts/incident_manager.sh \
+            --title "Application Health Check Failed on /ready or API Routes" \
+            --severity "P2-Medium" \
+            --log-file ".artifacts/health_output.txt"
+
+      - name: Teardown Background Server
+        if: always()
+        run: |
+          if [ -n "${SERVER_PID:-}" ]; then
+            kill "${SERVER_PID}" || true
+          fi

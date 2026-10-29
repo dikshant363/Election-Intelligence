@@ -17,6 +17,8 @@ mod ai;
 mod api;
 #[path = "../src/audit.rs"]
 mod audit;
+#[path = "../src/autopilot.rs"]
+mod autopilot;
 #[path = "../src/config.rs"]
 mod config;
 #[path = "../src/db/mod.rs"]
@@ -634,4 +636,53 @@ async fn test_coverage_metrics_endpoint() {
     let coverage_list = json["data"].as_array().unwrap();
     assert!(!coverage_list.is_empty());
     assert_eq!(coverage_list[0]["election_id"], "elec-2024-ls");
+}
+
+#[tokio::test]
+async fn test_system_status_and_autopilot_compliance_endpoint() {
+    let (app, _) = setup_test_app().await;
+
+    // Test /api/v1/status
+    let response = app
+        .clone()
+        .oneshot(
+            Request::builder()
+                .uri("/api/v1/status")
+                .method("GET")
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await
+        .unwrap();
+
+    assert_eq!(response.status(), StatusCode::OK);
+    let bytes = to_bytes(response.into_body(), usize::MAX).await.unwrap();
+    let json: Value = serde_json::from_slice(&bytes).unwrap();
+
+    assert_eq!(
+        json["application"]["name"],
+        "Election Intelligence Platform"
+    );
+    assert_eq!(json["application"]["version"], "1.0.0");
+    assert_eq!(json["database"]["status"], "CONNECTED");
+    assert_eq!(json["database"]["type"], "PostgreSQL 17");
+    assert_eq!(json["budget_compliance"]["tier"], "FREE_TIER_PERMANENT");
+    assert_eq!(json["budget_compliance"]["monthly_spend_usd"], 0.0);
+    assert_eq!(json["budget_compliance"]["paid_resources_blocked"], true);
+    assert_eq!(json["health_summary"]["status"], "PASS");
+    assert_eq!(json["health_summary"]["readiness"], "READY");
+
+    // Test root /status
+    let res_root = app
+        .oneshot(
+            Request::builder()
+                .uri("/status")
+                .method("GET")
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await
+        .unwrap();
+
+    assert_eq!(res_root.status(), StatusCode::OK);
 }

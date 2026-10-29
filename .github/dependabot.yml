@@ -1,0 +1,51 @@
+# Election Intelligence Platform - Dependabot Configuration
+# Continuous dependency vulnerability scanning and grouped automated updates
+# Configured for strict ₹0 budget preservation and low-risk batching
+
+version: 2
+updates:
+  # 1. Rust Cargo Dependencies (Cargo.toml & Cargo.lock)
+  - package-ecosystem: "cargo"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "cargo"
+      - "autopilot"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    # Group patch and minor updates to minimize CI runner minutes on free tier
+    groups:
+      rust-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # 2. GitHub Actions CI/CD Workflow Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "04:30"
+      timezone: "UTC"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "github-actions"
+      - "autopilot"
+    commit-message:
+      prefix: "ci(deps)"
+      include: "scope"
+    groups:
+      actions-all:
+        patterns:
+          - "*"

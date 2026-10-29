@@ -4,6 +4,7 @@
 mod ai;
 mod api;
 mod audit;
+pub mod autopilot;
 mod config;
 mod db;
 mod domain;
