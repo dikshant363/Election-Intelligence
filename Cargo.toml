@@ -15,7 +15,7 @@ tower-http = { version = "0.6", features = ["cors", "trace", "fs", "compression-
 
 # Leptos Full-Stack & SSR
 leptos = { version = "0.7", features = ["ssr"] }
-leptos_axum = { version = "0.7" }
+leptos_axum = { version = "0.8" }
 leptos_router = { version = "0.7", features = ["ssr"] }
 leptos_meta = { version = "0.7", features = ["ssr"] }
 
